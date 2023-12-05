@@ -13,12 +13,12 @@ public class AuthController {
 
 
     @PostMapping("/register")    //TODO check if LoginForm fungerar from annan application
-    public ResponseEntity<String> register (LoginForm loginForm){
+    public ResponseEntity<?> register (LoginForm loginForm){
 
         System.out.println("username: " + loginForm.getUsername());
         System.out.println("password: " + loginForm.getPassword());
 
-        return ResponseEntity.ok( "Registration successful");
+        return ResponseEntity.noContent().build();
     }
 
 
@@ -28,7 +28,7 @@ public class AuthController {
         System.out.println(loginForm.getPassword());
         System.out.println(loginForm.getUsername());
 
-        return ResponseEntity.ok( "GenerateToken");
+        return ResponseEntity.ok( "JWTToken");
 
     }
 
