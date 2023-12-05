@@ -12,8 +12,10 @@ import java.util.HashMap;
 @RequestMapping("/webshop/basket")
 public class BasketController {
 
+    /*
     @GetMapping
     public ResponseEntity<Basket> getBasket(@RequestBody User user) {
+
 
         HashMap<Product, Integer> products = new HashMap<>();
 
@@ -26,6 +28,8 @@ public class BasketController {
 
         return ResponseEntity.ok(basket);
     }
+
+     */
 
     @PostMapping("/{id}") // this is a product id
     public ResponseEntity<Basket> addProductToBasket(@PathVariable int id) {
