@@ -28,7 +28,7 @@ public class AuthController {
         System.out.println(loginForm.getPassword());
         System.out.println(loginForm.getUsername());
 
-        return ResponseEntity.ok( "GeneratedToken");
+        return ResponseEntity.ok( "GenerateToken");
 
     }
 
