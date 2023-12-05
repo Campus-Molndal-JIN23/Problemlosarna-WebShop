@@ -107,3 +107,5 @@ w
 G.idea/sonarlint/issuestore/7/3/73713dc07f6c0499c01ffb0a28bfc191aa13ce14,c\a\ca4740e55cf4c9a3017c96a527d8284bf929fb15
 w
 G.idea/sonarlint/issuestore/f/9/f9f01aa11edb2a6c4c9c2f6c5d51c61812f2899d,f\2\f28de4fa5d3f4c1a22544f356059203934191831
+u
+EshopBackend/src/main/java/com/example/shopbackend/entity/Product.java,f\5\f5c9673fc61fc8a40a9102601da29412ab95fadd
