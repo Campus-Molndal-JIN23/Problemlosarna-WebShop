@@ -28,6 +28,7 @@ public class AuthController {
         System.out.println(loginForm.getPassword());
         System.out.println(loginForm.getUsername());
 
+        //Vill retunera username och role
         return ResponseEntity.ok( "JWTToken");
 
     }
