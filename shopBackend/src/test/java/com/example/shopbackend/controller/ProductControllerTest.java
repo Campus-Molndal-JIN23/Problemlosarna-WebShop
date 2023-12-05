@@ -33,7 +33,8 @@ class ProductControllerTest {
 
     @Test
     void getOne() throws Exception {
-        this.mvc.perform(get(API + "/" + 1))
+        this.mvc.perform(get(API + "/" + 1)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status()
                         .isOk());
     }
@@ -44,7 +45,8 @@ class ProductControllerTest {
 
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(payload)))
+                        .content(mapper.writeValueAsString(payload))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -54,7 +56,8 @@ class ProductControllerTest {
 
         this.mvc.perform(put(API + "/" + 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(payload)))
+                        .content(mapper.writeValueAsString(payload))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
