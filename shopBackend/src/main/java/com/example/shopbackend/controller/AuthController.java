@@ -30,7 +30,7 @@ public class AuthController {
         System.out.println(loginForm.getUsername());
 
         //Vill retunera username och role
-        return ResponseEntity.ok( "JWTToken");
+        return ResponseEntity.ok( "JWTToken"+"Admin"+"Username");
 
     }
 

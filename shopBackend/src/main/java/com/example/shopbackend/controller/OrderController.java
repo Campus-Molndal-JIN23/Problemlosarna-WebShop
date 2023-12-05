@@ -4,9 +4,12 @@ package com.example.shopbackend.controller;
 import com.example.shopbackend.entity.Basket;
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.form.UserTest;
+import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +32,6 @@ public class OrderController {
         Basket basket = new Basket(100,products);
 
 
-
-
         return ResponseEntity.ok(new Order(1,basket));
 
     }
@@ -39,6 +40,24 @@ public class OrderController {
     @GetMapping("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> getOrder(@RequestBody User user){
 
+        return ResponseEntity.ok(orders());
+
+    }
+
+    @GetMapping("/orders")
+    public ResponseEntity<Object>getOrders(){
+        ArrayList<UserTest> users = new ArrayList<>();
+
+        UserTest userTest = new UserTest("user1",orders());
+        UserTest userTest2 = new UserTest("user2",orders());
+
+        users.add(userTest);
+        users.add(userTest2);
+
+        return ResponseEntity.ok(users);
+    }
+
+    private ArrayList<Order> orders(){
         HashMap<Product,Integer> products = new HashMap<>();
 
         products.put(new Product("Product 1", 100, "Text about the product 1"), 1);
@@ -46,16 +65,13 @@ public class OrderController {
         products.put(new Product("Product 3", 300, "Text about the product 3"), 3);
         products.put(new Product("Product 4", 400, "Text about the product 4"), 4);
 
-        Basket basket = new Basket(100,products);
+        Basket basket = new Basket(1000,products);
 
         ArrayList<Order>orders= new ArrayList<>();
-        orders.add(new Order(100,basket));
-        orders.add(new Order(2000,basket));
+        orders.add(new Order(1,basket));
+        orders.add(new Order(2,basket));
 
-
-        return ResponseEntity.ok(orders);
-
+        return  orders;
     }
-
 
 }
