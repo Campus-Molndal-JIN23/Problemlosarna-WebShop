@@ -27,3 +27,17 @@ a
 1shopBackend/.mvn/wrapper/maven-wrapper.properties,3\0\3032844d9d65cc148b7dbb4e6b9d58a44f1feaea
 }
 MshopBackend/src/main/java/com/example/shopbackend/ShopBackendApplication.java,c\4\c4e8c3e1ad23517418d7b612ebf8c18c22cdd66b
+>
+ApiContract.md,f\f\ff30b41523f138bf2795835a023a6c51c770b170
+Ä
+PshopBackend/src/main/java/com/example/shopbackend/controller/AuthController.java,3\4\346664f0a0a64ce87c8fdc9859028d784cbf3940
+É
+SshopBackend/src/main/java/com/example/shopbackend/controller/ProductController.java,5\1\513e54604b52ee6fec18389710922c3747ebaaac
+Ç
+RshopBackend/src/main/java/com/example/shopbackend/controller/BasketController.java,5\2\52be8d3895da29efbf7e8309c1b5db4351719556
+Å
+QshopBackend/src/main/java/com/example/shopbackend/controller/OrderController.java,2\1\214944b42582b32233c81bbda6d3cbcc9ae6055f
+Ä
+PshopBackend/src/main/java/com/example/shopbackend/controller/USerController.java,6\3\63192d4f6e24c9ae89bba6c39fb6674bea9a6c92
+Ä
+PshopBackend/src/main/java/com/example/shopbackend/controller/UserController.java,5\9\5928e61a0b8acdf39682f6d701b4d19a8b03fc73
