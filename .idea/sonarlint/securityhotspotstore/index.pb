@@ -41,3 +41,7 @@ QshopBackend/src/main/java/com/example/shopbackend/controller/OrderController.ja
 PshopBackend/src/main/java/com/example/shopbackend/controller/USerController.java,6\3\63192d4f6e24c9ae89bba6c39fb6674bea9a6c92
 €
 PshopBackend/src/main/java/com/example/shopbackend/controller/UserController.java,5\9\5928e61a0b8acdf39682f6d701b4d19a8b03fc73
+D
+ShopFrontend/HELP.md,4\0\40ca04bf92a69d50f6c224e121d128b4d0a37aec
+D
+ShopFrontend/pom.xml,4\9\49e2e88c9de4493850745a1896c97fa201aa54b6
