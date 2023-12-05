@@ -12,7 +12,7 @@
     <!-- Brand -->
     <a class="navbar-brand" href="#">Welcome To the Fantastic Store of Random</a>
 
-    <!-- Toggler/collapsibe Button -->
+    <!-- Toggler/collapsible Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,32 +29,31 @@
         </ul>
     </div>
 </nav>
-<div class ="container">
+
+<div class="container">
+
     <div class="row">
-        <h1>Current products in Store</h1>
+        <div class="col-md-6 container justify-content-center card">
+            <div class="row">
+                <h1 class="text-center">Product Details</h1>
+            </div>
+            <div class="card-body text-center">
+                <dl class="row">
+                    <dt class="col-sm-3">Name:</dt>
+                    <dd class="col-sm-9" th:text="${product.name}"></dd>
+
+                    <dt class="col-sm-3">Price:</dt>
+                    <dd class="col-sm-9" th:text="${product.cost}"></dd>
+
+                    <dt class="col-sm-3">Description:</dt>
+                    <dd class="col-sm-9" th:text="${product.description}"></dd>
+                </dl>
+
+                <a th:href="@{/index}" class="btn btn-primary">Back to Products</a>
+            </div>
+        </div>
     </div>
-
-    <table class ="table table-striped table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>See more?</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each = "productRespons: ${products}">
-            <td th:text="${productRespons.name}"></td>
-            <td th:text="${productRespons.cost}"></td>
-            <td>
-                <a th:href="@{/index/one/{id}(id=${productRespons.id})}"
-                   class="btn btn-primary">More Info</a>
-
-            </td>
-        </tr>
-        </tbody>
-
-    </table>
 </div>
+
 </body>
 </html>

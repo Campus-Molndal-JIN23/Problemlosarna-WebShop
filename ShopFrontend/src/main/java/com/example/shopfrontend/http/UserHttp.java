@@ -26,6 +26,8 @@ import java.io.IOException;
 @Service
 public class UserHttp {
 
+
+
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
     public LoginResponse loginUser(LoginForm form) throws IOException, ParseException, IOException {

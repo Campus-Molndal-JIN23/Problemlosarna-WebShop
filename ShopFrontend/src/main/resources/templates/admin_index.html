@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Welcome To the Fantastic Store of Random</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossorigin="anonymous">
 </head>
 <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Welcome To the Fantastic Store of Random</a>
 
+    <!-- Toggler/collapsible Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Log out</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class ="container">
+    <div class="row">
+        <h1>Current products in Store</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/admin/create_product}" class="btn btn-primary btn-sm mb-3">Add Product</a>
+        </div>
+    </div>
+
+    <table class ="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>See more?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "productRespons: ${products}">
+            <td th:text="${productRespons.name}"></td>
+            <td th:text="${productRespons.cost}"></td>
+
+            <td>
+                <a th:href="@{/index/one/{id}(id=${productRespons.id})}"
+                   class="btn btn-primary">More Info</a>
+                <a th:href="@{/index/edit/{id}(id=${productRespons.id})}"
+                   class="btn btn-primary">Update</a>
+                <a th:href="@{/index/edit/{id}(id=${productRespons.id})}"
+                   class="btn btn-primary">Delete</a>
+
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
 </body>
 </html>

@@ -1,7 +1,15 @@
 
 
-java:S1488="_Immediately return this expression instead of assigning it to the temporary variable "product".(ä›ñÚşÿÿÿÿ8†ñÔÃ1
+java:S1488>"_Immediately return this expression instead of assigning it to the temporary variable "product".(½„õôúÿÿÿÿ8†ñÔÃ1
 Q
-java:S1874!"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ŒñÔÃ1
+java:S1874""/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ŒñÔÃ1
 Q
-java:S18744"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ñÔÃ1
+java:S18745"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ñÔÃ1
+J
+java:S1172C".Remove this unused method parameter "product".(¸ù¬-8¤ã¤İÃ1
+O
+java:S1135D"2Complete the task associated to this TODO comment.(…ïœ†8¤ã¤İÃ1
+O
+java:S1135I"2Complete the task associated to this TODO comment.(…ïœ†8üšàŞÃ1
+O
+java:S1135N"2Complete the task associated to this TODO comment.(…ïœ†8µ’äŞÃ1

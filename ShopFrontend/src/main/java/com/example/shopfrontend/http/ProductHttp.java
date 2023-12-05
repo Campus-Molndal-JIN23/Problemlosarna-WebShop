@@ -1,6 +1,7 @@
 package com.example.shopfrontend.http;
 
 import com.example.shopfrontend.models.Product;
+import com.example.shopfrontend.models.ProductRespons;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ public class ProductHttp {
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
 
-    public List<Product> getAllProducts() throws IOException, ParseException {
+    public List<ProductRespons> getAllProducts() throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products");
 
@@ -40,12 +41,12 @@ public class ProductHttp {
         HttpEntity entity = response.getEntity();
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Product> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Product>>() {});
+        List<ProductRespons> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<ProductRespons>>() {});
         log.info("getAllProducts: ", products);
         return products;
     }
 
-    public Product getProductById(Long id) throws IOException, ParseException {
+    public ProductRespons getProductById(Long id) throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products"+ id);
 
@@ -58,9 +59,22 @@ public class ProductHttp {
         HttpEntity entity = response.getEntity();
 
         ObjectMapper mapper = new ObjectMapper();
-        Product product = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
+        ProductRespons product = mapper.readValue(EntityUtils.toString(entity), new TypeReference<ProductRespons>() {});
 
         return product;
     }
 
+    public Product createProduct(Product product) {
+        //TODO
+        return null;
+    }
+
+    public void updateProduct(Product product) {
+        //TODO
+
+    }
+
+    public void deleteProductById(long id) {
+        //TODO
+    }
 }
