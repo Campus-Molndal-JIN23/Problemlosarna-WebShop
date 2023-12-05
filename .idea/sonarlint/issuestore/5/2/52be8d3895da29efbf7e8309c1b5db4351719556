@@ -1,3 +1,10 @@
 
-_
-java:S2094"BRemove this empty class, write its code or make it an "interface".(òğìä8á¹¼ÈÃ1
+‰
+java:S13193"gThe type of "updatedQty" should be an interface such as "Map" rather than the implementation "HashMap".(§¡Ôùÿÿÿÿ8‡À‹ÔÃ1
+X	java:S125"<This block of commented-out lines of code should be removed.(‰Êë8–À‹ÔÃ1
+O
+java:S1135$"2Complete the task associated to this TODO comment.(ñ±Ùñ8–À‹ÔÃ1
+O
+java:S11354"2Complete the task associated to this TODO comment.(ñ±Ùñ8šÀ‹ÔÃ1
+H
+java:S1452D"&Remove usage of generic wildcard type.(üê±ûøÿÿÿÿ8œÀ‹ÔÃ1

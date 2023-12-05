@@ -13,6 +13,7 @@ import java.util.HashMap;
 @RequestMapping("/webshop/basket")
 public class BasketController {
 
+
     @GetMapping("")
     public ResponseEntity<Basket> getBasket() {
 
@@ -28,8 +29,10 @@ public class BasketController {
         return ResponseEntity.ok(basket);
     }
 
+
     @PostMapping("") // this is a product id
     public ResponseEntity<Basket> addProductToBasket(@RequestBody ProductDTO payload) {
+
         // TODO update code and Contract, we need a @RequestBody for this with Product and count
 
         HashMap<Product, Integer> products = new HashMap<>();

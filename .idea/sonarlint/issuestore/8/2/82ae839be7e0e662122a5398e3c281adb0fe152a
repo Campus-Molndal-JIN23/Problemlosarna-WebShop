@@ -1,0 +1,9 @@
+
+
+java:S1488="_Immediately return this expression instead of assigning it to the temporary variable "product".(ä›ñÚşÿÿÿÿ8†ñÔÃ1
+Q
+java:S1874!"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ŒñÔÃ1
+H
+java:S1168&"+Return an empty collection instead of null.(¥¹ï8ñÔÃ1
+Q
+java:S18744"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ñÔÃ1
