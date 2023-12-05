@@ -1,0 +1,9 @@
+
+‡
+java:S1488("eImmediately return this expression instead of assigning it to the temporary variable "loginResponse".(þ¨ëðùÿÿÿÿ8óìÅÑÃ1
+h
+java:S1130"KRemove the redundant 'java.io.IOException' thrown exception declaration(s).(ò¦‡™8ÑæÆÑÃ1
+H
+java:S1172"+Remove this unused method parameter "user".(ò¦‡™8áˆÄÑÃ1
+Q
+java:S1874"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8÷ìÅÑÃ1
