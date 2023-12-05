@@ -28,7 +28,7 @@ public class ProductHttp {
 
     public List<Product> getAllProducts() throws IOException, ParseException {
 
-        HttpGet request = new HttpGet("http://localhost:8080/webshop/products"); //TODO where??
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/products");
 
         CloseableHttpResponse response = httpClient.execute(request);
 
