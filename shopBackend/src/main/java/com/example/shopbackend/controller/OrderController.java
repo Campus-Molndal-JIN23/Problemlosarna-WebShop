@@ -13,6 +13,7 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/webshop")
@@ -38,14 +39,24 @@ public class OrderController {
 
 
     @GetMapping("/order")             //TODO Check om vi ska använda userDTO
-    public ResponseEntity<Object> getOrder(@RequestBody User user){
-
-        return ResponseEntity.ok(orders());
+    public ResponseEntity<Object> getOrder(){
+        HashMap<String,ArrayList<Order>> orders = new HashMap<>();
+        orders.put("orders",orders());
+        return ResponseEntity.ok(orders);
 
     }
 
     @GetMapping("/orders")
     public ResponseEntity<Object>getOrders(){
+
+
+        HashMap<String,ArrayList<UserTest>> users = new HashMap<>();
+        users.put("users", getUserData());
+
+        return ResponseEntity.ok(users);
+    }
+
+    private ArrayList<UserTest> getUserData(){
         ArrayList<UserTest> users = new ArrayList<>();
 
         UserTest userTest = new UserTest("user1",orders());
@@ -53,8 +64,7 @@ public class OrderController {
 
         users.add(userTest);
         users.add(userTest2);
-
-        return ResponseEntity.ok(users);
+        return users;
     }
 
     private ArrayList<Order> orders(){
