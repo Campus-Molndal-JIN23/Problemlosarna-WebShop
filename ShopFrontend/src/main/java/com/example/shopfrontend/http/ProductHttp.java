@@ -31,6 +31,7 @@ public class ProductHttp {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products");
 
         CloseableHttpResponse response = httpClient.execute(request);
+        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
             log.error("Error uppstod");
@@ -40,7 +41,7 @@ public class ProductHttp {
 
         ObjectMapper mapper = new ObjectMapper();
         List<Product> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Product>>() {});
-
+        log.info("getAllProducts: ", products);
         return products;
     }
 

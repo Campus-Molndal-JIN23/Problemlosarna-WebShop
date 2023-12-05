@@ -174,12 +174,13 @@ Deletes the specified product.
 
 ## /webshop
 
-** GET /basket**
+**GET /basket**
 ----
 Returns information about the own basket
 * **URL Params**  
-  *Required:*
-* **Data Params** `{ <user_object> }`
+  None
+* **Data Params**  
+  None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -207,34 +208,31 @@ Returns information about the own basket
 ---- 
 Add a Product by id and to the basket 
 * **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params** `{ <userDTO_object> }`
-
+  *Required:*
+    None`
+* **Data Params** 
+  *Required:*  `{ <productDTO> }`
 * **Headers**  
   Content-Type: application/json
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <basket_object> }`
+  **Content:**  `{ <basket object> }`
 * **Error Response:**
     * **Code:** 404  
-      **Content:** `{ error : "Order doesn't exist" }`
+      **Content:** `{ error : "Basket doesn't exist" }`
     * OR
   * **Code:** 401  
     **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**PUT /basket/:id**
+**PUT /basket**
 ----
 Updates quantity on the specified product and returns the updated basket.
 * **URL Params**  
-  *Required:* `id=[integer]`
+  *Required:* 
+  None
 * **Data Params**
-```
-  { 
-    key: <product_object>
-  	quantity: int
-  }
-```
+  *Required* `{ <productDTO> }`
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -248,13 +246,14 @@ Updates quantity on the specified product and returns the updated basket.
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**DELETE /basket/:id**
+**DELETE /basket**
 ----
-Deletes the specified product.
+Delete the specified product.
 * **URL Params**  
-  *Required:* `id=[integer]`
+  *Required:* 
+  None`
 * **Data Params**  
-  None
+  *Required:* `{ <product_object> }`
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`

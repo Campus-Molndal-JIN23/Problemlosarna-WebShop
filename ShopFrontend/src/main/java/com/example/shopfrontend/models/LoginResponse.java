@@ -2,10 +2,10 @@ package com.example.shopfrontend.models;
 
 public class LoginResponse {
 
-    String username;
-    String token;
+    private String username;
+    private String token;
 
-    String role;
+    private String role;
 
 
 }
