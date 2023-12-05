@@ -8,6 +8,6 @@ import lombok.Data;
 public class Order {
 
     long id;
-    Bascket Basket;
+    Basket Basket;
 
 }
