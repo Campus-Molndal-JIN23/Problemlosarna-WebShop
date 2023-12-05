@@ -5,7 +5,6 @@ import com.example.shopfrontend.http.UserHttp;
 import com.example.shopfrontend.models.LoginForm;
 import com.example.shopfrontend.models.LoginResponse;
 import com.example.shopfrontend.models.RegistrationForm;
-import com.example.shopfrontend.models.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/")
 @AllArgsConstructor
 
 public class IndexController {
@@ -43,28 +41,18 @@ public class IndexController {
     @PostMapping("/loginUser")
     public String loginUser(LoginForm user) throws IOException, ParseException {
         LoginResponse loginResponse = userHttp.loginUser(user);
-        return "redirect:/index";
 
-        //TODO
-        /*
-        if (user == null) { //if the is no user
+        if (loginResponse == null) { //if the is no user
             return "redirect:/registration";
         }
         else {
-            if (user.getRoles() = "ADMIN") {  // not correct but you get the idea
-                return "redirect:/admin_index"; skicka med LoginResponse till admin_index
+            if (loginResponse.getRole().equals("ADMIN")) {
+                return "redirect:/admin_index";
             } else {
-                return "redirect:/user_index"; // skicka med LoginResponse till user_index
+                return "redirect:/user_index";
             }
         }
-
-         */
-
-
-
     }
-
-
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -74,8 +62,8 @@ public class IndexController {
     }
 
     @PostMapping("/index")
-    public String registerUser(User user) {
-        //userHttp.registerUser(user);
+    public String registerUser(RegistrationForm form ) throws IOException, ParseException {
+        userHttp.registerUser(form);
         return "redirect:/login";
     }
 }
