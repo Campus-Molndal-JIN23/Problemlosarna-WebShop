@@ -21,6 +21,9 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link" th:href="@{/index}">Home</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" th:href="@{/login}">Login</a>
             </li>
             <li class="nav-item">
@@ -40,13 +43,13 @@
             <div class="card-body text-center">
                 <dl class="row">
                     <dt class="col-sm-3">Name:</dt>
-                    <dd class="col-sm-9" th:text="${product.name}"></dd>
+                    <dd class="col-sm-9" th:text="${product.getName()}"></dd>
 
                     <dt class="col-sm-3">Price:</dt>
-                    <dd class="col-sm-9" th:text="${product.cost}"></dd>
+                    <dd class="col-sm-9" th:text="${product.getCost()}"></dd>
 
                     <dt class="col-sm-3">Description:</dt>
-                    <dd class="col-sm-9" th:text="${product.description}"></dd>
+                    <dd class="col-sm-9" th:text="${product.getDescription()}"></dd>
                 </dl>
 
                 <a id="backToProductsButton" th:href="@{/index}" class="btn btn-primary">Back to Products</a>

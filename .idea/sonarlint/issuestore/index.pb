@@ -92,8 +92,6 @@ Q.idea/sonarlint/securityhotspotstore/f/9/f9f01aa11edb2a6c4c9c2f6c5d51c61812f289
 Å
 Q.idea/sonarlint/securityhotspotstore/0/1/01ea5dfdeff3bb861e996c68388a66df4c9eab1e,f\a\fa771ef15f28fb97eb3f3d88d45dcb3ea419c938
 Å
-Q.idea/sonarlint/securityhotspotstore/3/f/3f36ea25c7e6fdc3a3d75af28932f554b019edc5,5\e\5e0ce3b3aff82473db6e9edef220105781abd8b7
-Å
 Q.idea/sonarlint/securityhotspotstore/4/b/4ba84d4413a1db50c685c1a639e9844979af7c1e,0\1\01681a698317fecb916d75edfb8ab142de293f3b
 Å
 Q.idea/sonarlint/securityhotspotstore/8/2/82ae839be7e0e662122a5398e3c281adb0fe152a,a\f\afb518cdece5d20b41c02be3e8cd39c8bb608d22
@@ -111,3 +109,9 @@ w
 GShopFrontend/src/main/java/com/example/shopfrontend/http/OrderHttp.java,d\3\d3f744252e6988c71347e9937519cd608cddbb18
 u
 EShopFrontend/src/main/java/com/example/shopfrontend/models/Order.java,f\0\f05bbc5a2fffc5eda30923bc4b5bcc99d56ea8f8
+s
+CshopBackend/src/main/java/com/example/shopbackend/entity/Order.java,a\7\a7f549fdcafa407a78a790215c14d54235aca467
+t
+DshopBackend/src/main/java/com/example/shopbackend/entity/Basket.java,0\9\0983a321ebe4538ecc62e62bff6cdbaa41c46307
+x
+HshopBackend/src/main/java/com/example/shopbackend/entity/ProductDTO.java,c\c\cc5ba16ad4e6b9c6f8d10c80023f9ce1817da50e

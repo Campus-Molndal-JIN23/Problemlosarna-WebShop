@@ -1,7 +1,6 @@
 package com.example.shopfrontend.http;
 
 import com.example.shopfrontend.models.Product;
-import com.example.shopfrontend.models.ProductRespons;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +25,10 @@ import java.util.List;
 @Service
 public class ProductHttp {
 
-
-
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
 
-    public List<ProductRespons> getAllProducts() throws IOException, ParseException {
+    public List<Product> getAllProducts() throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products");
 
@@ -45,30 +42,32 @@ public class ProductHttp {
         HttpEntity entity = response.getEntity();
 
         ObjectMapper mapper = new ObjectMapper();
-        List<ProductRespons> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<ProductRespons>>() {});
+        List<Product> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Product>>() {});
         log.info("getAllProducts: ", products);
         return products;
     }
 
-    public ProductRespons getProductById(Long id) throws IOException, ParseException {
+    public Product getProductById(Long id) throws IOException, ParseException {
 
-        HttpGet request = new HttpGet("http://localhost:8080/webshop/products"+ id);
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/products/"+ id);
 
         CloseableHttpResponse response = httpClient.execute(request);
+        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
             log.error("Error uppstod");
             return null;
         }
+
         HttpEntity entity = response.getEntity();
 
         ObjectMapper mapper = new ObjectMapper();
-        ProductRespons product = mapper.readValue(EntityUtils.toString(entity), new TypeReference<ProductRespons>() {});
-
+        Product product = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
+        log.info("getProductById: ", product);
         return product;
     }
 
-    public ProductRespons createProduct(Product product, String token) throws IOException, ParseException {
+    public Product createProduct(Product product, String token) throws IOException, ParseException {
 
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
@@ -80,7 +79,7 @@ public class ProductHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-
+        log.info(String.valueOf(response.getCode()));
         if (response.getCode() != 200) {
             log.error("Error uppstod");
             return null;
@@ -88,14 +87,14 @@ public class ProductHttp {
 
         HttpEntity entity = response.getEntity();
 
-        ProductRespons productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<ProductRespons>() {});
-
+        Product productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
+        log.info("createProduct: ", productRespons);
         return productRespons;
     }
 
-    public void updateProduct(Product product, String token) throws IOException, ParseException {
+    public void updateProduct(Product product, String token) throws IOException {
 
-        HttpPut request = new HttpPut("http://localhost:8080/webshop/products");
+        HttpPut request = new HttpPut("http://localhost:8080/webshop/products/"+ product.getId());
 
         ObjectMapper mapper = new ObjectMapper();
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
@@ -104,7 +103,7 @@ public class ProductHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-
+        log.info(String.valueOf(response.getCode()));
         if (response.getCode() != 200) {
             log.error("Error uppstod");
             return;
@@ -118,8 +117,8 @@ public class ProductHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-
-        if (response.getCode() != 204) {
+        log.info(String.valueOf(response.getCode()));
+        if (response.getCode() != 404) {
             log.error("Error uppstod");
         }
         log.info("Product deleted");
