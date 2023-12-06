@@ -13,6 +13,8 @@ java:S1488B"_Immediately return this expression instead of assigning it to the 
 java:S1488["fImmediately return this expression instead of assigning it to the temporary variable "productRespons".(¯ìİ§8ĞóóÃ1
 Q
 java:S1874&"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8¤ĞóóÃ1
+H
+java:S1168+"+Return an empty collection instead of null.(¥¹ï8âŞ‰ƒÄ1
 Q
 java:S18749"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8¸ĞóóÃ1
 Q
