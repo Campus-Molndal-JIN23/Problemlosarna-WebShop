@@ -361,7 +361,7 @@ Returns the specified order.
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-      **GET /order/**
+**GET /order/**
 ---- 
 Returns all orders for all users
 * **URL Params**  
