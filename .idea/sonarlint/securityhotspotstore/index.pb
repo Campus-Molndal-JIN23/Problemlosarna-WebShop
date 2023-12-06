@@ -42,8 +42,6 @@ PshopBackend/src/main/java/com/example/shopbackend/controller/USerController.jav
 €
 PshopBackend/src/main/java/com/example/shopbackend/controller/UserController.java,5\9\5928e61a0b8acdf39682f6d701b4d19a8b03fc73
 D
-ShopFrontend/HELP.md,4\0\40ca04bf92a69d50f6c224e121d128b4d0a37aec
-D
 ShopFrontend/pom.xml,4\9\49e2e88c9de4493850745a1896c97fa201aa54b6
 t
 DShopFrontend/src/main/java/com/example/shopfrontend/models/User.java,b\5\b5290310e5811cfa849ff1c7f578b954deaab3d3
@@ -57,8 +55,6 @@ w
 GShopFrontend/src/main/java/com/example/shopfrontend/models/Product.java,7\8\78efd49b059515cb94995c76917915f6536cc8c5
 t
 DShopFrontend/src/main/java/com/example/shopfrontend/models/Role.java,f\2\f258d803384f32e8e728025b7814632c4c7a1841
-w
-GShopFrontend/src/main/java/com/example/shopfrontend/http/Adminhttp.java,3\f\3f36ea25c7e6fdc3a3d75af28932f554b019edc5
 y
 IShopFrontend/src/main/java/com/example/shopfrontend/http/ProductHttp.java,8\2\82ae839be7e0e662122a5398e3c281adb0fe152a
 v
@@ -109,3 +105,9 @@ w
 G.idea/sonarlint/issuestore/f/9/f9f01aa11edb2a6c4c9c2f6c5d51c61812f2899d,f\2\f28de4fa5d3f4c1a22544f356059203934191831
 u
 EshopBackend/src/main/java/com/example/shopbackend/entity/Product.java,f\5\f5c9673fc61fc8a40a9102601da29412ab95fadd
+~
+NShopFrontend/src/main/java/com/example/shopfrontend/models/ProductRespons.java,b\7\b78605de1b1ab4d73ab5b72586019638290f9222
+w
+GShopFrontend/src/main/java/com/example/shopfrontend/http/OrderHttp.java,d\3\d3f744252e6988c71347e9937519cd608cddbb18
+u
+EShopFrontend/src/main/java/com/example/shopfrontend/models/Order.java,f\0\f05bbc5a2fffc5eda30923bc4b5bcc99d56ea8f8

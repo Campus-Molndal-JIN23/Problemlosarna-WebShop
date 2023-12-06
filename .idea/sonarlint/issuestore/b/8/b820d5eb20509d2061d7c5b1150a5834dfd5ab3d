@@ -1,14 +1,5 @@
 
-^
-java:S1854-"ARemove this useless assignment to local variable "loginResponse".(†“ïß8íŒ¡ÒÃ1
-O
-java:S1481-"2Remove this unused "loginResponse" local variable.(†“ïß8íŒ¡ÒÃ1
-X	java:S1252"<This block of commented-out lines of code should be removed.(•ŸÆß8îŒ¡ÒÃ1
-O
-java:S11350"2Complete the task associated to this TODO comment.(…ïœ†8îŒ¡ÒÃ1
-]	java:S125N"<This block of commented-out lines of code should be removed.(æÈíìüÿÿÿÿ8ïŒ¡ÒÃ1
-R
-java:S1128
-"5Remove this unused import 'lombok.NoArgsConstructor'.(¸¨›8ïŒ¡ÒÃ1
-]
-java:S1128";Remove this unused import 'lombok.RequiredArgsConstructor'.(ÑØúøÿÿÿÿ8ïŒ¡ÒÃ1
+X
+java:S26961"6Make the enclosing method "static" or remove this set.(Ú çüùÿÿÿÿ8õõÃ1
+X
+java:S2696N"6Make the enclosing method "static" or remove this set.(±‘Éüÿÿÿÿ8õõÃ1

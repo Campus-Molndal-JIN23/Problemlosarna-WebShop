@@ -1,10 +1,19 @@
 
-‰
-java:S13193"gThe type of "updatedQty" should be an interface such as "Map" rather than the implementation "HashMap".(§¡Ôùÿÿÿÿ8‡À‹ÔÃ1
-X	java:S125"<This block of commented-out lines of code should be removed.(‰Êë8–À‹ÔÃ1
+{
+java:S1192"YDefine a constant instead of duplicating this literal "Text about the product 3" 3 times.(Ãş¹üûÿÿÿÿ8şÔ‡òÃ1
+l
+java:S1192"JDefine a constant instead of duplicating this literal "Product 1" 3 times.(³ÕÍåÿÿÿÿÿ8şÔ‡òÃ1
+{
+java:S1192"YDefine a constant instead of duplicating this literal "Text about the product 2" 3 times.(¶‰¡ëüÿÿÿÿ8ÿÔ‡òÃ1
+l
+java:S1192"JDefine a constant instead of duplicating this literal "Product 2" 3 times.(¶‰¡ëüÿÿÿÿ8ÿÔ‡òÃ1
+l
+java:S1192"JDefine a constant instead of duplicating this literal "Product 3" 3 times.(Ãş¹üûÿÿÿÿ8ÿÔ‡òÃ1
+{
+java:S1192"YDefine a constant instead of duplicating this literal "Text about the product 1" 3 times.(³ÕÍåÿÿÿÿÿ8ÿÔ‡òÃ1
 O
 java:S1135$"2Complete the task associated to this TODO comment.(ñ±Ùñ8–À‹ÔÃ1
 O
-java:S11354"2Complete the task associated to this TODO comment.(ñ±Ùñ8šÀ‹ÔÃ1
-H
-java:S1452D"&Remove usage of generic wildcard type.(üê±ûøÿÿÿÿ8œÀ‹ÔÃ1
+java:S11355"2Complete the task associated to this TODO comment.(ñ±Ùñ8šÀ‹ÔÃ1
+C
+java:S1452F"&Remove usage of generic wildcard type.(ÊÆåŠ8³Õ‡òÃ1
