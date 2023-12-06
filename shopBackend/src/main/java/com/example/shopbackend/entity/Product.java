@@ -23,6 +23,13 @@ public class Product {
         this.description = description;
     }
 
+    public Product(long id, String name, int cost, String description) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.description = description;
+    }
+
     public Product() {
 
     }

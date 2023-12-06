@@ -37,7 +37,7 @@ public class UserHttp {
             request.setEntity(createPayload(form));
 
             CloseableHttpResponse response = httpClient.execute(request);
-
+            log.info(String.valueOf(response.getCode()));
             if (response.getCode() != 200) {
                 log.error("Error uppstod");
                 return null;
@@ -57,7 +57,7 @@ public class UserHttp {
         request.setEntity(createPayload(form));
 
         CloseableHttpResponse response = httpClient.execute(request);
-
+        log.info(String.valueOf(response.getCode()));
         if (response.getCode() != 200) {
             log.error("Error uppstod");
             return response.getCode();

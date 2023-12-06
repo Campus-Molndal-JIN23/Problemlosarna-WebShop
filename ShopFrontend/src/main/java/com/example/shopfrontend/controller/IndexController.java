@@ -30,10 +30,9 @@ public class IndexController {
     }
 
     @GetMapping("/index/one/{id}")
-    public String getOneProduct(@PathVariable long id, Model model) throws IOException, ParseException {
-        ProductRespons product = productHttp.getProductById(id);
-        model.addAttribute("product", product);
-        model.addAttribute("current_user_role", currentUser.getRole());
+    public String getOneProduct(@PathVariable long id, Model model1, Model model2) throws IOException, ParseException {
+        model1.addAttribute("product", productHttp.getProductById(id));
+        model2.addAttribute("current_user_role", currentUser.getRole());
         return "view_one_product";
     }
 
@@ -75,7 +74,7 @@ public class IndexController {
 
     @GetMapping("/logout")
     public String logout() {
-        currentUser = null;
+        currentUser = new LoginResponse();
         return "redirect:/index";
     }
 }
