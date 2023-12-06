@@ -361,3 +361,33 @@ Returns the specified order.
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
+      **GET /order/**
+---- 
+Returns all orders for all users
+* **URL Params**  
+  None
+* **Data Params**
+  None
+* **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<OAuth Token>`
+* **Success Response:**
+* **Code:** 200  
+  **Content:**  `
+```
+     {
+        orders: [
+            {<order_object>},  
+            {<order_object>},  
+            {<order_object>}  
+        ]
+    }
+```
+* **Error Response:**
+    * **Code:** 404  
+      **Content:** `{ error : "no orders doesn't exist" }`  
+      OR
+    * **Code:** 401  
+      **Content:** `{ error : error : "You are unauthorized to make this request." }`
+
+
