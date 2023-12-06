@@ -55,8 +55,6 @@ w
 GShopFrontend/src/main/java/com/example/shopfrontend/models/Product.java,7\8\78efd49b059515cb94995c76917915f6536cc8c5
 t
 DShopFrontend/src/main/java/com/example/shopfrontend/models/Role.java,f\2\f258d803384f32e8e728025b7814632c4c7a1841
-w
-GShopFrontend/src/main/java/com/example/shopfrontend/http/Adminhttp.java,3\f\3f36ea25c7e6fdc3a3d75af28932f554b019edc5
 y
 IShopFrontend/src/main/java/com/example/shopfrontend/http/ProductHttp.java,8\2\82ae839be7e0e662122a5398e3c281adb0fe152a
 v
