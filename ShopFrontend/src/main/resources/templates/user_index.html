@@ -45,9 +45,11 @@
     <!-- Logged in textrow + User (not yet implemented) -->
     <br>
 <div class ="container">
-        <div class="row">
-            <h5 th:text="'Logged in as ' + ${currentUser.username}"></h5>
-        </div>
+    <div class="row" th:if="${not #strings.isEmpty(IndexController.currentUser?.getUserName)}">
+        <h5>Logged in as <span th:text="${IndexController.currentUser.getUserName}"></span></h5>
+    </div>
+
+
     <br>
 
 
