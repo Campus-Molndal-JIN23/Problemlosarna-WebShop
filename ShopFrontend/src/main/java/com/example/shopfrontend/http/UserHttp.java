@@ -50,7 +50,7 @@ public class UserHttp {
             return loginResponse;
     }
 
-    public String registerUser(RegistrationForm form) throws IOException, ParseException, IOException {
+    public int registerUser(RegistrationForm form) throws IOException, ParseException, IOException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/register");
 
@@ -60,11 +60,11 @@ public class UserHttp {
 
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return null;
+            return response.getCode();
         }
         HttpEntity entity = response.getEntity();
         log.info("entity: " + entity);
-        return entity.toString(); //TODO: returnera något vettigt
+        return response.getCode();
     }
 
     public StringEntity createPayload(Object object) throws JsonProcessingException {

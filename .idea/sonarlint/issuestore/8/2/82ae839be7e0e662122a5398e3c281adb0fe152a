@@ -1,15 +1,23 @@
 
+k
+java:S1192P"NDefine a constant instead of duplicating this literal "Authorization" 3 times.(İĞÚ8œĞóóÃ1
+p
+java:S1192*"NDefine a constant instead of duplicating this literal "Error uppstod" 5 times.(Ò¼Ëûúÿÿÿÿ8ĞóóÃ1
+ƒ
+java:S1192$"gDefine a constant instead of duplicating this literal "http://localhost:8080/webshop/products" 5 times.(ãÛğq8ĞóóÃ1
+e
+java:S1192P"HDefine a constant instead of duplicating this literal "Bearer " 3 times.(İĞÚ8ĞóóÃ1
 
-java:S1488>"_Immediately return this expression instead of assigning it to the temporary variable "product".(½„õôúÿÿÿÿ8†ñÔÃ1
+java:S1488B"_Immediately return this expression instead of assigning it to the temporary variable "product".(½„õôúÿÿÿÿ8ĞóóÃ1
+ƒ
+java:S1488["fImmediately return this expression instead of assigning it to the temporary variable "productRespons".(¯ìİ§8ĞóóÃ1
 Q
-java:S1874""/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ŒñÔÃ1
+java:S1874&"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8¤ĞóóÃ1
 Q
-java:S18745"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ñÔÃ1
-J
-java:S1172C".Remove this unused method parameter "product".(¸ù¬-8¤ã¤İÃ1
-O
-java:S1135D"2Complete the task associated to this TODO comment.(…ïœ†8¤ã¤İÃ1
-O
-java:S1135I"2Complete the task associated to this TODO comment.(…ïœ†8üšàŞÃ1
-O
-java:S1135N"2Complete the task associated to this TODO comment.(…ïœ†8µ’äŞÃ1
+java:S18749"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8¸ĞóóÃ1
+Q
+java:S1874R"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ºĞóóÃ1
+Q
+java:S1874j"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8¼ĞóóÃ1
+Q
+java:S1874x"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8½ĞóóÃ1

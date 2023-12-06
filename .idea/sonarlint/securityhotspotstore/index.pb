@@ -111,7 +111,5 @@ EshopBackend/src/main/java/com/example/shopbackend/entity/Product.java,f\5\f5c9
 NShopFrontend/src/main/java/com/example/shopfrontend/models/ProductRespons.java,b\7\b78605de1b1ab4d73ab5b72586019638290f9222
 w
 GShopFrontend/src/main/java/com/example/shopfrontend/http/OrderHttp.java,d\3\d3f744252e6988c71347e9937519cd608cddbb18
-x
-HShopFrontend/src/main/java/com/example/shopfrontend/models/OrderDTO.java,e\5\e5e2bc68f468b4a7dfc5b213f59744939cd12838
 u
 EShopFrontend/src/main/java/com/example/shopfrontend/models/Order.java,f\0\f05bbc5a2fffc5eda30923bc4b5bcc99d56ea8f8

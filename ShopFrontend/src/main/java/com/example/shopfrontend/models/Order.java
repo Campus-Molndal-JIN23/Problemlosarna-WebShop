@@ -1,6 +1,11 @@
 package com.example.shopfrontend.models;
 
+import lombok.Data;
+
+@Data
 public class Order {
 
-    //TODO
+    private Basket basket;
+
+    private int totalcost;
 }
