@@ -3,8 +3,6 @@ package com.example.shopfrontend.controller;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.models.Product;
-import com.example.shopfrontend.models.ProductRespons;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +38,7 @@ public class AdminController {
 
     @PostMapping("/admin/create_product")
     public String saveProduct(Product product) throws IOException, ParseException {
-        productHttp.createProduct(product,IndexController.loginResponse.getToken());
+        productHttp.createProduct(product,IndexController.currentUser.getToken());
         return "redirect:/admin_index";
     }
 
@@ -53,19 +51,19 @@ public class AdminController {
     @PostMapping("/admin/edit_product/{id})")
     public String updateProduct(@PathVariable long id ,Product product) throws IOException, ParseException {
         product.setId(id);
-        productHttp.updateProduct(product,IndexController.loginResponse.getToken());
+        productHttp.updateProduct(product,IndexController.currentUser.getToken());
         return "redirect:/admin_index";
     }
 
     @GetMapping("/admin/delete_product/{id}")
     public String deleteProductForm(@PathVariable long id) throws IOException {
-        productHttp.deleteProductById(id,IndexController.loginResponse.getToken());
+        productHttp.deleteProductById(id,IndexController.currentUser.getToken());
         return "redirect:/admin_index";
     }
 
     @GetMapping("/admin/all_orders")
     public String getAllOrders(Model model) throws IOException, ParseException {
-        model.addAttribute("orders", orderHttp.getAllOrders(IndexController.loginResponse.getToken()));
+        model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
         return "all_orders";
     }
 

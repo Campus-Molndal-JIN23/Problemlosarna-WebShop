@@ -21,7 +21,7 @@ public class IndexController {
 
     private ProductHttp productHttp;
     private  UserHttp userHttp;
-    static LoginResponse loginResponse = new LoginResponse();
+    static LoginResponse currentUser = new LoginResponse();
 
     @GetMapping("/index")
     public String listProducts(Model model) throws IOException, ParseException {
@@ -33,6 +33,7 @@ public class IndexController {
     public String getOneProduct(@PathVariable long id, Model model) throws IOException, ParseException {
         ProductRespons product = productHttp.getProductById(id);
         model.addAttribute("product", product);
+        model.addAttribute("current_user_role", currentUser.getRole());
         return "view_one_product";
     }
 
@@ -45,13 +46,13 @@ public class IndexController {
 
     @PostMapping("/loginUser")
     public String loginUser(LoginForm user) throws IOException, ParseException {
-        loginResponse = userHttp.loginUser(user);
+        currentUser = userHttp.loginUser(user);
 
-        if (loginResponse == null) { //if the is no user
+        if (currentUser == null) { //if the is no user
             return "redirect:/registration";
         }
         else {
-            if (loginResponse.getRole().equals("ADMIN")) {
+            if (currentUser.getRole().equals("ADMIN")) {
                 return "redirect:/admin_index";
             } else {
                 return "redirect:/user_index";
@@ -74,7 +75,7 @@ public class IndexController {
 
     @GetMapping("/logout")
     public String logout() {
-        loginResponse = null;
+        currentUser = null;
         return "redirect:/index";
     }
 }

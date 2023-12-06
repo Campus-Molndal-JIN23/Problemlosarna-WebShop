@@ -49,11 +49,24 @@
                     <dd class="col-sm-9" th:text="${product.description}"></dd>
                 </dl>
 
-                <a th:href="@{/index}" class="btn btn-primary">Back to Products</a>
+                <a id="backToProductsButton" th:href="@{/index}" class="btn btn-primary">Back to Products</a>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // this dynamically change the th:href value of the back button depending on the user role
+    const userRole = '${current_user_role}';
+    const adminHref = "/admin";
+    const userHref = "/user";
+    if(userRole === "ADMIN")
+        document.getElementById("backToProductsButton").setAttribute("th:href", adminHref);
+    if(userRole === "USER")
+        document.getElementById("backToProductsButton").setAttribute("th:href", userHref);
+
+</script>
 
 </body>
 </html>
