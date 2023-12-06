@@ -317,7 +317,7 @@ Returns all orders off a user.
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**GET /orders/**
+**GET /orders/:id**
 ----
 Returns the specified order.
 * **URL Params**  
