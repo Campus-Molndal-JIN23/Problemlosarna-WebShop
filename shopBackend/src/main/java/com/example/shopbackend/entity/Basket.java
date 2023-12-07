@@ -1,31 +1,35 @@
 package com.example.shopbackend.entity;
 
-import java.util.HashMap;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "baskets")
 public class Basket {
 
-    private int totalCost;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private long id;
 
-    private HashMap<Product, Integer> products;
 
-    public Basket(int totalCost, HashMap<Product, Integer> products) {
-        this.totalCost = totalCost;
-        this.products = products;
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-    public int getTotalCost() {
-        return totalCost;
-    }
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
-    public void setTotalCost(int totalCost) {
-        this.totalCost = totalCost;
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-    public HashMap<Product, Integer> getProducts() {
-        return products;
-    }
-
-    public void setProducts(HashMap<Product, Integer> products) {
-        this.products = products;
-    }
 }
