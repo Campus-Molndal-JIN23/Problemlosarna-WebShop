@@ -13,7 +13,7 @@ public class AuthController {
 
 
     @PostMapping("/register")    //TODO  check if LoginForm fungerar from annan application
-    public ResponseEntity<?> register (LoginForm loginForm){
+    public ResponseEntity<?> register (@RequestBody LoginForm loginForm){
 
         //TODO remove system out
         System.out.println("username: " + loginForm.getUsername());
@@ -24,7 +24,7 @@ public class AuthController {
 
 
     @PostMapping("/login") //TODO  check if LoginForm fungerar  from annan application
-    public ResponseEntity<String> login(LoginForm loginForm ){
+    public ResponseEntity<String> login(@RequestBody LoginForm loginForm ){
         //TODO remove system out
         System.out.println(loginForm.getPassword());
         System.out.println(loginForm.getUsername());
