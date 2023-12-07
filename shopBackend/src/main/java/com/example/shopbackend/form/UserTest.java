@@ -1,7 +1,7 @@
 package com.example.shopbackend.form;
 
 
-import com.example.shopbackend.entity.Order;
+import com.example.shopbackend.entity.OrderOld;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,8 +14,7 @@ import java.util.List;
 public class UserTest {
 
     private String username;
-    private List<Order> orders;
-
+    private List<OrderOld> orders;
 
 
 }

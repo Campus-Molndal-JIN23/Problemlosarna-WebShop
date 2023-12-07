@@ -1,6 +1,6 @@
 package com.example.shopbackend.controller;
 
-import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.entity.ProductOld;
 import com.example.shopbackend.entity.ProductDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class BasketControllerTest {
 
     @Test
     void addProductToBasket() throws Exception {
-        var payload = new ProductDTO(new Product("new product", 12, "flavorText"), 39);
+        var payload = new ProductDTO(new ProductOld("new product", 12, "flavorText"), 39);
 //        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -44,7 +44,7 @@ class BasketControllerTest {
     @Test
     void updateQuantity() throws Exception {
 
-        var payload = new ProductDTO(new Product("Product 1", 100, "Text about the product 1"), 999);
+        var payload = new ProductDTO(new ProductOld("Product 1", 100, "Text about the product 1"), 999);
 //        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ class BasketControllerTest {
 
     @Test
     void deleteProduct() throws Exception {
-        var payload = new Product("Product 1", 100, "Text about the product 1");
+        var payload = new ProductOld("Product 1", 100, "Text about the product 1");
 //        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(delete(API)
                         .contentType(MediaType.APPLICATION_JSON)

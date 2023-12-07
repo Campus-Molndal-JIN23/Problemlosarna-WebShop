@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 
 
 @Entity
-public class OldProduct {
+public class ProductOld {
 
     @Id
     private long id;
@@ -16,20 +16,20 @@ public class OldProduct {
     private String description;
 
 
-    public OldProduct(String name, int cost, String description) {
+    public ProductOld(String name, int cost, String description) {
         this.name = name;
         this.cost = cost;
         this.description = description;
     }
 
-    public OldProduct(long id, String name, int cost, String description) {
+    public ProductOld(long id, String name, int cost, String description) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.description = description;
     }
 
-    public OldProduct() {
+    public ProductOld() {
 
     }
 

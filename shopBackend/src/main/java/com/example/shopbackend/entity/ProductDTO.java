@@ -2,7 +2,7 @@ package com.example.shopbackend.entity;
 
 public record ProductDTO(
 
-        OldProduct product,
+        ProductOld product,
         int quantity
 
 ) {
