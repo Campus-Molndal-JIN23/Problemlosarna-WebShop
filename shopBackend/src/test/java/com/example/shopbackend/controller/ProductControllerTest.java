@@ -1,6 +1,6 @@
 package com.example.shopbackend.controller;
 
-import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.entity.ProductOld;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,8 @@ class ProductControllerTest {
 
     @Test
     void postCreateOne() throws Exception {
-        var payload = new Product("A created product", 42, "Not the product you sent but a generic return");
-
+        var payload = new ProductOld("A created product", 42, "Not the product you sent but a generic return");
+//        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
@@ -52,8 +52,8 @@ class ProductControllerTest {
 
     @Test
     void putUpdateOne() throws Exception {
-        var payload = new Product("A updated product", 42, "Not the product you sent but a generic return");
-
+        var payload = new ProductOld("A updated product", 42, "Not the product you sent but a generic return");
+//        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(put(API + "/" + 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))

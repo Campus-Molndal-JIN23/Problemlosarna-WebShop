@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class Order {
 
-    private Basket basket;
-
-    private int totalcost;
+    long id;
+    Basket Basket;
 }
