@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class OrderControllerTest {
     private final String API = "/webshop/order";
-    private final String API2 = "/webshop/order";
+    private final String API2 = "/webshop/orders";
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -45,7 +45,7 @@ class OrderControllerTest {
     @Test
     void getOrders() throws Exception {
 
-        this.mvc.perform(get(API)
+        this.mvc.perform(get(API2)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
