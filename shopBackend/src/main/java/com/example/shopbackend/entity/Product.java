@@ -30,4 +30,9 @@ public class Product {
     @JdbcTypeCode(SqlTypes.INTEGER)
     private Integer price;
 
+    public Product(String name, String shortDescription, Integer price) {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.price = price;
+    }
 }

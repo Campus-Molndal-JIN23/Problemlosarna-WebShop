@@ -20,6 +20,9 @@ public class Basket {
     @Column(name = "id", nullable = false)
     private long id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name ="user_id", nullable = false)
+    private User user;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "product_id", nullable = false)
@@ -32,4 +35,9 @@ public class Basket {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    public Basket(User user, Product product, Integer quantity, Order order) {
+        this.user = user;
+        this.product = product;
+        this.quantity = quantity;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.shopbackend.entity;
 
+import com.example.shopbackend.entity.Basket;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,4 +27,12 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Basket> Basket = new ArrayList<>();
 
+    public Order(User user, List<Basket> basket) {
+        this.user = user;
+        Basket = basket;
+    }
+
+    public Order(User user) {
+        this.user = user;
+    }
 }
