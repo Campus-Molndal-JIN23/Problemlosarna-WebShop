@@ -23,7 +23,6 @@ public class Order {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Basket> Basket = new ArrayList<>();
 
@@ -34,5 +33,13 @@ public class Order {
 
     public Order(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                '}';
     }
 }

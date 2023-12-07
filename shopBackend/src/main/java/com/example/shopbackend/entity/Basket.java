@@ -35,9 +35,26 @@ public class Basket {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    public Basket(User user, Product product, Integer quantity) {
+        this.user = user;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
     public Basket(User user, Product product, Integer quantity, Order order) {
         this.user = user;
         this.product = product;
         this.quantity = quantity;
+        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "id=" + id +
+                ", user=" + user +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
     }
 }
