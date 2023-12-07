@@ -42,8 +42,6 @@ PshopBackend/src/main/java/com/example/shopbackend/controller/USerController.jav
 Ä
 PshopBackend/src/main/java/com/example/shopbackend/controller/UserController.java,5\9\5928e61a0b8acdf39682f6d701b4d19a8b03fc73
 D
-ShopFrontend/HELP.md,4\0\40ca04bf92a69d50f6c224e121d128b4d0a37aec
-D
 ShopFrontend/pom.xml,4\9\49e2e88c9de4493850745a1896c97fa201aa54b6
 t
 DShopFrontend/src/main/java/com/example/shopfrontend/models/User.java,b\5\b5290310e5811cfa849ff1c7f578b954deaab3d3
@@ -57,8 +55,6 @@ w
 GShopFrontend/src/main/java/com/example/shopfrontend/models/Product.java,7\8\78efd49b059515cb94995c76917915f6536cc8c5
 t
 DShopFrontend/src/main/java/com/example/shopfrontend/models/Role.java,f\2\f258d803384f32e8e728025b7814632c4c7a1841
-w
-GShopFrontend/src/main/java/com/example/shopfrontend/http/Adminhttp.java,3\f\3f36ea25c7e6fdc3a3d75af28932f554b019edc5
 y
 IShopFrontend/src/main/java/com/example/shopfrontend/http/ProductHttp.java,8\2\82ae839be7e0e662122a5398e3c281adb0fe152a
 v
@@ -96,8 +92,6 @@ Q.idea/sonarlint/securityhotspotstore/f/9/f9f01aa11edb2a6c4c9c2f6c5d51c61812f289
 Å
 Q.idea/sonarlint/securityhotspotstore/0/1/01ea5dfdeff3bb861e996c68388a66df4c9eab1e,f\a\fa771ef15f28fb97eb3f3d88d45dcb3ea419c938
 Å
-Q.idea/sonarlint/securityhotspotstore/3/f/3f36ea25c7e6fdc3a3d75af28932f554b019edc5,5\e\5e0ce3b3aff82473db6e9edef220105781abd8b7
-Å
 Q.idea/sonarlint/securityhotspotstore/4/b/4ba84d4413a1db50c685c1a639e9844979af7c1e,0\1\01681a698317fecb916d75edfb8ab142de293f3b
 Å
 Q.idea/sonarlint/securityhotspotstore/8/2/82ae839be7e0e662122a5398e3c281adb0fe152a,a\f\afb518cdece5d20b41c02be3e8cd39c8bb608d22
@@ -109,3 +103,15 @@ w
 G.idea/sonarlint/issuestore/f/9/f9f01aa11edb2a6c4c9c2f6c5d51c61812f2899d,f\2\f28de4fa5d3f4c1a22544f356059203934191831
 u
 EshopBackend/src/main/java/com/example/shopbackend/entity/Product.java,f\5\f5c9673fc61fc8a40a9102601da29412ab95fadd
+~
+NShopFrontend/src/main/java/com/example/shopfrontend/models/ProductRespons.java,b\7\b78605de1b1ab4d73ab5b72586019638290f9222
+w
+GShopFrontend/src/main/java/com/example/shopfrontend/http/OrderHttp.java,d\3\d3f744252e6988c71347e9937519cd608cddbb18
+u
+EShopFrontend/src/main/java/com/example/shopfrontend/models/Order.java,f\0\f05bbc5a2fffc5eda30923bc4b5bcc99d56ea8f8
+s
+CshopBackend/src/main/java/com/example/shopbackend/entity/Order.java,a\7\a7f549fdcafa407a78a790215c14d54235aca467
+t
+DshopBackend/src/main/java/com/example/shopbackend/entity/Basket.java,0\9\0983a321ebe4538ecc62e62bff6cdbaa41c46307
+x
+HshopBackend/src/main/java/com/example/shopbackend/entity/ProductDTO.java,c\c\cc5ba16ad4e6b9c6f8d10c80023f9ce1817da50e

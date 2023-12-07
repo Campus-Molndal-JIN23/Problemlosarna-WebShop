@@ -1,3 +1,17 @@
 
-_
-java:S2094"BRemove this empty class, write its code or make it an "interface".( Υγ8·φΊΘΓ1
+B
+java:S1452"&Remove usage of generic wildcard type.(”δΠ`8λσθƒΔ1
+O
+java:S1135"2Complete the task associated to this TODO comment.(Ϋ±ΦΣ8νσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(‰΅Φ•ύÿÿÿÿ8ξσθƒΔ1
+T
+java:S1135"2Complete the task associated to this TODO comment.(―ψ΄τωÿÿÿÿ8οσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(ΎΏϋΥϊÿÿÿÿ8πσθƒΔ1
+T
+java:S1135"2Complete the task associated to this TODO comment.(‘Δ«¬ψÿÿÿÿ8ςσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(€€Αύÿÿÿÿ8ςσθƒΔ1
+T
+java:S1135"2Complete the task associated to this TODO comment.(―ψ΄τωÿÿÿÿ8σσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(ϊΟ¥ÿÿÿÿÿ8τσθƒΔ1
+Y
+java:S1128"<Remove this unused import 'ch.qos.logback.core.model.Model'.(·—π8όσθƒΔ1

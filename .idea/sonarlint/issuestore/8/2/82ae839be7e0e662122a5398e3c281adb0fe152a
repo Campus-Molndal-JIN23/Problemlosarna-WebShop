@@ -1,9 +1,21 @@
 
-
-java:S1488="_Immediately return this expression instead of assigning it to the temporary variable "product".(ä›ñÚşÿÿÿÿ8†ñÔÃ1
+p
+java:S1192'"NDefine a constant instead of duplicating this literal "Error uppstod" 5 times.(Ò¼Ëûúÿÿÿÿ8Ç™°…Ä1
+ƒ
+java:S1192!"gDefine a constant instead of duplicating this literal "http://localhost:8080/webshop/products" 3 times.(ãÛğq8Ç™°…Ä1
+k
+java:S1192O"NDefine a constant instead of duplicating this literal "Authorization" 3 times.(İĞÚ8Æ™°…Ä1
+e
+java:S1192O"HDefine a constant instead of duplicating this literal "Bearer " 3 times.(İĞÚ8Ç™°…Ä1
 Q
-java:S1874!"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ŒñÔÃ1
+java:S1874#"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8Ô™°…Ä1
 H
-java:S1168&"+Return an empty collection instead of null.(¥¹ï8ñÔÃ1
+java:S1168("+Return an empty collection instead of null.(¥¹ï8Õ™°…Ä1
 Q
-java:S18744"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ñÔÃ1
+java:S18746"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ë™°…Ä1
+Q
+java:S1874Q"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ñ™°…Ä1
+Q
+java:S1874i"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ö™°…Ä1
+Q
+java:S1874w"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8ø™°…Ä1

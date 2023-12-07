@@ -21,6 +21,9 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link" th:href="@{/index}">Home</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" th:href="@{/login}">Login</a>
             </li>
             <li class="nav-item">
@@ -39,14 +42,18 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Description</th>
+            <th>See more?</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each = "product: ${products}">
             <td th:text="${product.name}"></td>
             <td th:text="${product.cost}"></td>
-            <td th:text="${product.description}"></td>
+            <td>
+                <a th:href="@{/index/one/{id}(id=${product.id})}"
+                   class="btn btn-primary">More Info</a>
+
+            </td>
         </tr>
         </tbody>
 

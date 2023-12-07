@@ -4,21 +4,21 @@ import java.util.HashMap;
 
 public class Basket {
 
-    private int totatCost;
+    private int totalCost;
 
     private HashMap<Product, Integer> products;
 
-    public Basket(int totatCost, HashMap<Product, Integer> products) {
-        this.totatCost = totatCost;
+    public Basket(int totalCost, HashMap<Product, Integer> products) {
+        this.totalCost = totalCost;
         this.products = products;
     }
 
-    public int getTotatCost() {
-        return totatCost;
+    public int getTotalCost() {
+        return totalCost;
     }
 
-    public void setTotatCost(int totatCost) {
-        this.totatCost = totatCost;
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
     }
 
     public HashMap<Product, Integer> getProducts() {
