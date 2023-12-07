@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/ShopFrontend/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shopBackend/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopBackend/src/main/resources" charset="UTF-8" />
   </component>
 </project>

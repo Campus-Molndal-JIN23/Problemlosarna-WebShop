@@ -43,16 +43,14 @@
 </nav>
 
     <!-- Logged in textrow + User -->
-    <br>
-<div class ="container">
-    <div class="row" th:if="${not #strings.isEmpty(IndexController.currentUser?.getUserName)}">
+<br>
+    <div class ="container">
+    <div>
         <h5>Logged in as <span th:text="${IndexController.currentUser.getUserName}"></span></h5>
     </div>
+<br>
 
-
-    <br>
-
-
+        <!-- Table: Name, Price, Description of wares -->
     <table class ="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
