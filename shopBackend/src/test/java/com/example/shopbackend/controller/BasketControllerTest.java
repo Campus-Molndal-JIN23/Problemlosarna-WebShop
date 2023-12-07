@@ -32,11 +32,11 @@ class BasketControllerTest {
 
     @Test
     void addProductToBasket() throws Exception {
-        var newProd = new ProductDTO(new Product("new product", 12, "flavorText"), 39);
-
+        var payload = new ProductDTO(new Product("new product", 12, "flavorText"), 39);
+//        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(newProd))
+                        .content(mapper.writeValueAsString(payload))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -44,11 +44,11 @@ class BasketControllerTest {
     @Test
     void updateQuantity() throws Exception {
 
-        var updateProdQty = new ProductDTO(new Product("Product 1", 100, "Text about the product 1"), 999);
-        System.out.println(mapper.writeValueAsString(updateProdQty));
+        var payload = new ProductDTO(new Product("Product 1", 100, "Text about the product 1"), 999);
+//        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(updateProdQty))
+                        .content(mapper.writeValueAsString(payload))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -58,6 +58,7 @@ class BasketControllerTest {
     @Test
     void deleteProduct() throws Exception {
         var payload = new Product("Product 1", 100, "Text about the product 1");
+//        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(delete(API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
