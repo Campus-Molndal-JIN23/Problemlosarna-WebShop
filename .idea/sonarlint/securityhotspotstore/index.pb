@@ -103,8 +103,6 @@ w
 G.idea/sonarlint/issuestore/f/9/f9f01aa11edb2a6c4c9c2f6c5d51c61812f2899d,f\2\f28de4fa5d3f4c1a22544f356059203934191831
 u
 EshopBackend/src/main/java/com/example/shopbackend/entity/Product.java,f\5\f5c9673fc61fc8a40a9102601da29412ab95fadd
-~
-NShopFrontend/src/main/java/com/example/shopfrontend/models/ProductRespons.java,b\7\b78605de1b1ab4d73ab5b72586019638290f9222
 w
 GShopFrontend/src/main/java/com/example/shopfrontend/http/OrderHttp.java,d\3\d3f744252e6988c71347e9937519cd608cddbb18
 u
