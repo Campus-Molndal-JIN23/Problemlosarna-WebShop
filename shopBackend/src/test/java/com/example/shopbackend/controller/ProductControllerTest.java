@@ -54,7 +54,9 @@ class ProductControllerTest {
 
     @Test
     void postCreateOne() throws Exception {
+
         var payload = new Product("A created product",  "Not the product you sent but a generic return", 42);
+
 //        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)

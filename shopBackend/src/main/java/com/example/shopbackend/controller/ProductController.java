@@ -1,5 +1,6 @@
 package com.example.shopbackend.controller;
 
+
 import com.example.shopbackend.entity.Product;
 import com.example.shopbackend.entity.ProductOld;
 import com.example.shopbackend.service.ProductService;
@@ -34,7 +35,6 @@ public class ProductController {
         var product = productService.findById(id);
 
         return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
-
     }
 
     @PostMapping("")
@@ -54,6 +54,7 @@ public class ProductController {
         log.info("update Product: " + product);
 
         return ResponseEntity.ok(new ProductOld(1, "A updated product", 42, "Not the product you sent but a generic return"));
+
     }
 
     @DeleteMapping("/{id}")
