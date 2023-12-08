@@ -3,7 +3,7 @@ package com.example.shopbackend.controller;
 
 import com.example.shopbackend.entity.*;
 import com.example.shopbackend.form.UserTest;
-import org.apache.catalina.User;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +22,6 @@ public class OrderController {
 
         products.put(new ProductOld("Product 1", 100, "Text about the product 1"), 1);
         products.put(new ProductOld("Product 2", 200, "Text about the product 2"), 2);
-        products.put(new ProductOld("Product 3", 300, "Text about the product 3"), 3);
-        products.put(new ProductOld("Product 4", 400, "Text about the product 4"), 4);
 
         BasketOld basket = new BasketOld(100,products);
 
