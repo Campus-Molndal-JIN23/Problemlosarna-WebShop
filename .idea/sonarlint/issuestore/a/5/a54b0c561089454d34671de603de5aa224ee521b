@@ -1,13 +1,9 @@
 
-X	java:S125L"<This block of commented-out lines of code should be removed.(±Õ£ë8Á½ÚÄ1
-X	java:S125T"<This block of commented-out lines of code should be removed.(‚Í8Á½ÚÄ1
-@
-java:S1128"Remove this duplicated import.(²Á¯µùÿÿÿÿ8Â½ÚÄ1
-@
-java:S1128"Remove this duplicated import.(øŠ—Öùÿÿÿÿ8Ã½ÚÄ1
-@
-java:S1128"Remove this duplicated import.(ê†ıÿÿÿÿ8Ã½ÚÄ1
-@
-java:S1128"Remove this duplicated import.(ªº»Úıÿÿÿÿ8Ã½ÚÄ1
-J
-java:S1068 "-Remove this unused "orderHttp" private field.( èÖ‡8Ä½ÚÄ1
+k
+java:S1192-"IDefine a constant instead of duplicating this literal "username" 3 times.(£áèúúÿÿÿÿ8ö÷¢ÛÄ1
+O
+java:S1135F"2Complete the task associated to this TODO comment.(ï‹´¨8šàÚÄ1
+X	java:S125O"<This block of commented-out lines of code should be removed.(±Õ£ë8šàÚÄ1
+X	java:S125W"<This block of commented-out lines of code should be removed.(‚Í8šàÚÄ1
+I
+java:S1068 ",Remove this unused "userHttp" private field.(²ô›ø8¤¬‡ÛÄ1

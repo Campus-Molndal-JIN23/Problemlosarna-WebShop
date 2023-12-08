@@ -38,12 +38,10 @@
         </ul>
     </div>
 </nav>
-
-    <!-- Logged in textrow + User -->
 <br>
     <div class ="container">
     <div>
-        <h5>Logged in as <span th:text="${IndexController.currentUser.getUserName}"></span></h5>
+        <h5>Logged in as <span th:text="${username}"></span></h5>
     </div>
 <br>
 
@@ -57,14 +55,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each = "productRespons: ${products}">
-            <td th:text="${productRespons.name}"></td>
-            <td th:text="${productRespons.price}"></td>
+        <tr th:each = "product: ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
 
             <td>
-                <a th:href="@{/user/one/{id}(id=${productRespons.getId()})}"
+                <a th:href="@{/user/one/{id}(id=${product.getId()})}"
                    class="btn btn-primary">More Info</a>
-                <a th:href="@{/user/basket/add/{id}(id=${productRespons.getId()})}"
+                <a th:href="@{/user/basket/add/{id}(id=${product.getId()})}"
                    class="btn btn-primary">Put In Basket</a>
             </td>
 
