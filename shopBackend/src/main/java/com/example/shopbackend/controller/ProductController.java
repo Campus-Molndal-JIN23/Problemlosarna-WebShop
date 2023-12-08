@@ -1,11 +1,12 @@
 package com.example.shopbackend.controller;
 
+import com.example.shopbackend.entity.Product;
 import com.example.shopbackend.entity.ProductOld;
+import com.example.shopbackend.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -13,39 +14,37 @@ import java.util.List;
 @RequestMapping("/webshop/products")
 public class ProductController {
 
+    private final ProductService productService;
+
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("")
-    public ResponseEntity<List<ProductOld>> getAll() {
+    public ResponseEntity<List<Product>> getAll() {
 
-        List<ProductOld> products = new ArrayList<>();
-
-        products.add(new ProductOld(1,"Product 1", 100, "Text about the product 1"));
-        products.add(new ProductOld(2,"Product 2", 200, "Text about the product 2"));
-        products.add(new ProductOld(3,"Product 3", 300, "Text about the product 3"));
-        products.add(new ProductOld(4,"Product 4", 400, "Text about the product 4"));
-
-
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(productService.findAll());
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductOld> getOne(@PathVariable long id) {
 
-        return ResponseEntity.ok(new ProductOld(1,"Product 1", 100, "Text about the product 1"));
+        return ResponseEntity.ok(new ProductOld(1, "Product 1", 100, "Text about the product 1"));
     }
 
     @PostMapping("")
     public ResponseEntity<ProductOld> createOne(@RequestBody ProductOld product) {
         log.info("create Product: " + product);
-        return ResponseEntity.ok(new ProductOld(1,"A created product", 42, "Not the product you sent but a generic return"));
+        return ResponseEntity.ok(new ProductOld(1, "A created product", 42, "Not the product you sent but a generic return"));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductOld> updateOne(@PathVariable long id, @RequestBody ProductOld product) {
         log.info("update Product: " + product);
 
-        return ResponseEntity.ok(new ProductOld(1,"A updated product", 42, "Not the product you sent but a generic return"));
+        return ResponseEntity.ok(new ProductOld(1, "A updated product", 42, "Not the product you sent but a generic return"));
     }
 
     @DeleteMapping("/{id}")
