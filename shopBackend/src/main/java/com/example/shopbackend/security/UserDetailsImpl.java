@@ -2,6 +2,7 @@ package com.example.shopbackend.security;
 
 import com.example.shopbackend.entity.User;
 import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,11 +15,12 @@ import java.util.List;
 
 @Component
 @Builder
+@Data
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private String id;
-    private String username;
+    private long id;
+    private String userName;
     private String password;
     private String role;
 
@@ -34,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     @Override

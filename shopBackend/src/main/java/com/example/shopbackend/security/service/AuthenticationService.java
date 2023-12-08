@@ -5,6 +5,6 @@ import com.example.shopbackend.security.dao.response.JwtAuthenticationResponse;
 
 public interface AuthenticationService {
 
-    JwtAuthenticationResponse signup(Request request);
 
+    JwtAuthenticationResponse signin(Request request);
 }
