@@ -126,11 +126,11 @@ Creates a new Product and returns the new object.
     * OR
     * **Code:** 400
 
-**PUT /products/:id**
+**PUT /products**
 ---- 
 Updates fields on the specified product and returns the updated object.
 * **URL Params**  
-  *Required:* `id=[integer]`
+  None
 * **Data Params**
 ```
   {
