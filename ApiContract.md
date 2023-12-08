@@ -175,7 +175,7 @@ Deletes the specified product.
 ## /webshop
 
 **GET /basket**
-----
+----  use JWT token to get the basket?
 Returns information about the own basket
 * **URL Params**  
   None
@@ -211,7 +211,12 @@ Add a Product by id and to the basket
   *Required:*
     None`
 * **Data Params** 
-  *Required:*  `{ <productDTO> }`
+  *Required:*  `{ <productDTO>{
+  *                 <id>,
+    *             <quantity>
+      *           }
+        *           }`
+
 * **Headers**  
   Content-Type: application/json
   Authorization: Bearer `<OAuth Token>`
@@ -232,7 +237,11 @@ Updates quantity on the specified product and returns the updated basket.
   *Required:* 
   None
 * **Data Params**
-  *Required* `{ <productDTO> }`
+  *Required:*  `{ <productDTO>{
+    *                 <id>,
+        *             <quantity>
+            *           }
+                *           }`
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -253,7 +262,11 @@ Delete the specified product.
   *Required:* 
   None`
 * **Data Params**  
-  *Required:* `{ <product_object> }`
+  *Required:*  `{ <productDTO>{
+    *                 <id>,
+        *             <quantity>
+            *           }
+                *           }`
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -270,11 +283,12 @@ Delete the specified product.
 ## /webshop
 
 **POST /order
-----
+---- use JWT token to get basket
 Returns the specified order.
 * **URL Params**  
   None
-* **Data Params**  `<userDTO_object>`
+* **Data Params**
+  None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -294,7 +308,8 @@ Returns the specified order.
 Returns all orders off a user.
 * **URL Params**  
   None
-* **Data Params**  `<userDTO_object>`
+* **Data Params** 
+  None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
