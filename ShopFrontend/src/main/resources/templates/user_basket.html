@@ -56,9 +56,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each = "productRespons: ${products}">
-            <td th:text="${productRespons.name}"></td>
-            <td th:text="${productRespons.cost}"></td>
+        <tr th:each="productRespons: ${basketItems}">
+            <td th:text="${basketItem.quantity}"></td>
+            <td th:text="${basketItem.productName}"></td>
+            <td th:text="${basketItem.productCost}"></td>
 
             <td>
                 <a></a>

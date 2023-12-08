@@ -24,8 +24,13 @@ public class UserController {
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
         // Retrieve basket items based on the current user's token
-        List<Product> basketItems = userHttp.getBasket(IndexController.currentUser.getToken());
-        model.addAttribute("basketItems", basketItems);
+        List<Product> basketItems = (List<Product>) userHttp.getBasket(IndexController.currentUser.getToken());
+        if (basketItems != null) {
+            model.addAttribute("basketItems", basketItems);
+        } else {
+            // Handle the case where basketItems is null, e.g., show an error message
+            model.addAttribute("errorMessage", "Error fetching basket items");
+        }
         return "basket";
     }
 
@@ -36,13 +41,14 @@ public class UserController {
         return "redirect:/user/basket";
     }
 
-    @GetMapping("/user/basket/edit/{id}")
+    /*@GetMapping("/user/basket/edit/{id}")
     public String updateBasketItemForm(@PathVariable long id, Model model) throws IOException, ParseException {
         // Display form to update quantity for a specific basket item
         model.addAttribute("basketItem", userHttp.getBasketItemById(id, IndexController.currentUser.getToken()));
         return "update_basket_item";
-    }
+    }*/
 
+    /*
     @PostMapping("/user/basket/edit/{id}")
     public String updateBasketItem(@PathVariable long id, @ModelAttribute Product basketItem) throws IOException {
         // Update the quantity of a product in the user's basket
@@ -51,6 +57,7 @@ public class UserController {
         userHttp.updateProductQuantityInBasket(IndexController.currentUser.getToken(), itemToUpdate);
         return "redirect:/user/basket";
     }
+     */
 
     @GetMapping("/user/basket/remove/{id}")
     public String removeBasketItem(@PathVariable long id) throws IOException {
