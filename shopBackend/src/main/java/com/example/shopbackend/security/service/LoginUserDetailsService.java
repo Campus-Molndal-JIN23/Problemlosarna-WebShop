@@ -3,12 +3,13 @@ package com.example.shopbackend.security.service;
 import com.example.shopbackend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsService implements UserService {
+public class LoginUserDetailsService implements UserService {
 
     private final UserRepository repository; //TODO check Repository Name
 
