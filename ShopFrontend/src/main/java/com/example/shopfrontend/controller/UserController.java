@@ -28,24 +28,29 @@ import java.util.List;
 public class UserController {
 
 
-    private final ProductHttp productHttp;
-    private final OrderHttp orderHttp;
+    private  ProductHttp productHttp;
+    private OrderHttp orderHttp;
 
-    public UserController(ProductHttp productHttp, OrderHttp orderHttp) {
+    private UserHttp userHttp;
+
+    public UserController(ProductHttp productHttp, OrderHttp orderHttp, UserHttp userHttp) {
         this.productHttp = productHttp;
         this.orderHttp = orderHttp;
+        this.userHttp = userHttp;
+    }
+
+    @GetMapping("/user")
+    public String userIndex(Model model) throws IOException, ParseException {
+        model.addAttribute("products", productHttp.getAllProducts());
+        return "user_index";
     }
 
     @GetMapping("/user/one/{id}")
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
         model1.addAttribute("product", productHttp.getProductById(id));
         return "user_view_one_product";
-
-    private final UserHttp userHttp;
-
-    public UserController(UserHttp userHttp) {
-        this.userHttp = userHttp;
     }
+
 
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {

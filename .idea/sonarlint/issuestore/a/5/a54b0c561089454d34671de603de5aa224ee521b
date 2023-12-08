@@ -1,3 +1,13 @@
 
-O
-java:S1068"-Remove this unused "orderHttp" private field.(…â¶ïùÿÿÿÿ8ÀšØÄ1
+X	java:S125L"<This block of commented-out lines of code should be removed.(±Õ£ë8Á½ÚÄ1
+X	java:S125T"<This block of commented-out lines of code should be removed.(‚Í8Á½ÚÄ1
+@
+java:S1128"Remove this duplicated import.(²Á¯µùÿÿÿÿ8Â½ÚÄ1
+@
+java:S1128"Remove this duplicated import.(øŠ—Öùÿÿÿÿ8Ã½ÚÄ1
+@
+java:S1128"Remove this duplicated import.(ê†ıÿÿÿÿ8Ã½ÚÄ1
+@
+java:S1128"Remove this duplicated import.(ªº»Úıÿÿÿÿ8Ã½ÚÄ1
+J
+java:S1068 "-Remove this unused "orderHttp" private field.( èÖ‡8Ä½ÚÄ1
