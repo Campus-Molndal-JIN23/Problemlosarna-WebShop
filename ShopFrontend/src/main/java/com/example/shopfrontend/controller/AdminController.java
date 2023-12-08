@@ -73,11 +73,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/admin/all_orders")
     public String getAllOrders(Model model) throws IOException, ParseException {
         model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
         return "all_orders";
     }
+
+
 
 
 }

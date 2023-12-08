@@ -52,16 +52,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each = "productRespons: ${products}">
-            <td th:text="${productRespons.getName()}"></td>
-            <td th:text="${productRespons.getPrice()}"></td>
+        <tr th:each = "product: ${products}">
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getPrice()}"></td>
 
             <td>
-                <a th:href="@{/admin/one/{id}(id=${productRespons.getId()})}"
+                <a th:href="@{/admin/one/{id}(id=${product.getId()})}"
                    class="btn btn-primary">More Info</a>
-                <a th:href="@{/admin/edit_product/{id}(id=${productRespons.getId()})}"
+                <a th:href="@{/admin/edit_product/{id}(id=${product.getId()})}"
                    class="btn btn-primary">Update</a>
-                <a th:href="@{/admin/delete_product/{id}(id=${productRespons.getId()})}"
+                <a th:href="@{/admin/delete_product/{id}(id=${product.getId()})}"
                    class="btn btn-primary">Delete</a>
 
             </td>

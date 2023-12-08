@@ -129,3 +129,5 @@ u
 EshopBackend/src/main/java/com/example/shopbackend/form/LoginForm.java,3\a\3a99535c29463e2857d245f07891fc2d35d7ecb0
 t
 DshopBackend/src/main/java/com/example/shopbackend/form/UserTest.java,0\1\018db354b756d32fd0b45a5bec0d90eed0c68bbc
+x
+HShopFrontend/src/main/java/com/example/shopfrontend/http/BasketHttp.java,4\3\4329ee32c8a8c42bcb27479e9e5e5d51ee633b6b
