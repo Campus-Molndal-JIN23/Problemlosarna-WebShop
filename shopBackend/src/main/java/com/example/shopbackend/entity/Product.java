@@ -24,16 +24,16 @@ public class Product {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "short_description", nullable = false)
-    private String shortDescription;
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @Column(name = "price", nullable = false)
     @JdbcTypeCode(SqlTypes.INTEGER)
     private Integer price;
 
-    public Product(String name, String shortDescription, Integer price) {
+    public Product(String name, String description, Integer price) {
         this.name = name;
-        this.shortDescription = shortDescription;
+        this.description = description;
         this.price = price;
     }
 
@@ -42,7 +42,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';
     }
