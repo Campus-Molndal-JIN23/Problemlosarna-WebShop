@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface OrderQtyRepository extends JpaRepository<OrderQty, Long> {
 
+    List<OrderQty> findOrderQtyByOrderId(Long userId);
+
 }
