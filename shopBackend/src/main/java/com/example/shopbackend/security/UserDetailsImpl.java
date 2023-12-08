@@ -1,6 +1,7 @@
 package com.example.shopbackend.security;
 
 import com.example.shopbackend.entity.User;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,23 +13,28 @@ import java.util.Collection;
 import java.util.List;
 
 @Component
+@Builder
 @RequiredArgsConstructor
-public class UserDetailsImpl extends User implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
+    private String id;
+    private String username;
+    private String password;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(User.getRole().name()));
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override
     public String getPassword() {
-        return User.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return username;
     }
 
     @Override
