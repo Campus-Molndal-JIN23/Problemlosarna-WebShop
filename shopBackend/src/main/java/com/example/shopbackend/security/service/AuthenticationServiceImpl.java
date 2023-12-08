@@ -1,6 +1,5 @@
 package com.example.shopbackend.security.service;
 
-import com.example.shopbackend.security.UserDetailsImpl;
 import com.example.shopbackend.security.dao.request.Request;
 import com.example.shopbackend.security.dao.response.JwtAuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
