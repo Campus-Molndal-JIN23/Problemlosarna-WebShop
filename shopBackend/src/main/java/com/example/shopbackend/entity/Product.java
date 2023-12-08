@@ -18,6 +18,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
@@ -30,4 +31,19 @@ public class Product {
     @JdbcTypeCode(SqlTypes.INTEGER)
     private Integer price;
 
+    public Product(String name, String shortDescription, Integer price) {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -1,17 +1,23 @@
 package com.example.shopbackend.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.HashMap;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Deprecated
 public class BasketOld {
 
     private int totalCost;
 
     private HashMap<ProductOld, Integer> products;
-
-    public BasketOld(int totalCost, HashMap<ProductOld, Integer> products) {
-        this.totalCost = totalCost;
-        this.products = products;
-    }
 
     public int getTotalCost() {
         return totalCost;

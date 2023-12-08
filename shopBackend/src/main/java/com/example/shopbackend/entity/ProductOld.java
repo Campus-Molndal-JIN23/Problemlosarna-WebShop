@@ -1,13 +1,7 @@
 package com.example.shopbackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-
-@Entity
+@Deprecated
 public class ProductOld {
-
-    @Id
     private long id;
     private String name;
 

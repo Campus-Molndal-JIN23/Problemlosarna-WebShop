@@ -100,7 +100,7 @@ Returns the specified product.
   **Content:**  `{ <product_object> }`
 * **Error Response:**
     * **Code:** 404  
-      **Content:** `{ error : "Product doesn't exist" }`
+      **Content:** `{  }`
 
 **POST /products**
 ----
@@ -111,8 +111,8 @@ Creates a new Product and returns the new object.
 ```
   {
     name: string
-    cost: integer
-    desription: string
+    shortDescription: string
+    price: integer
   }
 ```
 * **Headers**  
@@ -124,9 +124,9 @@ Creates a new Product and returns the new object.
 * **Error response:**
     * **Code:** 401
     * OR
-    * **Code:** 409
+    * **Code:** 400
 
-**PUT /products/:id**
+**PUT /products**
 ---- 
 Updates fields on the specified product and returns the updated object.
 * **URL Params**  
@@ -136,8 +136,8 @@ Updates fields on the specified product and returns the updated object.
   {
     id: long
     name: string
-    cost: integer
-    desription: string
+    shortDescription: string
+    price: integer
   }
 ```
 * **Headers**  
