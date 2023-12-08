@@ -94,7 +94,7 @@ public class ProductHttp {
 
     public void updateProduct(Product product, String token) throws IOException {
 
-        HttpPut request = new HttpPut("http://localhost:8080/webshop/products/"+ product.getId());
+        HttpPut request = new HttpPut("http://localhost:8080/webshop/products");
 
         ObjectMapper mapper = new ObjectMapper();
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);

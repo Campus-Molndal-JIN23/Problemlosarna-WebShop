@@ -5,7 +5,7 @@ import com.example.shopbackend.entity.BasketOld;
 import com.example.shopbackend.entity.OrderOld;
 import com.example.shopbackend.entity.ProductOld;
 import com.example.shopbackend.form.UserTest;
-
+import com.example.shopbackend.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

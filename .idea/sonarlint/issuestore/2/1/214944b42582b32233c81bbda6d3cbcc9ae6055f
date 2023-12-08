@@ -1,12 +1,42 @@
 
-o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß¬Ïûøÿÿÿÿ8”‹­„Ä1
+o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß¬Ïûøÿÿÿÿ8”‹­„Ä1
 O
-java:S1135"2Complete the task associated to this TODO comment.(¡ÚŒÏ8–‹­„Ä1
-T
-java:S1135)"2Complete the task associated to this TODO comment.(öû¨•úÿÿÿÿ8¡‹­„Ä1
-H
-java:S1128"+Remove this unused import 'java.sql.Array'.(Õø‹ù8®‹­„Ä1
+java:S1135"2Complete the task associated to this TODO comment.(¡ÚŒÏ8–‹­„Ä1
+N
+java:S1874"2Remove this use of "ProductOld"; it is deprecated.(Ş¤€Z8¥ˆÇ×Ä1
+O
+java:S1874"2Remove this use of "ProductOld"; it is deprecated.(ÛıêÚ8«ˆÇ×Ä1
+N
+java:S1874"2Remove this use of "ProductOld"; it is deprecated.(˜š8¬ˆÇ×Ä1
+N
+java:S1874"1Remove this use of "BasketOld"; it is deprecated.(Ùøš8­ˆÇ×Ä1
+N
+java:S1874"1Remove this use of "BasketOld"; it is deprecated.(Ùøš8­ˆÇ×Ä1
 M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8®‹­„Ä1
-L
-java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8¯‹­„Ä1
+java:S1874"0Remove this use of "OrderOld"; it is deprecated.(˜Ü‹œ8¯ˆÇ×Ä1
+T
+java:S1135$"2Complete the task associated to this TODO comment.(öû¨•úÿÿÿÿ8¡‹­„Ä1
+R
+java:S1874&"0Remove this use of "OrderOld"; it is deprecated.(âîë¤úÿÿÿÿ8±ˆÇ×Ä1
+M
+java:S1874A"0Remove this use of "OrderOld"; it is deprecated.(£…ôæ8ÂˆÇ×Ä1
+N
+java:S1874B"2Remove this use of "ProductOld"; it is deprecated.(Ş¤€Z8ÂˆÇ×Ä1
+O
+java:S1874D"2Remove this use of "ProductOld"; it is deprecated.(ÛıêÚ8ÃˆÇ×Ä1
+N
+java:S1874E"2Remove this use of "ProductOld"; it is deprecated.(˜š8ÄˆÇ×Ä1
+O
+java:S1874F"2Remove this use of "ProductOld"; it is deprecated.(£Áö€8ÄˆÇ×Ä1
+T
+java:S1874G"2Remove this use of "ProductOld"; it is deprecated.(Öâºùÿÿÿÿ8ÅˆÇ×Ä1
+S
+java:S1874I"1Remove this use of "BasketOld"; it is deprecated.(±ÇË÷ÿÿÿÿÿ8ÅˆÇ×Ä1
+S
+java:S1874I"1Remove this use of "BasketOld"; it is deprecated.(±ÇË÷ÿÿÿÿÿ8ÅˆÇ×Ä1
+R
+java:S1874K"0Remove this use of "OrderOld"; it is deprecated.(‰Ï¨Öøÿÿÿÿ8ÆˆÇ×Ä1
+R
+java:S1874L"0Remove this use of "OrderOld"; it is deprecated.(¡¯¶Œûÿÿÿÿ8ÆˆÇ×Ä1
+R
+java:S1874M"0Remove this use of "OrderOld"; it is deprecated.(×¶Å‘ûÿÿÿÿ8ÇˆÇ×Ä1

@@ -30,9 +30,8 @@ public class IndexController {
     }
 
     @GetMapping("/index/one/{id}")
-    public String getOneProduct(@PathVariable long id, Model model1, Model model2) throws IOException, ParseException {
+    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
         model1.addAttribute("product", productHttp.getProductById(id));
-        model2.addAttribute("current_user_role", currentUser.getRole());
         return "view_one_product";
     }
 

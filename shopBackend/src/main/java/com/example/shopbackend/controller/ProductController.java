@@ -38,7 +38,7 @@ public class ProductController {
 
     @PostMapping("")
     public ResponseEntity<Product> createOne(@RequestBody Product product) {
-        log.info("create Product: " + product);
+
         var savedProduct = productService.save(product);
 
         if (savedProduct != null) {

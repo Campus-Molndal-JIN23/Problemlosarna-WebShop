@@ -46,7 +46,7 @@
                     <dd class="col-sm-9" th:text="${product.getName()}"></dd>
 
                     <dt class="col-sm-3">Price:</dt>
-                    <dd class="col-sm-9" th:text="${product.getCost()}"></dd>
+                    <dd class="col-sm-9" th:text="${product.getPrice()}"></dd>
 
                     <dt class="col-sm-3">Description:</dt>
                     <dd class="col-sm-9" th:text="${product.getDescription()}"></dd>
@@ -58,18 +58,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    // this dynamically change the th:href value of the back button depending on the user role
-    const userRole = '${current_user_role}';
-    const adminHref = "/admin";
-    const userHref = "/user";
-    if(userRole === "ADMIN")
-        document.getElementById("backToProductsButton").setAttribute("th:href", adminHref);
-    if(userRole === "USER")
-        document.getElementById("backToProductsButton").setAttribute("th:href", userHref);
-
-</script>
 
 </body>
 </html>
