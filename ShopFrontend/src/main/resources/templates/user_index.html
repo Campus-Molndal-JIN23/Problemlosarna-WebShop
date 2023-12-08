@@ -23,18 +23,15 @@
     <!-- Navbar links -->
     <div class="navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
-
-            <!-- Show past orders -->
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Show past orders</a>
+                <a class="nav-link" th:href="@{/user}">Home</a>
             </li>
-
-            <!-- Basket -->
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Basket</a>
+                <a class="nav-link" th:href="@{/user/orders}">Show past orders</a>
             </li>
-
-            <!-- Logout -->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/basket}">Basket</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}">Log out</a>
             </li>
@@ -62,12 +59,13 @@
         <tbody>
         <tr th:each = "productRespons: ${products}">
             <td th:text="${productRespons.name}"></td>
-            <td th:text="${productRespons.cost}"></td>
+            <td th:text="${productRespons.price}"></td>
 
             <td>
-                <a></a>
-                <a></a>
-                <a></a>
+                <a th:href="@{/user/one/{id}(id=${productRespons.getId()})}"
+                   class="btn btn-primary">More Info</a>
+                <a th:href="@{/user/basket/add/{id}(id=${productRespons.getId()})}"
+                   class="btn btn-primary">Put In Basket</a>
             </td>
 
         </tr>

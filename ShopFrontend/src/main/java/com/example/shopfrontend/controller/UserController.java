@@ -62,9 +62,10 @@ public class UserController {
             // Handle the case where basketItems is null, e.g., show an error message
             model.addAttribute("errorMessage", "Error fetching basket items");
         }
-        return "basket";
+        return "user_basket";
     }
 
+    //TODO needs produkt id, what do we send?
     @PostMapping("/user/basket/add")
     public String addToBasket(Product basketItem) throws IOException {
         // Add a product to the user's basket
@@ -96,5 +97,11 @@ public class UserController {
         userHttp.removeProductFromBasket(IndexController.currentUser.getToken(), id);
         return "redirect:/user/basket";
 
+    }
+
+    @GetMapping("/user/orders")
+    public String getOrders(Model model) throws IOException, ParseException {
+        model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
+        return "user_past_orders";
     }
 }
