@@ -91,7 +91,6 @@ public class ShopBackendApplication {
             }
 
 
-
             Optional<Order> fetchOrder2 = orderRepository.findByUserId(user2.getId());
             System.out.println("Order 2 id:" + fetchOrder2.get().getId());
 

@@ -18,6 +18,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)

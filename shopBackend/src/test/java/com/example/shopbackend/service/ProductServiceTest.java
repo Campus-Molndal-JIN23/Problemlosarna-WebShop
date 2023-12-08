@@ -82,7 +82,7 @@ class ProductServiceTest {
         var savedProduct = productService.save(product);
 
         // perform action
-        boolean actual = productService.delete(savedProduct);
+        boolean actual = productService.delete(savedProduct.getId());
 
         assertTrue(actual);
     }
@@ -93,7 +93,7 @@ class ProductServiceTest {
         product.setId(2139435345L);
 
         // perform action
-        boolean actual = productService.delete(product);
+        boolean actual = productService.delete(product.getId());
 
         assertFalse(actual);
     }

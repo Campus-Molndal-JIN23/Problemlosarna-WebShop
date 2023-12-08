@@ -1,5 +1,6 @@
 package com.example.shopbackend.entity;
 
+@Deprecated
 public class ProductOld {
     private long id;
     private String name;

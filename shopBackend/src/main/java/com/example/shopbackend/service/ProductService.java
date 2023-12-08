@@ -29,7 +29,6 @@ public class ProductService {
     }
 
     /**
-     *
      * @param product
      * @return
      */
@@ -47,17 +46,18 @@ public class ProductService {
 
     /**
      * Checks if a products exist, deletes object that exist.
-     * @param product
+     *
+     * @param id
      * @return true if deleted, false if not found
      */
-    public boolean delete(Product product) {
+    public boolean delete(long id) {
 
-        var productExists = productRepository.findById(product.getId()).orElse(null);
+        var productExists = productRepository.findById(id).orElse(null);
 
         if (productExists == null) {
             return false;
         } else {
-            productRepository.delete(product);
+            productRepository.deleteById(id);
             return true;
         }
     }

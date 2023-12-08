@@ -124,20 +124,20 @@ Creates a new Product and returns the new object.
 * **Error response:**
     * **Code:** 401
     * OR
-    * **Code:** 409
+    * **Code:** 400
 
 **PUT /products/:id**
 ---- 
 Updates fields on the specified product and returns the updated object.
 * **URL Params**  
-  None
+  *Required:* `id=[integer]`
 * **Data Params**
 ```
   {
     id: long
     name: string
-    cost: integer
-    desription: string
+    shortDescription: string
+    price: integer
   }
 ```
 * **Headers**  

@@ -2,7 +2,6 @@ package com.example.shopbackend.controller;
 
 
 import com.example.shopbackend.entity.Product;
-import com.example.shopbackend.entity.ProductOld;
 import com.example.shopbackend.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -42,25 +41,31 @@ public class ProductController {
         log.info("create Product: " + product);
         var savedProduct = productService.save(product);
 
-        if (savedProduct instanceof Product) {
+        if (savedProduct != null) {
             return ResponseEntity.ok(savedProduct);
-        } else {
+        } else { // How to write a test for this condition?
             return ResponseEntity.internalServerError().build();
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductOld> updateOne(@PathVariable long id, @RequestBody ProductOld product) {
-        log.info("update Product: " + product);
-
-        return ResponseEntity.ok(new ProductOld(1, "A updated product", 42, "Not the product you sent but a generic return"));
-
+    @PutMapping("")
+    public ResponseEntity<Product> updateOne(@RequestBody Product product) {
+        var response = productService.update(product);
+        if (response != null) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOne(@PathVariable long id) {
-        log.info("delete Product: ");
-        return ResponseEntity.noContent().build();
+
+        if (productService.delete(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

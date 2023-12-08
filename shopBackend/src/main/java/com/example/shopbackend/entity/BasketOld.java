@@ -12,6 +12,7 @@ import java.util.HashMap;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Deprecated
 public class BasketOld {
 
     private int totalCost;
