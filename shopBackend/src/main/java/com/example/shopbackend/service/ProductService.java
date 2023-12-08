@@ -28,6 +28,11 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    /**
+     *
+     * @param product
+     * @return
+     */
     public Product update(Product product) {
 
         // check that the product exists

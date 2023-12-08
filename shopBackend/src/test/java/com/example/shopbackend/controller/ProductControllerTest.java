@@ -39,6 +39,17 @@ class ProductControllerTest {
                 .andExpect(status()
                         .isOk());
     }
+    @Test
+    void ProductDosentExistShouldFail() throws Exception {
+        this.mvc.perform(get(API + "/" + 99999993434L)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status()
+                        .isNotFound());
+    }
+
+
+
+
 
     @Test
     void postCreateOne() throws Exception {
