@@ -100,7 +100,7 @@ Returns the specified product.
   **Content:**  `{ <product_object> }`
 * **Error Response:**
     * **Code:** 404  
-      **Content:** `{ error : "Product doesn't exist" }`
+      **Content:** `{  }`
 
 **POST /products**
 ----
@@ -111,8 +111,8 @@ Creates a new Product and returns the new object.
 ```
   {
     name: string
-    cost: integer
-    desription: string
+    shortDescription: string
+    price: integer
   }
 ```
 * **Headers**  

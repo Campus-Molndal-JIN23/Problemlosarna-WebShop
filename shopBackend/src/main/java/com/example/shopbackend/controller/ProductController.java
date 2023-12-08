@@ -34,13 +34,19 @@ public class ProductController {
         var product = productService.findById(id);
 
         return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
-        
+
     }
 
     @PostMapping("")
-    public ResponseEntity<ProductOld> createOne(@RequestBody ProductOld product) {
+    public ResponseEntity<Product> createOne(@RequestBody Product product) {
         log.info("create Product: " + product);
-        return ResponseEntity.ok(new ProductOld(1, "A created product", 42, "Not the product you sent but a generic return"));
+        var savedProduct = productService.save(product);
+
+        if (savedProduct instanceof Product) {
+            return ResponseEntity.ok(savedProduct);
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PutMapping("/{id}")

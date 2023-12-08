@@ -1,5 +1,6 @@
 package com.example.shopbackend.controller;
 
+import com.example.shopbackend.entity.Product;
 import com.example.shopbackend.entity.ProductOld;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ class ProductControllerTest {
                         .isOk());
     }
     @Test
-    void ProductDosentExistShouldFail() throws Exception {
+    void ProductDoesNotExistShouldFail() throws Exception {
         this.mvc.perform(get(API + "/" + 99999993434L)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status()
@@ -53,13 +54,24 @@ class ProductControllerTest {
 
     @Test
     void postCreateOne() throws Exception {
-        var payload = new ProductOld("A created product", 42, "Not the product you sent but a generic return");
+        var payload = new Product("A created product",  "Not the product you sent but a generic return", 42);
 //        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void FailToCreateOne() throws Exception {
+        var payload = new Product("A created product",  "Not the product you sent but a generic return", 42);
+//        System.out.println(mapper.writeValueAsString(payload));
+        this.mvc.perform(post(API)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(payload))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
     }
 
     @Test
