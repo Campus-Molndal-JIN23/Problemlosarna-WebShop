@@ -30,6 +30,12 @@ public class AdminController {
         return "admin_index";
     }
 
+    @GetMapping("/admin/one/{id}")
+    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
+        model1.addAttribute("product", productHttp.getProductById(id));
+        return "admin_view_one_product";
+    }
+
     @GetMapping ("/admin/create_product")
     public String createProductForm(Model model) {
         Product product = new Product();
@@ -49,12 +55,12 @@ public class AdminController {
         return "update_product";
     }
 
-    @PostMapping ("/admin/edit_product/{id})")
+    @PostMapping ("/admin/edit_product/{id}")
     public String updateProduct(@PathVariable long id , @ModelAttribute Product product) throws IOException, ParseException {
         Product productToUpdate = productHttp.getProductById(id);
         productToUpdate.setId(product.getId());
         productToUpdate.setName(product.getName());
-        productToUpdate.setCost(product.getCost());
+        productToUpdate.setPrice(product.getPrice());
         productToUpdate.setDescription(product.getDescription());
         productHttp.updateProduct(productToUpdate,IndexController.currentUser.getToken());
         log.info("updateProduct: " + productToUpdate);
@@ -67,11 +73,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/admin/all_orders")
     public String getAllOrders(Model model) throws IOException, ParseException {
         model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
         return "all_orders";
     }
+
+
 
 
 }

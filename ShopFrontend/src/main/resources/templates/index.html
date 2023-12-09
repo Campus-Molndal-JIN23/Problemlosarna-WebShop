@@ -48,7 +48,7 @@
         <tbody>
         <tr th:each = "product: ${products}">
             <td th:text="${product.name}"></td>
-            <td th:text="${product.cost}"></td>
+            <td th:text="${product.price}"></td>
             <td>
                 <a th:href="@{/index/one/{id}(id=${product.id})}"
                    class="btn btn-primary">More Info</a>

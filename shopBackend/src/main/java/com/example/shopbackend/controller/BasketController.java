@@ -1,12 +1,12 @@
 package com.example.shopbackend.controller;
 
-import com.example.shopbackend.entity.*;
+import com.example.shopbackend.entity.BasketOld;
+import com.example.shopbackend.entity.ProductDTO;
+import com.example.shopbackend.entity.ProductOld;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/webshop/basket")

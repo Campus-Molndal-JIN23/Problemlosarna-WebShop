@@ -1,11 +1,12 @@
 package com.example.shopbackend.controller;
 
-import com.example.shopbackend.entity.ProductOld;
+
+import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -13,45 +14,58 @@ import java.util.List;
 @RequestMapping("/webshop/products")
 public class ProductController {
 
+    private final ProductService productService;
+
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("")
-    public ResponseEntity<List<ProductOld>> getAll() {
+    public ResponseEntity<List<Product>> getAll() {
 
-        List<ProductOld> products = new ArrayList<>();
-
-        products.add(new ProductOld(1,"Product 1", 100, "Text about the product 1"));
-        products.add(new ProductOld(2,"Product 2", 200, "Text about the product 2"));
-        products.add(new ProductOld(3,"Product 3", 300, "Text about the product 3"));
-        products.add(new ProductOld(4,"Product 4", 400, "Text about the product 4"));
-
-
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(productService.findAll());
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductOld> getOne(@PathVariable long id) {
+    public ResponseEntity<Product> getOne(@PathVariable long id) {
 
-        return ResponseEntity.ok(new ProductOld(1,"Product 1", 100, "Text about the product 1"));
+        var product = productService.findById(id);
+
+        return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("")
-    public ResponseEntity<ProductOld> createOne(@RequestBody ProductOld product) {
-        log.info("create Product: " + product);
-        return ResponseEntity.ok(new ProductOld(1,"A created product", 42, "Not the product you sent but a generic return"));
+    public ResponseEntity<Product> createOne(@RequestBody Product product) {
+
+        var savedProduct = productService.save(product);
+
+        if (savedProduct != null) {
+            return ResponseEntity.ok(savedProduct);
+        } else { // How to write a test for this condition?
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductOld> updateOne(@PathVariable long id, @RequestBody ProductOld product) {
-        log.info("update Product: " + product);
-
-        return ResponseEntity.ok(new ProductOld(1,"A updated product", 42, "Not the product you sent but a generic return"));
+    @PutMapping("")
+    public ResponseEntity<Product> updateOne(@RequestBody Product product) {
+        var response = productService.update(product);
+        if (response != null) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOne(@PathVariable long id) {
-        log.info("delete Product: ");
-        return ResponseEntity.noContent().build();
+
+        if (productService.delete(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

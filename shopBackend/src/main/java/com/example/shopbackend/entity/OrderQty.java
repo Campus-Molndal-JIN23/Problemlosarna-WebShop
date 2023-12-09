@@ -12,14 +12,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "baskets")
-public class Basket {
+@Table(name = "order_qty")
+
+public class OrderQty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "product_id", nullable = false)
@@ -32,4 +32,23 @@ public class Basket {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    public OrderQty(Product product, Integer quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public OrderQty(Product product, Integer quantity, Order order) {
+        this.product = product;
+        this.quantity = quantity;
+        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
