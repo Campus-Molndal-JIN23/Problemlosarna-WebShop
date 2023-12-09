@@ -1,17 +1,16 @@
-package com.example.shopbackend.security.dao.response;
+package com.example.shopbackend.form;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+public class LoginResponseDTO {
 
-public class JwtAuthenticationResponse {
-
+    private String username;
     private String token;
+    private String role;
 
 }
