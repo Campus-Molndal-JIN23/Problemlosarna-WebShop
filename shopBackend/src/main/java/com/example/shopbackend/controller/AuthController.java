@@ -3,6 +3,7 @@ package com.example.shopbackend.controller;
 import ch.qos.logback.core.model.Model;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponse;
+import com.example.shopbackend.security.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
