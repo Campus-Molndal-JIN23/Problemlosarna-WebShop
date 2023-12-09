@@ -1,5 +1,6 @@
 package com.example.shopbackend.security.service;
 
+import com.example.shopbackend.repository.UserRepository;
 import com.example.shopbackend.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;

@@ -1,5 +1,7 @@
 package com.example.shopbackend.security.service;
 
+import com.example.shopbackend.form.LoginForm;
+import com.example.shopbackend.repository.UserRepository;
 import com.example.shopbackend.security.dao.request.Request;
 import com.example.shopbackend.security.dao.response.JwtAuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @throws IllegalArgumentException if the provided email or password is invalid.
      */
     @Override
-    public JwtAuthenticationResponse signin(Request request) {
+    public JwtAuthenticationResponse signin(LoginForm request) {
 
         // Authenticate the user using Spring Security's authentication manager
         authenticationManager.authenticate(

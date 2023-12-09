@@ -30,12 +30,14 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(UserDetailsImpl userDetails) {
         Long userId = userDetails.getId();
+        String userName = userDetails.getUsername();
         Map<String, Object> claims = new HashMap<>();
-        Set<String> roles = userDetails.getRoles().stream()
+        /*Set<String> roles = userDetails.getRoles().stream()
                 .map(role -> role.getAuthority().name())
-                .collect(Collectors.toSet());
-        claims.put("roles", roles);
-        claims.put("userName", userId);
+               .collect(Collectors.toSet());
+        claims.put("roles", roles);*/
+        claims.put("userID", userId);
+        claims.put("username",userName);
 
         return generateToken(claims, userDetails);
     }

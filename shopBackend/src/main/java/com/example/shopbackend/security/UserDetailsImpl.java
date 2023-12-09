@@ -12,11 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
-
-@Component
 @Builder
 @Data
-@RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private long id;
