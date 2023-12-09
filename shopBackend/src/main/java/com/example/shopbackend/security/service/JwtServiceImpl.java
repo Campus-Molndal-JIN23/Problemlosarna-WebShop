@@ -1,6 +1,7 @@
 package com.example.shopbackend.security.service;
 
-import com.example.shopbackend.security.UserDetailsImpl;
+
+import com.example.shopbackend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,7 +29,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String generateToken(UserDetailsImpl userDetails) {
+    public String generateToken(User userDetails) {
         Long userId = userDetails.getId();
         String userName = userDetails.getUsername();
         Map<String, Object> claims = new HashMap<>();

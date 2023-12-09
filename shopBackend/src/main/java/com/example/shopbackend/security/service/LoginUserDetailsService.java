@@ -1,8 +1,10 @@
 package com.example.shopbackend.security.service;
 
+
 import com.example.shopbackend.repository.UserRepository;
-import com.example.shopbackend.security.UserDetailsImpl;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +26,7 @@ public class LoginUserDetailsService implements UserService {
         // Lambda expression defining a UserDetailsService for the given email
         return userName -> {
             // Retrieve a user from the repository based on the provided email
-            UserDetailsImpl user1 = repository.findByUserName(userName)
+            com.example.shopbackend.entity.User user1 = repository.findByUserName(userName)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             // Build and return a UserDetails object with the user's information
             return User.builder()

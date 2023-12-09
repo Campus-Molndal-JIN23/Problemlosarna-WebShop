@@ -3,6 +3,7 @@ package com.example.shopbackend.controller;
 import ch.qos.logback.core.model.Model;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponseDTO;
+import com.example.shopbackend.security.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,9 @@ public class AuthController {
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginForm loginForm ){
         //TODO remove system out
         System.out.println(loginForm.getPassword());
-        System.out.println(loginForm.getUsername());
+        System.out.println(loginForm.getUserName());
+
+
         LoginResponseDTO loginResponse=new LoginResponseDTO("userName","Token","Admin");
         //Vill retunera username och role
         return ResponseEntity.ok(loginResponse);
