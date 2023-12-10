@@ -22,6 +22,7 @@ public class IndexController {
     private ProductHttp productHttp;
     private  UserHttp userHttp;
     static LoginResponse currentUser = new LoginResponse();
+    static String errorMessage = "";
 
     @GetMapping("/index")
     public String listProducts(Model model) throws IOException, ParseException {
@@ -62,18 +63,33 @@ public class IndexController {
     public String registration(Model model) {
         RegistrationForm registrationForm = new RegistrationForm();
         model.addAttribute("registrationForm", registrationForm);
+        model.addAttribute("errorMessage", errorMessage);
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerUser(RegistrationForm form) throws IOException, ParseException {
-        userHttp.registerUser(form);
-        return "redirect:/login";
+    public String registerUser(RegistrationForm form, Model model) throws IOException, ParseException {
+        int status = userHttp.registerUser(form);
+        if (status == 200) {
+            return "redirect:/login";
+        }
+        if (status == 409) {
+            errorMessage = "Username already exists";
+        } else {
+            errorMessage = "Something went wrong with the registration";
+        }
+        return "redirect:/registration";
     }
 
     @GetMapping("/logout")
     public String logout() {
         currentUser = new LoginResponse();
         return "redirect:/index";
+    }
+
+    @GetMapping("/error")
+    public String error(Model model) {
+        model.addAttribute("errorMessage", "Something went wrong");
+        return "error";
     }
 }

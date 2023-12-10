@@ -20,7 +20,9 @@ public class AuthController {
         System.out.println("username: " + loginForm.getUsername());
         System.out.println("password: " + loginForm.getPassword());
 
-        return ResponseEntity.ok("User created");
+        //return ResponseEntity.ok("User created");
+        //or if user already exists
+        return ResponseEntity.status(409).body("User already exists");
     }
 
 

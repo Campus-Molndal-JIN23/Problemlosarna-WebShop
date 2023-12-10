@@ -32,9 +32,16 @@
 <br>
 <br>
 <div class="container">
+
+</div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm6 container justify-content-center card">
             <h1 class="text-center">Registration</h1>
+            <div class ="container">
+                <br>
+                <div class = text-center>
+                    <h5  ><span th:text="${errorMessage}" style="color: red;"></span></h5>
+                </div>
             <div class="card-body">
                 <form th:action="@{/registration}" th:object="${registrationForm}" method="post"
                       onsubmit="return validatePassword()">
@@ -62,6 +69,7 @@
                     </div>
 
                     <div class="box-footer">
+                        <br>
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
