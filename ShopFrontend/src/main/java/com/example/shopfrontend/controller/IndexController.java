@@ -51,9 +51,9 @@ public class IndexController {
         }
         else {
             if (currentUser.getRole().equals("ADMIN")) {
-                return "redirect:/admin_index";
+                return "redirect:/admin";
             } else {
-                return "redirect:/user_index";
+                return "redirect:/user";
             }
         }
     }
