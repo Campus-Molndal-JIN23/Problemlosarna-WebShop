@@ -36,7 +36,8 @@
         <div class="col-lg-6 col-md-6 col-sm6 container justify-content-center card">
             <h1 class="text-center">Registration</h1>
             <div class="card-body">
-                <form th:action="@{/registration}" th:object="${registrationForm}" method="post">
+                <form th:action="@{/registration}" th:object="${registrationForm}" method="post"
+                      onsubmit="return validatePassword()">
                     <div class="form-group">
                         <label>Username</label>
                         <input
@@ -51,25 +52,44 @@
                     <div class="form-group">
                         <label>Password</label>
                         <input
-                                type="text"
-                                name="lastName"
+                                type="password"
+                                name="password"
                                 th:field="*{password}"
                                 class="form-control"
                                 placeholder="Enter Password"
                         />
+                        <small class="form-text text-danger" id="passwordError"></small>
                     </div>
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Register</button>
-
                     </div>
                 </form>
             </div>
-
         </div>
-
     </div>
 </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function validatePassword() {
+        let password = document.getElementsByName('password')[0].value;
+        let passwordError = document.getElementById('passwordError');
+
+        // Define your password format criteria
+        let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+        // Check if the password meets the criteria
+        if (!passwordRegex.test(password)) {
+            passwordError.innerText = 'Password must contain at least one digit, one lowercase and one uppercase letter, and be at least 8 characters long.';
+            return false; // Prevent form submission
+        } else {
+            passwordError.innerText = ''; // Clear any previous error message
+            return true; // Allow form submission
+        }
+    }
+    /*]]>*/
+</script>
 
 </body>
 </html>

@@ -31,7 +31,7 @@ public class UserHttp {
 
     public LoginResponse loginUser(LoginForm form) throws IOException, ParseException, IOException {
 
-            HttpGet request = new HttpGet("http://localhost:8080/webshop/login");
+            HttpGet request = new HttpGet("http://localhost:8080/webshop/auth/login");
 
             request.setEntity(createPayload(form));
 
@@ -51,7 +51,7 @@ public class UserHttp {
 
     public int registerUser(RegistrationForm form) throws IOException, ParseException, IOException {
 
-        HttpGet request = new HttpGet("http://localhost:8080/webshop/register");
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/auth/register");
 
         request.setEntity(createPayload(form));
 
