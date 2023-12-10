@@ -21,8 +21,9 @@ public class IndexController {
 
     private ProductHttp productHttp;
     private  UserHttp userHttp;
-    static LoginResponse currentUser = new LoginResponse();
+    public static LoginResponse currentUser = new LoginResponse();
     static String errorMessage = "";
+    static int status = 0;
 
     @GetMapping("/index")
     public String listProducts(Model model) throws IOException, ParseException {
@@ -46,10 +47,14 @@ public class IndexController {
 
     @PostMapping("/loginUser")
     public String loginUser(LoginForm user) throws IOException, ParseException {
-        currentUser = userHttp.loginUser(user);
+        status = userHttp.loginUser(user);
 
-        if (currentUser == null) {
-            errorMessage = "Wrong username or password or maybe you are not registered yet";
+        if (status == 401) {
+            errorMessage = "Wrong username or password";
+            return "redirect:/registration";
+        }
+        if (status == 404) {
+            errorMessage = "User not found";
             return "redirect:/registration";
         }
         else {
@@ -71,7 +76,7 @@ public class IndexController {
 
     @PostMapping("/registration")
     public String registerUser(RegistrationForm form, Model model) throws IOException, ParseException {
-        int status = userHttp.registerUser(form);
+        status = userHttp.registerUser(form);
         if (status == 200) {
             return "redirect:/login";
         }

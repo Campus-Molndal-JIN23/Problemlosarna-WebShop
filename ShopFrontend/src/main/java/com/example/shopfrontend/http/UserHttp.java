@@ -1,5 +1,6 @@
 package com.example.shopfrontend.http;
 
+import com.example.shopfrontend.controller.IndexController;
 import com.example.shopfrontend.models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,7 +30,7 @@ public class UserHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-    public LoginResponse loginUser(LoginForm form) throws IOException, ParseException, IOException {
+    public int loginUser(LoginForm form) throws IOException, ParseException, IOException {
 
             HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/login");
 
@@ -39,14 +40,15 @@ public class UserHttp {
             log.info(String.valueOf(response.getCode()));
             if (response.getCode() != 200) {
                 log.error("Error uppstod");
-                return null;
+                return response.getCode();
             }
             HttpEntity entity = response.getEntity();
 
             ObjectMapper mapper = new ObjectMapper();
             LoginResponse loginResponse = mapper.readValue(EntityUtils.toString(entity), new TypeReference<LoginResponse>() {});
             log.info("loginResponse: " + loginResponse);
-            return loginResponse;
+            IndexController.currentUser = loginResponse;
+            return response.getCode();
     }
 
     public int registerUser(RegistrationForm form) throws IOException, ParseException, IOException {
