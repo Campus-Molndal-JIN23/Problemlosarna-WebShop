@@ -40,6 +40,7 @@ public class IndexController {
     public String login(Model model) {
         LoginForm loginform = new LoginForm();
         model.addAttribute("loginform", loginform);
+        model.addAttribute("errorMessage", errorMessage);
         return "login";
     }
 
@@ -47,7 +48,8 @@ public class IndexController {
     public String loginUser(LoginForm user) throws IOException, ParseException {
         currentUser = userHttp.loginUser(user);
 
-        if (currentUser == null) { //if the is no user
+        if (currentUser == null) {
+            errorMessage = "Wrong username or password or maybe you are not registered yet";
             return "redirect:/registration";
         }
         else {
@@ -85,11 +87,5 @@ public class IndexController {
     public String logout() {
         currentUser = new LoginResponse();
         return "redirect:/index";
-    }
-
-    @GetMapping("/error")
-    public String error(Model model) {
-        model.addAttribute("errorMessage", "Something went wrong");
-        return "error";
     }
 }

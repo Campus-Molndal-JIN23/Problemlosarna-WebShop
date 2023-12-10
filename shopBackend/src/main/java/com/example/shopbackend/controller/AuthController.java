@@ -20,9 +20,9 @@ public class AuthController {
         System.out.println("username: " + loginForm.getUsername());
         System.out.println("password: " + loginForm.getPassword());
 
-        //return ResponseEntity.ok("User created");
-        //or if user already exists
-        return ResponseEntity.status(409).body("User already exists");
+        return ResponseEntity.ok("User created");
+        //or if user already exists this
+        //return ResponseEntity.status(409).body("User already exists");
     }
 
 
@@ -34,6 +34,9 @@ public class AuthController {
         LoginResponseDTO loginResponse=new LoginResponseDTO("userName","Token","Admin");
         //Vill retunera username och role
         return ResponseEntity.ok(loginResponse);
+        //or if dont exist
+        //return ResponseEntity.status(404).body("User does not exist");
+
 
     }
 
