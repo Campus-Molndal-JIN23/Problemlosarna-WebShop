@@ -1,22 +1,16 @@
 package com.example.shopbackend;
 
-import com.example.shopbackend.entity.Order;
-import com.example.shopbackend.entity.OrderQty;
-import com.example.shopbackend.entity.Product;
-import com.example.shopbackend.entity.User;
-import com.example.shopbackend.repository.OrderQtyRepository;
-import com.example.shopbackend.repository.OrderRepository;
-import com.example.shopbackend.repository.ProductRepository;
-import com.example.shopbackend.repository.UserRepository;
+import com.example.shopbackend.entity.*;
+import com.example.shopbackend.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}) // Exclude to make sure the project runs for all.
 //@SpringBootApplication
@@ -36,11 +30,29 @@ public class ShopBackendApplication {
      * @return
      */
     @Bean
-    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper) {
+    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository,PasswordEncoder passwordEncoder) {
         return args -> {
+
+
+            if(roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
+            saveRoles(roleRepository,Role.ROLE_ADMIN);
+            saveRoles(roleRepository,Role.ROLE_USER);
+            }
+
+            Roles role = roleRepository.findByAuthority(Role.ROLE_USER)
+                    .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_USER)));
+
+            var user = User.builder()
+                    .userName("name")
+                    .roles(new HashSet<>(Collections.singletonList(role)))
+                    .password(passwordEncoder.encode("Password1"))
+                    .build();
+            userRepository.save(user);
+
 
             var user1 = userRepository.save(new User("name1", "password"));
             var user2 = userRepository.save(new User("name2", "password"));
+
 
             var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
             var product2 = productRepository.save(new Product("Product 2", "Text about the product 2", 200));
@@ -100,6 +112,15 @@ public class ShopBackendApplication {
             }
         };
 
+
+
+    }
+
+
+    public void saveRoles(RoleRepository repository, Role role){
+        Roles roles = new Roles();
+        roles.setAuthority(role);
+        repository.save(roles);
     }
 
 }
