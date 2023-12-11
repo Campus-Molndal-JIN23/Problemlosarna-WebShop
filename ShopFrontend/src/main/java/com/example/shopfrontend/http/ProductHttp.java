@@ -67,7 +67,7 @@ public class ProductHttp {
         return product;
     }
 
-    public Product createProduct(Product product, String token) throws IOException, ParseException {
+    public void createProduct(Product product, String token) throws IOException, ParseException {
 
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
@@ -82,14 +82,13 @@ public class ProductHttp {
         log.info(String.valueOf(response.getCode()));
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return null;
+            return;
         }
 
         HttpEntity entity = response.getEntity();
 
         Product productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
         log.info("createProduct: ", productRespons);
-        return productRespons;
     }
 
     public void updateProduct(Product product, String token) throws IOException {

@@ -35,6 +35,10 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm6 container justify-content-center card">
             <h1 class="text-center">login</h1>
+            <br>
+            <div class = text-center>
+                <h5><span th:text="${errorMessage}" style="color: red;"></span></h5>
+            </div>
             <div class="card-body">
                 <form th:action="@{/loginUser}" th:object="${loginform}" method="post">
                     <div class="form-group">
@@ -59,6 +63,7 @@
                     </div>
 
                     <div class="box-footer">
+                        <br>
                         <button type="submit" class="btn btn-primary">Login</button>
 
                     </div>
