@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class LoginForm {
 
     /**  login id*/
-    String username;
+    String userName;
     /**  password */
     String password;
 
