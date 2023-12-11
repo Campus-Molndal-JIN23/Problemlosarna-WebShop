@@ -28,7 +28,7 @@ public class AuthService {
       }
 
       public Optional<User> getUserByUsername(LoginForm loginForm){
-            String userName = loginForm.getUsername();
+            String userName = loginForm.getUserName();
            return userRepository.findUserByUserName(userName)
                    .or(()-> Optional.empty());
       }

@@ -1,9 +1,13 @@
 package com.example.shopbackend.controller;
 
 import ch.qos.logback.core.model.Model;
+import com.example.shopbackend.entity.Roles;
+import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponseDTO;
 
+import com.example.shopbackend.security.ExtractData;
+import com.example.shopbackend.security.service.AuthenticationService;
 import com.example.shopbackend.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -11,13 +15,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/webshop/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
-
-    AuthService authService;
+    private final AuthenticationService authenticationService;
+   private final AuthService authService;
+   private final ExtractData extractData;
     @PostMapping("/register")    //TODO  check if LoginForm fungerar from annan application
     public ResponseEntity<?> register (@RequestBody LoginForm loginForm){
 
@@ -42,13 +51,18 @@ public class AuthController {
 
 
     @PostMapping("/login") //TODO  check if LoginForm fungerar  from annan application
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginForm loginForm ){
-        //TODO remove system out
-        System.out.println(loginForm.getPassword());
-        System.out.println(loginForm.getUserName());
+    public ResponseEntity<Object> login(@RequestBody LoginForm loginForm ){
 
+        Optional<User> userInfo = authService.getUserByUsername(loginForm);
+        System.out.println(userInfo+"userInfo");
 
-        LoginResponseDTO loginResponse=new LoginResponseDTO("userName","Token","Admin");
+        //if(!userInfo.isPresent())
+          // return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exists");
+
+        System.out.println(authenticationService.signin(loginForm);
+        System.out.println("token");
+        Set<String> role= extractData.getUserAgent();
+        LoginResponseDTO loginResponse=new LoginResponseDTO(loginForm.getUserName(),"token", role.toString());
         //Vill retunera username och role
         return ResponseEntity.ok(loginResponse);
         //or if dont exist

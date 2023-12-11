@@ -33,14 +33,15 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
         http.authorizeHttpRequests(authz -> authz
+                       /* .requestMatchers("http://localhost:8080/h2-console/**" ).permitAll()
                         // Allow public access to authentication-related endpoints
                         .requestMatchers("/webshop/auth/**").permitAll()
                         // Restrict access to certain endpoints based on user roles
                         .requestMatchers(HttpMethod.POST, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/webshop/products/**").hasRole("ADMIN")
-                        // Require authentication for any other endpoint
-                        .anyRequest().authenticated())
+                        // Require authentication for any other endpoint */
+                        .anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 // Configure JWT authentication filter

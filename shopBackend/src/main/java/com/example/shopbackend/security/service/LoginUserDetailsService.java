@@ -26,13 +26,13 @@ public class LoginUserDetailsService implements UserService {
         // Lambda expression defining a UserDetailsService for the given email
         return userName -> {
             // Retrieve a user from the repository based on the provided email
-            com.example.shopbackend.entity.User user1 = repository.findByUserName(userName)
+            com.example.shopbackend.entity.User user = repository.findUserByUserName(userName)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             // Build and return a UserDetails object with the user's information
             return User.builder()
-                    .username(user1.getUsername())
-                    .password(user1.getPassword())
-                    .authorities(user1.getAuthorities()) // Set authorities (roles) appropriately
+                    .username(user.getUsername())
+                    .password(user.getPassword())
+                    .authorities(user.getAuthorities()) // Set authorities (roles) appropriately
                     .build();
         };
     }
