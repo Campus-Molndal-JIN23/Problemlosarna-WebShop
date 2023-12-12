@@ -1,22 +1,17 @@
 package com.example.shopbackend.controller;
 
-import ch.qos.logback.core.model.Model;
-import com.example.shopbackend.entity.Roles;
+
 import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponseDTO;
-
 import com.example.shopbackend.security.ExtractData;
 import com.example.shopbackend.security.service.AuthenticationService;
 import com.example.shopbackend.service.AuthService;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,6 +19,8 @@ import java.util.Set;
 @RequestMapping("/webshop/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
+    //TODO delete .body
 
     private final AuthenticationService authenticationService;
    private final AuthService authService;
@@ -64,7 +61,7 @@ public class AuthController {
 
             String token = authenticationService.signin(loginForm).getToken();
 
-            Set<String> role = extractData.getUserAgent(token);
+            Set<String> role = extractData.getUserRoles(token);
             LoginResponseDTO loginResponse = new LoginResponseDTO(loginForm.getUserName(), token, role.toString());
 
             return ResponseEntity.ok(loginResponse);

@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
 
-    @Bean //TODO
+    @Bean //TODO check rights
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
 
         http.authorizeHttpRequests(authz -> authz
