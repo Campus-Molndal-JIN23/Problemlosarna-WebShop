@@ -31,9 +31,9 @@ public class JwtServiceImpl implements JwtService {
         Long userId = userDetails.getId();
         String userName = userDetails.getUsername();
         Map<String, Object> claims = new HashMap<>();
-        Set<String> roles = userDetails.getRoles().stream()
+        List<String> roles = userDetails.getRoles().stream()
                 .map(role -> role.getAuthority().name())
-               .collect(Collectors.toSet());
+               .collect(Collectors.toList());
         claims.put("roles", roles);
         claims.put("userID", userId);
         claims.put("username",userName);
@@ -62,7 +62,7 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public Set<String> extractRoles(String token) {
-        return extractClaim(token, claims -> (Set<String>) claims.get("roles"));
+        return extractClaim(token, claims -> new HashSet<>((List<String>) claims.get("roles")));
     }
 
     @Override
