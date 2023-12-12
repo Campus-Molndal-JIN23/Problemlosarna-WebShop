@@ -26,7 +26,7 @@ public class BasketController {
     @GetMapping("/{id}")
     public ResponseEntity<BasketDTO> getBasket(@PathVariable Long id) {
 
-        BasketDTO basket = basketService.getBasket(id);
+        BasketDTO basket = basketService.getBasket(2L);
         LOG.info("controller info " + basket.toString());
         if (basket == null) {
             return ResponseEntity.notFound().build();

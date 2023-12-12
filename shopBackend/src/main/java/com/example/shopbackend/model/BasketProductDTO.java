@@ -2,15 +2,16 @@ package com.example.shopbackend.model;
 
 import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.entity.Product;
+import lombok.Getter;
 
 import java.util.List;
-
+@Getter
 public class BasketProductDTO {
 
-    private int quantity;
-    private String name;
-    private String description;
-    private int price;
+    private final int quantity;
+    private final String name;
+    private final String description;
+    private final int price;
 
     public BasketProductDTO(OrderQty item) {
         this.quantity = item.getQuantity();

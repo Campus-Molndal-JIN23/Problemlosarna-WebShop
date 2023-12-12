@@ -30,12 +30,9 @@ public class BasketService {
     public BasketDTO getBasket(Long userId) {
 
         Optional<Order> order = orderRepository.findByUserIdAndActiveBasket(userId, true);
-        LOG.info(String.format(order.toString()));
-        if (order.isEmpty()) return null;
 
-        List<OrderQty> orderQty = orderQtyRepository.findOrderQtyByOrderId(order.get().getId());
-        LOG.info(String.format(orderQty.toString()));
-        return new BasketDTO(orderQty);
+        return order.map(value -> new BasketDTO(orderQtyRepository.findOrderQtyByOrderId(value.getId()))).orElse(null);
+
     }
 
 

@@ -16,7 +16,6 @@ class BasketServiceTest {
 
     @Test
     void getAExistingBasket() {
-
         var basket = basketService.getBasket(1L);
         assertNotNull(basket);
     }
@@ -24,8 +23,6 @@ class BasketServiceTest {
     @Test
     void tryGetABasketThatDontExist() {
         var basket = basketService.getBasket(998957943L);
-
         assertNull(basket);
-
     }
 }
