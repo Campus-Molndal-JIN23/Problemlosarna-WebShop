@@ -23,9 +23,9 @@ public class LoginUserDetailsService implements UserService {
      */
     @Override
     public UserDetailsService userDetailsService() {
-        // Lambda expression defining a UserDetailsService for the given email
+        // Lambda expression defining a UserDetailsService for the given userName
         return userName -> {
-            // Retrieve a user from the repository based on the provided email
+            // Retrieve a user from the repository based on the provided userName
             com.example.shopbackend.entity.User user = repository.findUserByUserName(userName)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             // Build and return a UserDetails object with the user's information

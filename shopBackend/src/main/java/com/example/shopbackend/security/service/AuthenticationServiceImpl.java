@@ -18,8 +18,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;  //TODO check Repository Name
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
 
     /**
      * Authenticates a user based on the provided sign-in request.
@@ -32,18 +30,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     @Override
     public JwtAuthenticationResponse signin(LoginForm request) {
-        System.out.println(request.getUserName()+":jwtAuthenticationResponse");
 
-        // Authenticate the user using Spring Security's authentication manager
-        authenticationManager.authenticate(
+        // uthenticate the user using Spring Security's authentication manager
 
-                new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+        try {
+            authenticationManager.authenticate(
+
+                    new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+        }catch (Exception e){
+            System.out.println(e);
+        }
         // Retrieve the authenticated user from the repository
         var user = userRepository.findUserByUserName(request.getUserName()) //TODO ask to make findByUsername
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         // Generate a JWT token for the authenticated user
         var jwt = jwtService.generateToken(user);
+
         // Return the generated JWT token in the response
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
+
+
 }

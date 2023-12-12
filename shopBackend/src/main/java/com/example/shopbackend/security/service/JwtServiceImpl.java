@@ -1,6 +1,7 @@
 package com.example.shopbackend.security.service;
 
 
+import com.example.shopbackend.entity.Roles;
 import com.example.shopbackend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -11,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,12 +31,13 @@ public class JwtServiceImpl implements JwtService {
         Long userId = userDetails.getId();
         String userName = userDetails.getUsername();
         Map<String, Object> claims = new HashMap<>();
-        /*Set<String> roles = userDetails.getRoles().stream()
+        Set<String> roles = userDetails.getRoles().stream()
                 .map(role -> role.getAuthority().name())
                .collect(Collectors.toSet());
-        claims.put("roles", roles);*/
+        claims.put("roles", roles);
         claims.put("userID", userId);
         claims.put("username",userName);
+
 
         return generateToken(claims, userDetails);
     }
@@ -68,7 +67,7 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public Long extractId(String token) {
-        return extractClaim(token, claims -> (Number) claims.get("userName")).longValue();
+        return extractClaim(token, claims -> (Number) claims.get("userID")).longValue();
     }
 
     private boolean isTokenExpired(String token) {

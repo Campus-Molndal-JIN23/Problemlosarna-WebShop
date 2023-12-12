@@ -12,5 +12,4 @@ public interface AuthenticationService {
 
     JwtAuthenticationResponse signin(LoginForm request);
 
-    JwtAuthenticationResponse signin(User request);
 }

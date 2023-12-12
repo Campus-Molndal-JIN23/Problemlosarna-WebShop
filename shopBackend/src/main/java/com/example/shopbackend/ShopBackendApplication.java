@@ -39,8 +39,8 @@ public class ShopBackendApplication {
             saveRoles(roleRepository,Role.ROLE_USER);
             }
 
-            Roles role = roleRepository.findByAuthority(Role.ROLE_USER)
-                    .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_USER)));
+            Roles role = roleRepository.findByAuthority(Role.ROLE_ADMIN)
+                    .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_ADMIN)));
 
             var user = User.builder()
                     .userName("name")

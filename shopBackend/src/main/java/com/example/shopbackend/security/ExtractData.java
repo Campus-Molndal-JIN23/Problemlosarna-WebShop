@@ -15,6 +15,12 @@ public class ExtractData {
 
     public Set<String> getUserAgent(){
         String jwt = request.getHeader("Authorization").substring(7);
+
+        return jwtservice.extractRoles(jwt);
+    }
+
+    public Set<String> getUserAgent(String jwt){
+
         return jwtservice.extractRoles(jwt);
     }
 }

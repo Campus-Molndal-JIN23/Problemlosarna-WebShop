@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -66,7 +67,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(null));
+        return (Collection<? extends GrantedAuthority>) this.roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getAuthority().name()))
+                .collect(Collectors.toSet());
     }
 
     @Override

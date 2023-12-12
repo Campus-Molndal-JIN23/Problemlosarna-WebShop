@@ -58,10 +58,10 @@ public class AuthController {
 
         //if(!userInfo.isPresent())
           // return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exists");
-
-        System.out.println(authenticationService.signin(loginForm);
-        System.out.println("token");
-        Set<String> role= extractData.getUserAgent();
+        String token = authenticationService.signin(loginForm).getToken();
+        System.out.println(authenticationService.signin(loginForm));
+        System.out.println(token);
+        Set<String> role= extractData.getUserAgent(token);
         LoginResponseDTO loginResponse=new LoginResponseDTO(loginForm.getUserName(),"token", role.toString());
         //Vill retunera username och role
         return ResponseEntity.ok(loginResponse);
