@@ -101,7 +101,7 @@ class ProductControllerTest {
         // update properties
         payload.setName("A updated product");
         payload.setPrice(69);
-        payload.setShortDescription("Updated description");
+        payload.setDescription("Updated description");
 
 
         this.mvc.perform(put(API)
