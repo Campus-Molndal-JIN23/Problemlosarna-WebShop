@@ -30,9 +30,11 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
 
-    @Bean
+    @Bean //TODO
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
+
         http.authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/h2-console/**").permitAll()
                         // Allow public access to authentication-related endpoints
                         .requestMatchers("/webshop/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/webshop/products/**").permitAll()
@@ -41,7 +43,11 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/webshop/products/**").hasRole("ADMIN")
                         // Require authentication for any other endpoint */
-                        .anyRequest().permitAll())     //TODO Change to authenticated
+                        .anyRequest().authenticated())
+                         .headers((headers) ->        //TODO remove headers added just for using H2
+                        headers
+                                .frameOptions((frameOptions) -> frameOptions.disable())
+                        )
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 // Configure JWT authentication filter
