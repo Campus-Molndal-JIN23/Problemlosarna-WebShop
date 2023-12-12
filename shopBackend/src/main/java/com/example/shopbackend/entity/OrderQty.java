@@ -45,7 +45,7 @@ public class OrderQty {
 
     @Override
     public String toString() {
-        return "Basket{" +
+        return "OrderQty{" +
                 "id=" + id +
                 ", product=" + product +
                 ", quantity=" + quantity +
