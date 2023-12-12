@@ -16,23 +16,18 @@ import java.util.HashMap;
 @RequestMapping("/webshop/basket")
 public class BasketController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BasketController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BasketController.class); // todo if no in use
     private final BasketService basketService;
 
     public BasketController(BasketService basketService) {
         this.basketService = basketService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BasketDTO> getBasket(@PathVariable Long id) {
+    @GetMapping("")
+    public ResponseEntity<BasketDTO> getBasket() {
 
-        BasketDTO basket = basketService.getBasket(2L);
-        LOG.info("controller info " + basket.toString());
-        if (basket == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(basket);
-
+        BasketDTO basket = basketService.getBasket(1L);
+        return basket == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(basket);
     }
 
 

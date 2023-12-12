@@ -11,8 +11,8 @@ import java.util.List;
 public class BasketDTO {
 
 
-    private int totalCost;
-    private List<BasketProductDTO> products;
+    private final int totalCost;
+    private final List<BasketProductDTO> products;
 
     public BasketDTO(List<OrderQty> products) {
         int sum = 0;

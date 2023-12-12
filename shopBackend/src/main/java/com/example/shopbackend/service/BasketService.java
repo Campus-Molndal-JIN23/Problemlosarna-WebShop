@@ -32,7 +32,6 @@ public class BasketService {
         Optional<Order> order = orderRepository.findByUserIdAndActiveBasket(userId, true);
 
         return order.map(value -> new BasketDTO(orderQtyRepository.findOrderQtyByOrderId(value.getId()))).orElse(null);
-
     }
 
 

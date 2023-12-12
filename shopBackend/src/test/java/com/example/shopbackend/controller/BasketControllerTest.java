@@ -27,7 +27,7 @@ class BasketControllerTest {
 
     @Test
     void getBasket() throws Exception {
-        this.mvc.perform(get(API + "/" + 1L)
+        this.mvc.perform(get(API)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
