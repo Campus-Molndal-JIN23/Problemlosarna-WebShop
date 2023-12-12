@@ -36,7 +36,7 @@ Gives a registered user a JWT token.
 ```
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <OAuth Token> }`
+  **Content:**  `{ <LoginRespons> }`
 
 
 ## /webshop/
@@ -44,18 +44,16 @@ Gives a registered user a JWT token.
 
 **GET /user/:id**
 ----
-> WTF is this good for?
 
 Returns the specified user.
 * **URL Params**  
-  *Required:* `id=[integer]`
 * **Data Params**
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <user_object> }`
+  **Content:**  `{ <name och lösenord i objekt> }`
 * **Error Response:**
     * **Code:** 404  
       **Content:** `{ error : "User doesn't exist" }`  
@@ -134,10 +132,8 @@ Updates fields on the specified product and returns the updated object.
 * **Data Params**
 ```
   {
-    id: long
-    name: string
-    shortDescription: string
-    price: integer
+    productid: long
+    quantity: long
   }
 ```
 * **Headers**  
@@ -332,51 +328,8 @@ Returns all orders off a user.
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**GET /orders/:id**
-----
-Returns the specified order.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**
-  * **Code:** 200  
-    **Content:**  
-```
-{
-    users: [
-         username: String
-         orders: [
-            {<order_object>},  
-            {<order_object>},  
-            {<order_object>}
-        ],
-        username: String
-         orders: [
-            {<order_object>},  
-            {<order_object>},  
-            {<order_object>}
-        ],
-        username: String
-         orders: [
-            {<order_object>},  
-            {<order_object>},  
-            {<order_object>}
-        ]  
-    ] 
-}
-```
-* **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Orders doesn't exist" }`  
-      OR
-    * **Code:** 401  
-      **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**GET /order/**
+**GET /orders
 ---- 
 Returns all orders for all users
 * **URL Params**  
