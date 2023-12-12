@@ -9,7 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,9 +25,22 @@ class BasketControllerTest {
     @Autowired
     MockMvc mvc;
 
+
+
+    @Test
+    void AsyncTestGetBasket() throws Exception {
+        MvcResult mvcResult = this.mvc.perform(get(API + "/" + 1L)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        mvcResult.getAsyncResult(); // Wait for the result
+
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(200);
+    }
+
     @Test
     void getBasket() throws Exception {
-        this.mvc.perform(get(API)
+        this.mvc.perform(get(API + "/" + 1L)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

@@ -3,6 +3,10 @@ package com.example.shopbackend.controller;
 import com.example.shopbackend.entity.BasketOld;
 import com.example.shopbackend.entity.ProductDTO;
 import com.example.shopbackend.entity.ProductOld;
+import com.example.shopbackend.model.BasketDTO;
+import com.example.shopbackend.service.BasketService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,20 +16,23 @@ import java.util.HashMap;
 @RequestMapping("/webshop/basket")
 public class BasketController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(BasketController.class);
+    private final BasketService basketService;
 
-    @GetMapping("")
-    public ResponseEntity<?> getBasket() {
+    public BasketController(BasketService basketService) {
+        this.basketService = basketService;
+    }
 
-        HashMap<ProductOld, Integer> products = new HashMap<>();
+    @GetMapping("/{id}")
+    public ResponseEntity<BasketDTO> getBasket(@PathVariable Long id) {
 
-        products.put(new ProductOld("Product 1", 100, "Text about the product 1"), 2);
-        products.put(new ProductOld("Product 2", 200, "Text about the product 2"), 5);
-        products.put(new ProductOld("Product 3", 300, "Text about the product 3"), 1);
-
-
-        var basket = new BasketOld(600, products);
-
+        BasketDTO basket = basketService.getBasket(id);
+        LOG.info("controller info " + basket.toString());
+        if (basket == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(basket);
+
     }
 
 

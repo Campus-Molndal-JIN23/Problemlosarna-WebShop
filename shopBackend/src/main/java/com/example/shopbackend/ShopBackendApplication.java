@@ -47,9 +47,13 @@ public class ShopBackendApplication {
             var product3 = productRepository.save(new Product("Product 3", "Text about the product 3", 300));
             var product4 = productRepository.save(new Product("Product 4", "Text about the product 4", 400));
 
-            var order1 = new Order(user1, false); // fake a basket to order history
+            // to easily track the basketDTO implementation
+            var product55 = productRepository.save(new Product("product in order history 1", "Text about..", 55));
+            var product66 = productRepository.save(new Product("product in order history 2", "Text about..", 66));
+
+            var order1 = new Order(user1, true); // fake a basket to order history
             var order2 = new Order(user2, true);
-            var order3 = new Order(user1, true);
+            var order3 = new Order(user1, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -60,8 +64,8 @@ public class ShopBackendApplication {
             var basket6 = new OrderQty(6, product2, 2, order2);
 
 
-            var basket7 = new OrderQty(7, product1, 1, order3);
-            var basket8 = new OrderQty(8, product2, 2, order3);
+            var basket7 = new OrderQty(7, product55, 1, order3);
+            var basket8 = new OrderQty(8, product66, 2, order3);
 
 
 
