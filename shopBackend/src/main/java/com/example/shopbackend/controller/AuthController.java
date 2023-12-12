@@ -13,6 +13,7 @@ import com.example.shopbackend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,23 +54,31 @@ public class AuthController {
     @PostMapping("/login") //TODO  check if LoginForm fungerar  from annan application
     public ResponseEntity<Object> login(@RequestBody LoginForm loginForm ){
 
-        Optional<User> userInfo = authService.getUserByUsername(loginForm);
-        System.out.println(userInfo+"userInfo");
+        try {
+            Optional<User> userInfo = authService.getUserByUsername(loginForm);
 
-        //if(!userInfo.isPresent())
-          // return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exists");
-        String token = authenticationService.signin(loginForm).getToken();
-        System.out.println(authenticationService.signin(loginForm));
-        System.out.println(token);
-        Set<String> role= extractData.getUserAgent(token);
-        LoginResponseDTO loginResponse=new LoginResponseDTO(loginForm.getUserName(),"token", role.toString());
-        //Vill retunera username och role
-        return ResponseEntity.ok(loginResponse);
+            if (!userInfo.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exist");
+            }
+
+
+            String token = authenticationService.signin(loginForm).getToken();
+
+            Set<String> role = extractData.getUserAgent(token);
+            LoginResponseDTO loginResponse = new LoginResponseDTO(loginForm.getUserName(), token, role.toString());
+
+            return ResponseEntity.ok(loginResponse);
+        } catch (BadCredentialsException ex) {
+            // Handle BadCredentialsException and return an appropriate response
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        } catch (Exception e) {
+            // Handle other exceptions, if needed
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+        }
+    }
         //or if dont exist
         //return ResponseEntity.status(404).body("User does not exist");
 
-
-    }
 
 
 

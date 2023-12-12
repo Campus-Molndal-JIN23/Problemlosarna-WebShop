@@ -7,6 +7,7 @@ import com.example.shopbackend.repository.UserRepository;
 import com.example.shopbackend.security.dao.response.JwtAuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,12 +38,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             authenticationManager.authenticate(
 
                     new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
-        }catch (Exception e){
-            System.out.println(e);
+        }catch (BadCredentialsException ex){
+            throw ex;
         }
         // Retrieve the authenticated user from the repository
         var user = userRepository.findUserByUserName(request.getUserName()) //TODO ask to make findByUsername
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid userName or password."));
         // Generate a JWT token for the authenticated user
         var jwt = jwtService.generateToken(user);
 
