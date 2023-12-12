@@ -21,7 +21,9 @@ public class IndexController {
 
     private ProductHttp productHttp;
     private  UserHttp userHttp;
-    static LoginResponse currentUser = new LoginResponse();
+    public static LoginResponse currentUser = new LoginResponse();
+    static String errorMessage = "";
+    static int status = 0;
 
     @GetMapping("/index")
     public String listProducts(Model model) throws IOException, ParseException {
@@ -39,21 +41,27 @@ public class IndexController {
     public String login(Model model) {
         LoginForm loginform = new LoginForm();
         model.addAttribute("loginform", loginform);
+        model.addAttribute("errorMessage", errorMessage);
         return "login";
     }
 
     @PostMapping("/loginUser")
     public String loginUser(LoginForm user) throws IOException, ParseException {
-        currentUser = userHttp.loginUser(user);
+        status = userHttp.loginUser(user);
 
-        if (currentUser == null) { //if the is no user
+        if (status == 401) {
+            errorMessage = "Wrong username or password";
+            return "redirect:/registration";
+        }
+        if (status == 404) {
+            errorMessage = "User not found";
             return "redirect:/registration";
         }
         else {
             if (currentUser.getRole().equals("ADMIN")) {
-                return "redirect:/admin_index";
+                return "redirect:/admin";
             } else {
-                return "redirect:/user_index";
+                return "redirect:/user";
             }
         }
     }
@@ -62,13 +70,22 @@ public class IndexController {
     public String registration(Model model) {
         RegistrationForm registrationForm = new RegistrationForm();
         model.addAttribute("registrationForm", registrationForm);
+        model.addAttribute("errorMessage", errorMessage);
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerUser(RegistrationForm form) throws IOException, ParseException {
-        userHttp.registerUser(form);
-        return "redirect:/login";
+    public String registerUser(RegistrationForm form, Model model) throws IOException, ParseException {
+        status = userHttp.registerUser(form);
+        if (status == 200) {
+            return "redirect:/login";
+        }
+        if (status == 409) {
+            errorMessage = "Username already exists";
+        } else {
+            errorMessage = "Something went wrong with the registration";
+        }
+        return "redirect:/registration";
     }
 
     @GetMapping("/logout")

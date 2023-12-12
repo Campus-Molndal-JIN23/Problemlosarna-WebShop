@@ -27,6 +27,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String adminIndex(Model model) throws IOException, ParseException {
         model.addAttribute("products", productHttp.getAllProducts());
+        model.addAttribute("username", IndexController.currentUser.getUsername());
         return "admin_index";
     }
 
@@ -77,6 +78,7 @@ public class AdminController {
     @GetMapping("/admin/all_orders")
     public String getAllOrders(Model model) throws IOException, ParseException {
         model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
+        model.addAttribute("username", IndexController.currentUser.getUsername());
         return "all_orders";
     }
 

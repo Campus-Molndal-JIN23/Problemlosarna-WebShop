@@ -1,17 +1,17 @@
 
 H
-java:S1452"&Remove usage of generic wildcard type.(ΞΜσψÿÿÿÿ8λσθƒΔ1
+java:S1452"&Remove usage of generic wildcard type.(ΞΜσψÿÿÿÿ8λσθƒΔ1
 O
-java:S1135"2Complete the task associated to this TODO comment.(Ϋ±ΦΣ8νσθƒΔ1
-L	java:S106"+Replace this use of System.out by a logger.(‰΅Φ•ύÿÿÿÿ8ξσθƒΔ1
+java:S1135"2Complete the task associated to this TODO comment.(Ϋ±ΦΣ8νσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(‰΅Φ•ύÿÿÿÿ8πσθƒΔ1
 N
-java:S1135"2Complete the task associated to this TODO comment.(ΉΖ,8οσθƒΔ1
-L	java:S106"+Replace this use of System.out by a logger.(ΎΏϋΥϊÿÿÿÿ8πσθƒΔ1
+java:S1135"2Complete the task associated to this TODO comment.(ΉΖ,8οσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(ΎΏϋΥϊÿÿÿÿ8²Νδ©Ε1
 T
-java:S1135"2Complete the task associated to this TODO comment.(‘Δ«¬ψÿÿÿÿ8ςσθƒΔ1
-L	java:S106"+Replace this use of System.out by a logger.(€€Αύÿÿÿÿ8ςσθƒΔ1
+java:S1135"2Complete the task associated to this TODO comment.(‘Δ«¬ψÿÿÿÿ8ςσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(€€Αύÿÿÿÿ8τσθƒΔ1
 T
-java:S1135"2Complete the task associated to this TODO comment.(―ψ΄τωÿÿÿÿ8σσθƒΔ1
-L	java:S106"+Replace this use of System.out by a logger.(ϊΟ¥ÿÿÿÿÿ8τσθƒΔ1
+java:S1135"2Complete the task associated to this TODO comment.(―ψ΄τωÿÿÿÿ8σσθƒΔ1
+L	java:S106"+Replace this use of System.out by a logger.(ϊΟ¥ÿÿÿÿÿ8·Νδ©Ε1
 Y
 java:S1128"<Remove this unused import 'ch.qos.logback.core.model.Model'.(·—π8όσθƒΔ1
