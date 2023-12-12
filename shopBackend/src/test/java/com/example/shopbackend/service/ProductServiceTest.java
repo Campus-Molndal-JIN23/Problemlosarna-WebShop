@@ -41,7 +41,7 @@ class ProductServiceTest {
 
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getName(), actual.getName());
-        assertEquals(expected.getShortDescription(), actual.getShortDescription());
+        assertEquals(expected.getDescription(), actual.getDescription());
         assertEquals(expected.getPrice(), actual.getPrice());
     }
 
@@ -58,19 +58,19 @@ class ProductServiceTest {
     @Test
     void SuccessfullyUpdate() {
         String expectedName = "updated Name";
-        String expectedShortDesc = "updated desc";
+        String expectedDesc = "updated desc";
         int expectedPrice = 42;
 
         var expected = productService.findById(1L);// Product("Created by test", "A short description written by test", 123);
         expected.setName(expectedName);
-        expected.setShortDescription(expectedShortDesc);
+        expected.setDescription(expectedDesc);
         expected.setPrice(expectedPrice);
 
         var actual = productService.update(expected);
 
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getName(), actual.getName());
-        assertEquals(expected.getShortDescription(), actual.getShortDescription());
+        assertEquals(expected.getDescription(), actual.getDescription());
         assertEquals(expected.getPrice(), actual.getPrice());
 
     }

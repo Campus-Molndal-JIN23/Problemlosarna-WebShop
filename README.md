@@ -32,11 +32,11 @@ Wakana Sugihara - https://github.com/83wakasug
 Kristian Karlson - https://github.com/Bremmster  
 Cristoffer Östberg - https://github.com/Cristoffer85
 
- 
+
 * If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
 
 * junit jupiter 5
-If you followed tutorials, include links to those here as well.
+  If you followed tutorials, include links to those here as well.
 
 ## License
 MIT

@@ -29,8 +29,12 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<OrderQty> OrderQty = new ArrayList<>();
 
-    public Order(User user) {
+    @Column(name = "is_basket", nullable = false)
+    private boolean activeBasket;
+
+    public Order(User user, boolean activeBasket) {
         this.user = user;
+        this.activeBasket = activeBasket;
     }
 
 
