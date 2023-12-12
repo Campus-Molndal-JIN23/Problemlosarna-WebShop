@@ -1,15 +1,12 @@
 package com.example.shopbackend.security.service;
 
-import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
-import com.example.shopbackend.repository.RoleRepository;
 import com.example.shopbackend.repository.UserRepository;
 import com.example.shopbackend.security.dao.response.JwtAuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
