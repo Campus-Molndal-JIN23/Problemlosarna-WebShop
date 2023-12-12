@@ -56,15 +56,15 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Quantity</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product: ${basketItems}">
             <td th:text="${basketItem.quantity}"></td>
             <td th:text="${basketItem.productName}"></td>
-            <td th:text="${basketItem.productCost}"></td>
-            <td>
+            <td th:text="${basketItem.productCost}">
+
                 <a th:href="@{/user/one/{id}(id=${product.getId()})}"
                    class="btn btn-primary">More Info</a>
                 <a th:href="@{/user/edit_quantity/{id}(id=${product.getId()})}"
