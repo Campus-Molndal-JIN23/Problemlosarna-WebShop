@@ -58,7 +58,6 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exist");
             }
 
-
             String token = authenticationService.signin(loginForm).getToken();
 
             Set<String> role = extractData.getUserRoles(token);
