@@ -1,6 +1,7 @@
 package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
+import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
@@ -8,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
