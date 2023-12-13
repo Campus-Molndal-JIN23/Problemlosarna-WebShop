@@ -1,7 +1,7 @@
 # <p align="center">The Fantastic Store Of Super Random (stuff)</p>
 
 <p align="center">
-<img src="ShopFrontend/src/main/resources/SRtransp.gif"/>
+<img src="ShopFrontend/src/main/resources/static/SRtransp.gif"/>
 </p>
 
 
