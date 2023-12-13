@@ -51,7 +51,7 @@ public class ProductService {
      * @return true if deleted, false if not found
      */
     public boolean delete(long id) {
-
+        // todo make endpoint delete stuff in db
         var productExists = productRepository.findById(id).orElse(null);
 
         if (productExists == null) {

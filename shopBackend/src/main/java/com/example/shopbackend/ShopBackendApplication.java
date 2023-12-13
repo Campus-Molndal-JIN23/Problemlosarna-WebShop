@@ -59,8 +59,13 @@ public class ShopBackendApplication {
             var product3 = productRepository.save(new Product("Product 3", "Text about the product 3", 300));
             var product4 = productRepository.save(new Product("Product 4", "Text about the product 4", 400));
 
-            var order1 = new Order(user1);
-            var order2 = new Order(user2);
+            // to easily track the basketDTO implementation
+            var product55 = productRepository.save(new Product("product in order history 1", "Text about..", 55));
+            var product66 = productRepository.save(new Product("product in order history 2", "Text about..", 66));
+
+            var order1 = new Order(user1, true); // fake a basket to order history
+            var order2 = new Order(user2, true);
+            var order3 = new Order(user1, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -71,6 +76,13 @@ public class ShopBackendApplication {
             var basket6 = new OrderQty(6, product2, 2, order2);
 
 
+            var basket7 = new OrderQty(7, product55, 1, order3);
+            var basket8 = new OrderQty(8, product66, 2, order3);
+
+
+
+
+
             order1.getOrderQty().add(basket1);
             order1.getOrderQty().add(basket2);
             order1.getOrderQty().add(basket3);
@@ -79,22 +91,30 @@ public class ShopBackendApplication {
             order2.getOrderQty().add(basket5);
             order2.getOrderQty().add(basket6);
 
+            order3.getOrderQty().add(basket7);
+            order3.getOrderQty().add(basket8);
+
 //            save orders
             orderRepository.save(order1);
             orderRepository.save(order2);
+            orderRepository.save(order3);
 
 
             orderQtyRepository.save(basket1);
             orderQtyRepository.save(basket2);
             orderQtyRepository.save(basket3);
             orderQtyRepository.save(basket4);
+
             orderQtyRepository.save(basket5);
             orderQtyRepository.save(basket6);
 
+            orderQtyRepository.save(basket7);
+            orderQtyRepository.save(basket8);
+
 
             // Check if the basket exsist
-
-            Optional<Order> fetchOrder1 = orderRepository.findByUserId(user1.getId());
+// out to check construction of table
+            Optional<Order> fetchOrder1 = orderRepository.findByUserIdAndActiveBasket(user1.getId(), true);
             System.out.println("Order 1 id: " + fetchOrder1.get().getId());
 
             List<OrderQty> orderQtyList1 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder1.get().getId());
@@ -103,7 +123,7 @@ public class ShopBackendApplication {
             }
 
 
-            Optional<Order> fetchOrder2 = orderRepository.findByUserId(user2.getId());
+            Optional<Order> fetchOrder2 = orderRepository.findByUserIdAndActiveBasket(user2.getId(), true);
             System.out.println("Order 2 id:" + fetchOrder2.get().getId());
 
             List<OrderQty> orderQtyList2 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder2.get().getId());
