@@ -3,6 +3,7 @@ package com.example.shopfrontend.http;
 import com.example.shopfrontend.models.Basket;
 import com.example.shopfrontend.models.Order;
 
+import com.example.shopfrontend.models.OrderDTO;
 import com.example.shopfrontend.models.OrderQty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -31,7 +32,7 @@ public class OrderHttp {
     private ObjectMapper mapper = new ObjectMapper();
 
     //gets all orders for all users
-    public List<Order> getAllOrdersForAll(String token) throws IOException, ParseException {
+    public List<OrderDTO> getAllOrdersForAll(String token) throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/orders");
 
@@ -46,12 +47,12 @@ public class OrderHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        List<Order> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Order>>() {});
+        List<OrderDTO> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<OrderDTO>>() {});
         log.info("getAllOrders: ", orders);
         return orders;
     }
 
-    public Order placeOrder(String token) throws IOException, ParseException {
+    public void placeOrder(String token) throws IOException, ParseException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/order");
 
         request.setHeader("Authorization", "Bearer " + token);
@@ -61,17 +62,15 @@ public class OrderHttp {
 
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return null;
         }
 
         HttpEntity entity = response.getEntity();
 
-        Order orderRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Order>() {});
+        OrderDTO orderRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDTO>() {});
         log.info("createProduct: ", orderRespons);
-        return orderRespons;
     }
 
-    public List<Order> getAllOrdersForOne(String token) throws IOException, ParseException {
+    public List<OrderDTO> getAllOrdersForOne(String token) throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/order");
 
@@ -86,7 +85,7 @@ public class OrderHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        List<Order> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Order>>() {});
+        List<OrderDTO> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<OrderDTO>>() {});
         log.info("getAllOrders: ", orders);
         return orders;
     }
