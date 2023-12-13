@@ -9,6 +9,7 @@ import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.ProductRepository;
 import com.example.shopbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -66,16 +67,16 @@ public class BasketService {
         return orderQtyRepository.save(addItem);
     }
 
-    public OrderQty deleteProductActiveBasket(Long userId, UpdateBasketDTO payload) {
+    @Transactional
+    public boolean deleteProductActiveBasket(Long userId, UpdateBasketDTO payload) {
         // find basket
         var basket = orderRepository.findByUserIdAndActiveBasket(userId, true);
+
         // find product and delete
-        orderQtyRepository.deleteOrderQtyByOrder_IdAndProductId(basket.get().getId(), payload.productId());
-
-//        var result = orderQtyRepository.
-
-
-        return null;
-
+        if (basket.isPresent()) {
+            orderQtyRepository.deleteOrderQtyByOrder_IdAndProductId(basket.get().getId(), payload.productId());
+            return true;
+        }
+        return false;
     }
 }

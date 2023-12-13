@@ -1,7 +1,6 @@
 package com.example.shopbackend.form;
 
-public record UpdateBasketDTO(
-        Long productId,
-        int quantity
-) {
-}
+public record UpdateBasketDTO (
+    Long productId,
+    int quantity
+){}

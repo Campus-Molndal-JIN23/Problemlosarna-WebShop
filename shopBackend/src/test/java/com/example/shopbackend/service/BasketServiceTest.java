@@ -156,19 +156,31 @@ class BasketServiceTest {
         Long expectedId = 2L;
         int expectedQuantity = 0;
         var precondition = basketService.getBasket(userID);
-        System.out.println("pre" + precondition);
 
         basketService.deleteProductActiveBasket(userID, new UpdateBasketDTO(expectedId, expectedQuantity));
 
         var actual = basketService.getBasket(userID);
+        System.out.println("pre" + precondition);
         System.out.println("act" + actual);
 
-        fail();
-
+        // Assert that the product is not present in the basket after deletion
+        assertTrue(actual.getProducts().stream().noneMatch(product -> product.getId().equals(expectedId)));
     }
     @Test
 
     void deleteItemThatDontExistInBasket() {
-        fail();
+        Long userID = 4L;
+        Long expectedId = 87324873024L;
+        int expectedQuantity = 0;
+        var precondition = basketService.getBasket(userID);
+
+        basketService.deleteProductActiveBasket(userID, new UpdateBasketDTO(expectedId, expectedQuantity));
+
+        var actual = basketService.getBasket(userID);
+        System.out.println("pre" + precondition);
+        System.out.println("act" + actual);
+
+        // Assert that the product is not present in the basket after deletion
+        assertTrue(actual.getProducts().stream().noneMatch(product -> product.getId().equals(expectedId)));
     }
 }
