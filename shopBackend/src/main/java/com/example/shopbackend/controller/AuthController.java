@@ -31,7 +31,7 @@ public class AuthController {
         //TODO remove system out
         System.out.println(loginForm.getPassword());
         System.out.println(loginForm.getUsername());
-        LoginResponseDTO loginResponse=new LoginResponseDTO("userName","Token","Admin");
+        LoginResponseDTO loginResponse=new LoginResponseDTO("userName","Token","ROLE_ADMIN");
         //Vill retunera username och role
         return ResponseEntity.ok(loginResponse);
         //or if dont exist
