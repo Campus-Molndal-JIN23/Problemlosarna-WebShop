@@ -1,13 +1,16 @@
 package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
+import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -19,13 +22,20 @@ public class OrderService {
         this.orderQtyRepository = orderQtyRepository;
     }
 
-    public List<Object> findAllUserOrders(Long userId) {
+    public OrderDTO findAllUserOrders(Long userId) {
+        List<List<OrderQty>> baskets = new ArrayList<>();
 
-        Optional<List<Order>> orders = orderRepository.findByUserId(userId);
-// todo continue here
-        OrderDTO userOrders = new OrderDTO();
+        // orders are always past baskets and set to false
+        List<Order> orders = orderRepository.getByUserIdAndActiveBasket(userId, false).orElse(null);
 
-        return null;
+        if (orders == null) {
+            return null;
+        } else {
+            for (Order order : orders) {
+                baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+            }
+            return new OrderDTO(orders, baskets);
+        }
     }
 
 }
