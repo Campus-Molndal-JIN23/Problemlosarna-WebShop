@@ -51,7 +51,6 @@ public class OrderController {
     @GetMapping("/orders")
     public ResponseEntity<Object> getOrders() {
 
-
         HashMap<String, ArrayList<UserTest>> users = new HashMap<>();
         users.put("users", getUserData());
 

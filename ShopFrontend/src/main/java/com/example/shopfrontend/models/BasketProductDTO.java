@@ -2,7 +2,6 @@ package com.example.shopfrontend.models;
 
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class BasketProductDTO {
@@ -20,4 +19,14 @@ public class BasketProductDTO {
         this.price = item.getProduct().getPrice();
     }
 
+    public BasketProductDTO() {
+    }
+
+    public BasketProductDTO(long id, int quantity, String name, String description, int price) {
+        this.id = id;
+        this.quantity = quantity;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 }

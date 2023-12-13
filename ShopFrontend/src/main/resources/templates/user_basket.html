@@ -54,20 +54,23 @@
     <table class ="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
-            <th>Quantity</th>
             <th>Name</th>
+            <th>Update Quantity</th>
             <th>Price total</th>
+            <th> </th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product: ${basket.products}">
-            <td th:text="${product.quantity}"></td>
             <td th:text="${product.name}"></td>
-            <td><span th:text="${product.price * product.quantity}"></span>
-
+            <td>
+                <input type="number" th:field="*{quantity}" th:value="${product.quantity}" class="form-control"/>
+            </td>
+            <td><span th:text="${product.price * product.quantity}"></span></td>
+            <td>
                 <a th:href="@{/user/one/{id}(id=${product.id})}"
                    class="btn btn-primary">More Info</a>
-                <a th:href="@{/user/edit_quantity/{id}(id=${product.id})}"
+                <a th:href="@{/user/edit_quantity/{id}/{quantity}(id=${product.id}, quantity=${quantity})}"
                    class="btn btn-primary">Update Quantity</a>
                 <a th:href="@{/user/remove_product/{id}(id=${product.id})}"
                    class="btn btn-primary">Remove from basket</a>

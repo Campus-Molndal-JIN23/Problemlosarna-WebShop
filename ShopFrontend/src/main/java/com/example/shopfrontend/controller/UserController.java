@@ -56,15 +56,16 @@ public class UserController {
 
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
+        int quantity = 1;
         model.addAttribute("username", IndexController.currentUser.getUsername());
+        model.addAttribute("quantity", quantity);
         Basket basket = basketHttp.getBasket(IndexController.currentUser.getToken());
         model.addAttribute("basket", basket);
         return "user_basket";
     }
 
-    //TODO needs produkt id, what do we send?
     @PostMapping("/user/basket/add/{id}+{quantity}")
-    public String addToBasket(@PathVariable int productId ,@PathVariable int quantity) throws IOException {
+    public String addToBasket(@PathVariable int productId ,@PathVariable int quantity) throws IOException, ParseException {
         OrderQty product = new OrderQty();
         product.setId(productId);
         product.setQuantity(quantity);
@@ -72,28 +73,29 @@ public class UserController {
         return "redirect:/user/basket";
     }
 
-    /*@GetMapping("/user/basket/edit/{id}")
+    // TODO maybe not needed
+    @GetMapping("/user/basket/edit/{id}")
     public String updateBasketItemForm(@PathVariable long id, Model model) throws IOException, ParseException {
-        // Display form to update quantity for a specific basket item
-        model.addAttribute("basketItem", basketHttp.getBasketItemById(id, IndexController.currentUser.getToken()));
+        //model.addAttribute("basketItem", basketHttp.getBasketItemById(id, IndexController.currentUser.getToken()));
         return "update_basket_item";
-    }*/
+    }
 
-    /*
-    @PostMapping("/user/basket/edit/{id}")
-    public String updateBasketItem(@PathVariable long id, @ModelAttribute Product basketItem) throws IOException {
-        // Update the quantity of a product in the user's basket
-        Product itemToUpdate = basketHttp.getBasketItemById(id, IndexController.currentUser.getToken());
-        itemToUpdate.setQuantity(basketItem.getQuantity());
-        basketHttp.updateProductQuantityInBasket(IndexController.currentUser.getToken(), itemToUpdate);
+
+    @PostMapping("/user/basket/edit/{id}+{quantity}")
+    public String updateBasketItem(@PathVariable int id ,@PathVariable int quantity) throws IOException {
+        OrderQty itemToUpdate = new OrderQty();
+        itemToUpdate.setId(id);
+        itemToUpdate.setQuantity(quantity);
+        basketHttp.updateProductQuantityInBasket(itemToUpdate, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
     }
-     */
+
 
     @GetMapping("/user/basket/remove/{id}")
     public String removeBasketItem(@PathVariable long id) throws IOException {
-        // Remove a product from the user's basket
-        basketHttp.removeProductFromBasket(IndexController.currentUser.getToken(), id);
+        OrderQty itemToRemove = new OrderQty();
+        itemToRemove.setId(id);
+        basketHttp.removeProductFromBasket(itemToRemove, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
 
     }
@@ -101,7 +103,7 @@ public class UserController {
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         model.addAttribute("username", IndexController.currentUser.getUsername());
-        model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
+        model.addAttribute("orders", orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken()));
         return "user_past_orders";
     }
 }

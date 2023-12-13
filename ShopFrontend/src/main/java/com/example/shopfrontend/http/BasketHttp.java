@@ -31,6 +31,7 @@ public class BasketHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
+    private ObjectMapper mapper = new ObjectMapper();
 
     public Basket getBasket(String token) throws IOException, ParseException {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/basket");
@@ -46,20 +47,16 @@ public class BasketHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        ObjectMapper mapper = new ObjectMapper();
         Basket basket = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Basket>() {});
         log.info("getBasket: ", basket);
         return basket;
     }
 
-    //TODO i think we only send the product id, rest gets taken from the token?
+
     public Basket addProductToBasket(OrderQty product, String token) throws IOException, ParseException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/basket");
 
-        ObjectMapper mapper = new ObjectMapper();
-        StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
-
-        request.setEntity(payload);
+        request.setEntity(createPayload(product));
 
         request.setHeader("Authorization", "Bearer " + token);
 
@@ -77,27 +74,36 @@ public class BasketHttp {
         return basketRespons;
     }
 
-    //TODO await how kristians DTO looks
-    public void updateProductQuantityInBasket(String userId, Product product) throws IOException {
-        HttpPut request = new HttpPut("http://localhost:8080/webshop/basket?userId=" + userId);
+    public void updateProductQuantityInBasket(OrderQty update, String token) throws IOException {
+        HttpPut request = new HttpPut("http://localhost:8080/webshop/basket");
 
-        request.setEntity(createPayload(product));
+        request.setEntity(createPayload(update));
+        request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
+        if (response.getCode() != 200) {
+            log.error("Error uppstod");
+            return;
+        }
+        log.info("Product updated");
     }
 
-    //TODO i think this only needs the product id, rest gets taken from the token?
-    public void removeProductFromBasket(String userId, Long productId) throws IOException {
-        HttpDelete request = new HttpDelete("http://localhost:8080/webshop/basket?userId=" + userId + "&productId=" + productId);
+    public void removeProductFromBasket(OrderQty product, String token) throws IOException {
+        HttpDelete request = new HttpDelete("http://localhost:8080/webshop/basket");
+
+        request.setEntity(createPayload(product));
+        request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
+        if (response.getCode() != 404) {
+            log.error("Error uppstod");
+        }
+        log.info("Product deleted");
     }
 
     public StringEntity createPayload(Object object) throws JsonProcessingException {
-        //Skapa och inkludera en Payload till request
-        ObjectMapper mapper = new ObjectMapper();
         StringEntity payload = new StringEntity(mapper.writeValueAsString(object), ContentType.APPLICATION_JSON);
 
         return payload;

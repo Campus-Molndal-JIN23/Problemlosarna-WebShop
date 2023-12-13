@@ -27,6 +27,7 @@ public class UserHttp {
 
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
+    private ObjectMapper mapper = new ObjectMapper();
 
     public int loginUser(LoginForm form) throws IOException, ParseException, IOException {
 
@@ -42,7 +43,6 @@ public class UserHttp {
             }
             HttpEntity entity = response.getEntity();
 
-            ObjectMapper mapper = new ObjectMapper();
             LoginResponse loginResponse = mapper.readValue(EntityUtils.toString(entity), new TypeReference<LoginResponse>() {});
             log.info("loginResponse: " + loginResponse);
             IndexController.currentUser = loginResponse;
