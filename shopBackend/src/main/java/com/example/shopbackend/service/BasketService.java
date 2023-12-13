@@ -1,7 +1,6 @@
 package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
-import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;

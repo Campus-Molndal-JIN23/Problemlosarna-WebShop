@@ -6,7 +6,6 @@ import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.repository.RoleRepository;
 import com.example.shopbackend.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
