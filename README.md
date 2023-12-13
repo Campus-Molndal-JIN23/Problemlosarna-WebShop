@@ -1,9 +1,9 @@
-# <p style="text-align: center;">The Fantastic Store Of Super Random (stuff)</p>
+# <p align="center">The Fantastic Store Of Super Random (stuff)</p>
 
-<div style="width:40%; margin: auto;">
+<p align="center">
+<img src="ShopFrontend/src/main/resources/SRtransp.gif"/>
+</p>
 
-![SRtransp.gif](ShopFrontend%2Fsrc%2Fmain%2Fresources%2FSRtransp.gif)
-</div>
 
 
 ## Description
