@@ -1,5 +1,11 @@
-# The Fantastic Store Of Super Random (stuff)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ![SRtransp.gif](ShopFrontend%2Fsrc%2Fmain%2Fresources%2FSRtransp.gif)
+# <p style="text-align: center;">The Fantastic Store Of Super Random (stuff)</p>
+
+<div style="width:40%; margin: auto;">
+
+![SRtransp.gif](ShopFrontend%2Fsrc%2Fmain%2Fresources%2FSRtransp.gif)
+</div>
+
+
 ## Description
 A fullstack e-commerce, Maven Springboot RESTful API application where you can buy random stuff. The application uses both a frontend and a backend in 2 separate modules.
 
