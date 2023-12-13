@@ -99,4 +99,10 @@ public class UserController {
         model.addAttribute("orders", orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken()));
         return "user_past_orders";
     }
+
+    @GetMapping("/user/checkout")
+    public String checkoutBasket () throws IOException, ParseException {
+        orderHttp.placeOrder(IndexController.currentUser.getToken());
+        return "redirect:/user";
+    }
 }
