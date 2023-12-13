@@ -1,5 +1,5 @@
-# The Fantastic Store Of Super Random Stuff.
-
+# The Fantastic Store Of Super Random (stuff)
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ![SRtransp.gif](ShopFrontend%2Fsrc%2Fmain%2Fresources%2FSRtransp.gif)
 ## Description
 Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
 
