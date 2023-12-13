@@ -22,4 +22,7 @@ public class OrderQty {
         this.order = order;
     }
 
+    public OrderQty() {
+
+    }
 }

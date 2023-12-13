@@ -1,8 +1,10 @@
 package com.example.shopfrontend.controller;
 
+import com.example.shopfrontend.form.LoginForm;
+import com.example.shopfrontend.form.LoginResponse;
+import com.example.shopfrontend.form.RegistrationForm;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.http.UserHttp;
-import com.example.shopfrontend.models.*;
 import lombok.AllArgsConstructor;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;

@@ -13,6 +13,7 @@ public class BasketProductDTO {
     private int price;
 
     public BasketProductDTO(OrderQty item) {
+        this.id = item.getId();
         this.quantity = item.getQuantity();
         this.name = item.getProduct().getName();
         this.description = item.getProduct().getDescription();

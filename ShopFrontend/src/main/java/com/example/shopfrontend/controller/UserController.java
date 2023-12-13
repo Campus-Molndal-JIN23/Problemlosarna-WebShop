@@ -5,6 +5,7 @@ import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.models.Basket;
+import com.example.shopfrontend.models.OrderQty;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,22 +57,18 @@ public class UserController {
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
         model.addAttribute("username", IndexController.currentUser.getUsername());
-        // Retrieve basket items based on the current user's token
         Basket basket = basketHttp.getBasket(IndexController.currentUser.getToken());
-        if (basket != null) {
-            model.addAttribute("basket", basket);
-        } else {
-            // Handle the case where basketItems is null, e.g., show an error message
-            model.addAttribute("errorMessage", "Error fetching basket items");
-        }
+        model.addAttribute("basket", basket);
         return "user_basket";
     }
 
     //TODO needs produkt id, what do we send?
-    @PostMapping("/user/basket/add")
-    public String addToBasket(Product basketItem) throws IOException {
-        // Add a product to the user's basket
-        basketHttp.addProductToBasket(IndexController.currentUser.getToken(), basketItem);
+    @PostMapping("/user/basket/add/{id}+{quantity}")
+    public String addToBasket(@PathVariable int productId ,@PathVariable int quantity) throws IOException {
+        OrderQty product = new OrderQty();
+        product.setId(productId);
+        product.setQuantity(quantity);
+        basketHttp.addProductToBasket(product, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
     }
 
