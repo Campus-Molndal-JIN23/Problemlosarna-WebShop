@@ -5,6 +5,7 @@ import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.models.Basket;
+import com.example.shopfrontend.models.OrderQty;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,8 @@ public class UserController {
     private UserHttp userHttp;
     private BasketHttp basketHttp;
 
+    private int quantity = 1;
+
     public UserController(ProductHttp productHttp, OrderHttp orderHttp, UserHttp userHttp, BasketHttp basketHttp) {
         this.productHttp = productHttp;
         this.orderHttp = orderHttp;
@@ -43,6 +46,7 @@ public class UserController {
     public String userIndex(Model model) throws IOException, ParseException {
         model.addAttribute("products", productHttp.getAllProducts());
         model.addAttribute("username", IndexController.currentUser.getUsername());
+        model.addAttribute("quantity", quantity);
         return "user_index";
     }
 
@@ -56,47 +60,44 @@ public class UserController {
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
         model.addAttribute("username", IndexController.currentUser.getUsername());
-        // Retrieve basket items based on the current user's token
+        model.addAttribute("quantity", quantity);
         Basket basket = basketHttp.getBasket(IndexController.currentUser.getToken());
-        if (basket != null) {
-            model.addAttribute("basket", basket);
-        } else {
-            // Handle the case where basketItems is null, e.g., show an error message
-            model.addAttribute("errorMessage", "Error fetching basket items");
-        }
+        model.addAttribute("basket", basket);
         return "user_basket";
     }
 
-    //TODO needs produkt id, what do we send?
-    @PostMapping("/user/basket/add")
-    public String addToBasket(Product basketItem) throws IOException {
-        // Add a product to the user's basket
-        basketHttp.addProductToBasket(IndexController.currentUser.getToken(), basketItem);
+    @PostMapping("/user/basket/add/{id}+{quantity}")
+    public String addToBasket(@PathVariable int productId ,@PathVariable int quantity) throws IOException, ParseException {
+        OrderQty product = new OrderQty();
+        product.setId(productId);
+        product.setQuantity(quantity);
+        basketHttp.addProductToBasket(product, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
     }
 
-    /*@GetMapping("/user/basket/edit/{id}")
+    // TODO maybe not needed
+    @GetMapping("/user/basket/edit/{id}")
     public String updateBasketItemForm(@PathVariable long id, Model model) throws IOException, ParseException {
-        // Display form to update quantity for a specific basket item
-        model.addAttribute("basketItem", basketHttp.getBasketItemById(id, IndexController.currentUser.getToken()));
+        //model.addAttribute("basketItem", basketHttp.getBasketItemById(id, IndexController.currentUser.getToken()));
         return "update_basket_item";
-    }*/
+    }
 
-    /*
-    @PostMapping("/user/basket/edit/{id}")
-    public String updateBasketItem(@PathVariable long id, @ModelAttribute Product basketItem) throws IOException {
-        // Update the quantity of a product in the user's basket
-        Product itemToUpdate = basketHttp.getBasketItemById(id, IndexController.currentUser.getToken());
-        itemToUpdate.setQuantity(basketItem.getQuantity());
-        basketHttp.updateProductQuantityInBasket(IndexController.currentUser.getToken(), itemToUpdate);
+
+    @PostMapping("/user/basket/edit/{id}+{quantity}")
+    public String updateBasketItem(@PathVariable int id ,@PathVariable int quantity) throws IOException {
+        OrderQty itemToUpdate = new OrderQty();
+        itemToUpdate.setId(id);
+        itemToUpdate.setQuantity(quantity);
+        basketHttp.updateProductQuantityInBasket(itemToUpdate, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
     }
-     */
+
 
     @GetMapping("/user/basket/remove/{id}")
     public String removeBasketItem(@PathVariable long id) throws IOException {
-        // Remove a product from the user's basket
-        basketHttp.removeProductFromBasket(IndexController.currentUser.getToken(), id);
+        OrderQty itemToRemove = new OrderQty();
+        itemToRemove.setId(id);
+        basketHttp.removeProductFromBasket(itemToRemove, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
 
     }
@@ -104,7 +105,7 @@ public class UserController {
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         model.addAttribute("username", IndexController.currentUser.getUsername());
-        model.addAttribute("orders", orderHttp.getAllOrders(IndexController.currentUser.getToken()));
+        model.addAttribute("orders", orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken()));
         return "user_past_orders";
     }
 }

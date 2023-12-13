@@ -8,12 +8,14 @@ import java.util.List;
 @Getter
 public class BasketProductDTO {
 
+    private final Long id;
     private final int quantity;
     private final String name;
     private final String description;
     private final int price;
 
     public BasketProductDTO(OrderQty item) {
+        this.id = item.getId();
         this.quantity = item.getQuantity();
         this.name = item.getProduct().getName();
         this.description = item.getProduct().getDescription();
