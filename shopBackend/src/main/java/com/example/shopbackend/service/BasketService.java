@@ -1,16 +1,16 @@
 package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
+import com.example.shopbackend.entity.OrderQty;
+import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
-import com.example.shopbackend.model.BasketProductDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.ProductRepository;
 import com.example.shopbackend.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -38,19 +38,25 @@ public class BasketService {
         return order.map(value -> new BasketDTO(orderQtyRepository.findOrderQtyByOrderId(value.getId()))).orElse(null);
     }
 
-    public Boolean addProduct(Long userID, BasketProductDTO payload) {
+    public OrderQty addProduct(Long userID, UpdateBasketDTO payload) {
 
-        var product = productRepository.findById(payload.getId());
-        int quantity = payload.getQuantity();
+        OrderQty addItem = new OrderQty();
 
+        try {
+            addItem.setProduct(productRepository.findById(payload.productId())
+                    .orElseThrow(() ->
+                            new NoSuchElementException(String.valueOf(payload.productId()))));
 
-        Long basketId = orderRepository.findByUserIdAndActiveBasket(userID, true)
-                .orElse(orderRepository.save(new Order(userRepository.findById(userID).orElseThrow(), true))
-                .getId());
+            addItem.setQuantity(payload.quantity());
 
-        var reslut = orderQtyRepository.save()
+            addItem.setOrder(orderRepository.findByUserIdAndActiveBasket(userID, true)
+                    .orElseThrow(() ->
+                            new NoSuchElementException(String.valueOf(userID))));
 
-        return null;
+        } catch (Exception e) {
+            return null;
+        }
+        return orderQtyRepository.save(addItem);
     }
 
 }

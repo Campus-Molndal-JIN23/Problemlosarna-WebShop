@@ -47,8 +47,10 @@ public class BasketController {
         products.put(payload.product(), payload.quantity());
 
         var basket = new BasketOld(80085, products);
+
+
  */
-        return ResponseEntity.ok(basket);
+        return null;
     }
 
     @PutMapping("")

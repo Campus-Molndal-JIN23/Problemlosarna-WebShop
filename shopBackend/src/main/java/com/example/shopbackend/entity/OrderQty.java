@@ -38,9 +38,7 @@ public class OrderQty {
         this.quantity = quantity;
     }
 
-    @Deprecated
     public OrderQty(Product product, Integer quantity, Order order) {
-        // testing
         this.product = product;
         this.quantity = quantity;
         this.order = order;
