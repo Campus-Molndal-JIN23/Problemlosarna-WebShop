@@ -43,7 +43,7 @@
 <div class ="container">
     <div class="row">
         <div class="col-lg-6">
-            <h1>Current products in Store</h1>
+            <h1> Basket</h1>
         </div>
         <div class="col-lg-6 text-end">
             <h5>Basket total cost: <span th:text="${basket.getTotalCost()}"></span></h5>
@@ -63,7 +63,12 @@
         <tbody>
         <tr th:each="product: ${basket.products}">
             <td>
-                <input type="number" th:field="*{quantity}" th:value="${product.quantity}" class="form-control" min="1" style="width: 80px;"/>
+                <input type="number"
+                       th:field="*{quantity}"
+                       th:value="${product.quantity}"
+                       class="form-control"
+                       min="1"
+                       style="width: 80px;"/>
             </td>
             <td th:text="${product.name}"></td>
             <td><span th:text="${product.price * product.quantity}"></span></td>
