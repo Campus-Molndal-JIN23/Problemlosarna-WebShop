@@ -33,6 +33,8 @@ public class UserController {
     private UserHttp userHttp;
     private BasketHttp basketHttp;
 
+    private int quantity = 1;
+
     public UserController(ProductHttp productHttp, OrderHttp orderHttp, UserHttp userHttp, BasketHttp basketHttp) {
         this.productHttp = productHttp;
         this.orderHttp = orderHttp;
@@ -44,6 +46,7 @@ public class UserController {
     public String userIndex(Model model) throws IOException, ParseException {
         model.addAttribute("products", productHttp.getAllProducts());
         model.addAttribute("username", IndexController.currentUser.getUsername());
+        model.addAttribute("quantity", quantity);
         return "user_index";
     }
 
@@ -56,7 +59,6 @@ public class UserController {
 
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
-        int quantity = 1;
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("quantity", quantity);
         Basket basket = basketHttp.getBasket(IndexController.currentUser.getToken());
