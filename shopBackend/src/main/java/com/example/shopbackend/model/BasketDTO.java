@@ -2,7 +2,6 @@ package com.example.shopbackend.model;
 
 import com.example.shopbackend.entity.OrderQty;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 @Getter
 public class BasketDTO {
 
-
+    private final Long basketId;
     private final int totalCost;
     private final List<BasketProductDTO> products;
 
@@ -23,6 +22,7 @@ public class BasketDTO {
             this.products.add(new BasketProductDTO(ordQty));
         }
         this.totalCost = sum;
+        this.basketId = products.getFirst().getId();
     }
 
     @Override
