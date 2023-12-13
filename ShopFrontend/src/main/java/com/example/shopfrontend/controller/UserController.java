@@ -4,7 +4,7 @@ package com.example.shopfrontend.controller;
 import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
-import com.example.shopfrontend.models.Basket;
+import com.example.shopfrontend.models.BasketDTO;
 import com.example.shopfrontend.models.OrderQty;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.io.IOException;
 
 import com.example.shopfrontend.http.UserHttp;
-import com.example.shopfrontend.models.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,27 +60,19 @@ public class UserController {
     public String getBasket(Model model) throws IOException, ParseException {
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("quantity", quantity);
-        Basket basket = basketHttp.getBasket(IndexController.currentUser.getToken());
+        BasketDTO basket = basketHttp.getBasket(IndexController.currentUser.getToken());
         model.addAttribute("basket", basket);
         return "user_basket";
     }
 
     @PostMapping("/user/basket/add/{id}+{quantity}")
-    public String addToBasket(@PathVariable int productId ,@PathVariable int quantity) throws IOException, ParseException {
+    public String addToBasket(@PathVariable int id ,@PathVariable int quantity) throws IOException, ParseException {
         OrderQty product = new OrderQty();
-        product.setId(productId);
+        product.setId(id);
         product.setQuantity(quantity);
         basketHttp.addProductToBasket(product, IndexController.currentUser.getToken());
         return "redirect:/user/basket";
     }
-
-    // TODO maybe not needed
-    @GetMapping("/user/basket/edit/{id}")
-    public String updateBasketItemForm(@PathVariable long id, Model model) throws IOException, ParseException {
-        //model.addAttribute("basketItem", basketHttp.getBasketItemById(id, IndexController.currentUser.getToken()));
-        return "update_basket_item";
-    }
-
 
     @PostMapping("/user/basket/edit/{id}+{quantity}")
     public String updateBasketItem(@PathVariable int id ,@PathVariable int quantity) throws IOException {

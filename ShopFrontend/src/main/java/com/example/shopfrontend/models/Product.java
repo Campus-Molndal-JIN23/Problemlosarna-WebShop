@@ -2,12 +2,8 @@ package com.example.shopfrontend.models;
 
 import lombok.*;
 
-import java.util.Objects;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Product {
 
     private long id;
