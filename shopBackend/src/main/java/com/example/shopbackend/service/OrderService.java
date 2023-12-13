@@ -1,6 +1,7 @@
 package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
+import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 
@@ -21,8 +22,8 @@ public class OrderService {
     public List<Object> findAllUserOrders(Long userId) {
 
         Optional<List<Order>> orders = orderRepository.findByUserId(userId);
-
-        OrderDTO userOrders = new OrderDTO(orders);
+// todo continue here
+        OrderDTO userOrders = new OrderDTO();
 
         return null;
     }
