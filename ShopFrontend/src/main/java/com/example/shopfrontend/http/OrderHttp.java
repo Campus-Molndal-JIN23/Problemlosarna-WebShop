@@ -1,12 +1,15 @@
 package com.example.shopfrontend.http;
 
+import com.example.shopfrontend.models.Basket;
 import com.example.shopfrontend.models.Order;
 
+import com.example.shopfrontend.models.OrderQty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -25,8 +28,50 @@ import java.util.List;
 public class OrderHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
+    private ObjectMapper mapper = new ObjectMapper();
 
-    public List<Order> getAllOrders(String token) throws IOException, ParseException {
+    //gets all orders for all users
+    public List<Order> getAllOrdersForAll(String token) throws IOException, ParseException {
+
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/orders");
+
+        request.setHeader("Authorization", "Bearer " + token);
+
+        CloseableHttpResponse response = httpClient.execute(request);
+        log.info(String.valueOf(response.getCode()));
+
+        if (response.getCode() != 200) {
+            log.error("Error uppstod");
+            return null;
+        }
+        HttpEntity entity = response.getEntity();
+
+        List<Order> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Order>>() {});
+        log.info("getAllOrders: ", orders);
+        return orders;
+    }
+
+    public Order placeOrder(String token) throws IOException, ParseException {
+        HttpPost request = new HttpPost("http://localhost:8080/webshop/order");
+
+        request.setHeader("Authorization", "Bearer " + token);
+
+        CloseableHttpResponse response = httpClient.execute(request);
+        log.info(String.valueOf(response.getCode()));
+
+        if (response.getCode() != 200) {
+            log.error("Error uppstod");
+            return null;
+        }
+
+        HttpEntity entity = response.getEntity();
+
+        Order orderRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Order>() {});
+        log.info("createProduct: ", orderRespons);
+        return orderRespons;
+    }
+
+    public List<Order> getAllOrdersForOne(String token) throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/order");
 
@@ -41,7 +86,6 @@ public class OrderHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        ObjectMapper mapper = new ObjectMapper();
         List<Order> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Order>>() {});
         log.info("getAllOrders: ", orders);
         return orders;

@@ -26,6 +26,7 @@ import java.util.List;
 public class ProductHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
+    private ObjectMapper mapper = new ObjectMapper();
 
 
     public List<Product> getAllProducts() throws IOException, ParseException {
@@ -41,7 +42,6 @@ public class ProductHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        ObjectMapper mapper = new ObjectMapper();
         List<Product> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Product>>() {});
         log.info("getAllProducts: ", products);
         return products;
@@ -61,7 +61,6 @@ public class ProductHttp {
 
         HttpEntity entity = response.getEntity();
 
-        ObjectMapper mapper = new ObjectMapper();
         Product product = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
         log.info("getProductById: ", product);
         return product;
@@ -71,7 +70,6 @@ public class ProductHttp {
 
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
-        ObjectMapper mapper = new ObjectMapper();
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
 
         request.setEntity(payload);
@@ -95,7 +93,6 @@ public class ProductHttp {
 
         HttpPut request = new HttpPut("http://localhost:8080/webshop/products");
 
-        ObjectMapper mapper = new ObjectMapper();
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
 
         request.setEntity(payload);

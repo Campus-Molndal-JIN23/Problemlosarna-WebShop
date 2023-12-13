@@ -56,17 +56,20 @@
         <tr>
             <th>Order id</th>
             <th>Total Price</th>
-            <th></th>
+            <th>    </th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="order: ${orders}">
             <td th:text="${order.id}"></td>
-            <td th:text="${order.username}"></td>
-            <td th:text="${order.basket.totalCost}">
+            <td th:text="${order.basket.totalCost}"></td>
+            <td>
+                <details th:each="product: ${orders.basket}">
+                    <th th:text="${product.quantity}"></th>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
 
-                <a th:href="@{/admin/order_details/{id}(id=${order.id})}"
-                   class="btn btn-primary">Order Details</a>
+                </details>
             </td>
         </tr>
         </tbody>
