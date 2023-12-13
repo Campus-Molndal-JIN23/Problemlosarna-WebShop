@@ -6,6 +6,8 @@ import com.example.shopbackend.entity.OrderOld;
 import com.example.shopbackend.entity.ProductOld;
 import com.example.shopbackend.form.UserTest;
 import com.example.shopbackend.entity.User;
+import com.example.shopbackend.model.OrderDTO;
+import com.example.shopbackend.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,11 @@ import java.util.HashMap;
 @RequestMapping("/webshop")
 public class OrderController {
 
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> Order(@RequestBody User user) {
@@ -35,10 +42,10 @@ public class OrderController {
 
     @GetMapping("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> getOrder() {
-        HashMap<String, ArrayList<OrderOld>> orders = new HashMap<>();
-        orders.put("orders", orders());
-        return ResponseEntity.ok(orders);
 
+        OrderDTO orders = orderService.findAllUserOrders(1L);
+
+        return orders == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(orders);
     }
 
     @GetMapping("/orders")

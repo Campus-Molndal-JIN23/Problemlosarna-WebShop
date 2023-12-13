@@ -10,7 +10,9 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    Optional<Order> findByUserIdAndActiveBasket(Long id, Boolean active);
+     Optional<Order> findByUserIdAndActiveBasket(Long id, Boolean active);
+
+    Optional<List<Order>> getByUserIdAndActiveBasket(Long id, Boolean active);
 
     Optional<List<Order>> findByUserId(Long id);
 
