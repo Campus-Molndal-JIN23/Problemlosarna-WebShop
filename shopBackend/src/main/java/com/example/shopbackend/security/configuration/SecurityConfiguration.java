@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/webshop/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/webshop/products/**").permitAll()
                         // Restrict access to certain endpoints based on user roles
+                        .requestMatchers(HttpMethod.GET,"/webshop/orders").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/webshop/products/**").hasRole("ADMIN")
