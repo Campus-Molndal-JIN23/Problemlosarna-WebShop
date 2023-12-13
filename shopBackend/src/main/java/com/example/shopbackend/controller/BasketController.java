@@ -4,6 +4,7 @@ import com.example.shopbackend.entity.BasketOld;
 import com.example.shopbackend.entity.ProductDTO;
 import com.example.shopbackend.entity.ProductOld;
 import com.example.shopbackend.model.BasketDTO;
+import com.example.shopbackend.model.BasketProductDTO;
 import com.example.shopbackend.service.BasketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +33,11 @@ public class BasketController {
 
 
     @PostMapping("") // this is a product id
-    public ResponseEntity<?> addProductToBasket(@RequestBody ProductDTO payload) {
+    public ResponseEntity<?> addProductToBasket(@RequestBody BasketProductDTO payload) {
 
         // TODO update code and Contract, we need a @RequestBody for this with Product and count
-
+//        basketService.
+/*
         HashMap<ProductOld, Integer> products = new HashMap<>();
 
         products.put(new ProductOld("Product 1", 100, "Text about the product 1"), 2);
@@ -45,7 +47,7 @@ public class BasketController {
         products.put(payload.product(), payload.quantity());
 
         var basket = new BasketOld(80085, products);
-
+ */
         return ResponseEntity.ok(basket);
     }
 
