@@ -42,15 +42,17 @@ public class BasketService {
 
         OrderQty addItem = new OrderQty();
 
-        try {
+        try { // make sure the product exists
             addItem.setProduct(productRepository.findById(payload.productId())
                     .orElseThrow(() ->
-                            new NoSuchElementException(String.valueOf(payload.productId()))));
+                            new NoSuchElementException(String.valueOf(payload.productId()))
+                    ));
             if (payload.quantity() > 0) {
                 addItem.setQuantity(payload.quantity());
             } else {
                 return null;
             }
+            // get the basket or else create new.
             addItem.setOrder(orderRepository.findByUserIdAndActiveBasket(userID, true)
                     .orElse(orderRepository.save(
                             new Order(
@@ -64,4 +66,16 @@ public class BasketService {
         return orderQtyRepository.save(addItem);
     }
 
+    public OrderQty deleteProductActiveBasket(Long userId, UpdateBasketDTO payload) {
+        // find basket
+        var basket = orderRepository.findByUserIdAndActiveBasket(userId, true);
+        // find product and delete
+        orderQtyRepository.deleteOrderQtyByOrder_IdAndProductId(basket.get().getId(), payload.productId());
+
+//        var result = orderQtyRepository.
+
+
+        return null;
+
+    }
 }
