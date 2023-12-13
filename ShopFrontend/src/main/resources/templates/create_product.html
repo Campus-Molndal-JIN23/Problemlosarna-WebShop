@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">
-        <img src="../SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
+        <img src="../resources/SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
         Welcome To the Fantastic Store of Super Random
     </a>
 
@@ -30,7 +30,7 @@
                 <a class="nav-link" th:href="@{/admin/all_orders}">All Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">log out</a>
+                <a class="nav-link" th:href="@{/logout}">Log out</a>
             </li>
         </ul>
     </div>
@@ -40,7 +40,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm6 container justify-content-center card">
-            <h1 class="text-center">create new product</h1>
+            <h1 class="text-center">Create New Product</h1>
             <div class="card-body">
                 <form th:action="@{/admin/create_product}" th:object="${product}" method="post">
                     <div class="form-group">
@@ -75,6 +75,7 @@
                     </div>
 
                     <div class="box-footer">
+                        <br>
                         <button type="submit" class="btn btn-primary">Create</button>
 
                     </div>

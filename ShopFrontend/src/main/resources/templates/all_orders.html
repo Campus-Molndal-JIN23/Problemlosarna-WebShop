@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">
-        <img src="../SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
+        <img src="../resources/SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
         Welcome To the Fantastic Store of Super Random
     </a>
 
@@ -36,11 +36,13 @@
     </div>
 </nav>
 <div class="container">
-    <div>
-        <h5>Logged in as <span th:text="${username}"></span></h5>
-    </div>
     <div class="row">
-        <h1>All Orders</h1>
+        <div class="col-lg-6">
+            <h1>All Orders</h1>
+        </div>
+        <div class="col-lg-6 text-end">
+            <h5>Logged in as <span th:text="${username}"></span></h5>
+        </div>
     </div>
 
     <table class ="table table-striped table-bordered">
