@@ -66,6 +66,7 @@ public class ShopBackendApplication {
             var order1 = new Order(user1, true); // fake a basket to order history
             var order2 = new Order(user2, true);
             var order3 = new Order(user1, false);
+            var order4 = new Order(user1, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -78,6 +79,9 @@ public class ShopBackendApplication {
 
             var basket7 = new OrderQty(7, product55, 1, order3);
             var basket8 = new OrderQty(8, product66, 2, order3);
+
+            var basket9 = new OrderQty(9, product55, 55, order4);
+            var basket10 = new OrderQty(10, product66, 66, order4);
 
 
 
@@ -94,10 +98,14 @@ public class ShopBackendApplication {
             order3.getOrderQty().add(basket7);
             order3.getOrderQty().add(basket8);
 
+            order4.getOrderQty().add(basket9);
+            order4.getOrderQty().add(basket10);
+
 //            save orders
             orderRepository.save(order1);
             orderRepository.save(order2);
             orderRepository.save(order3);
+            orderRepository.save(order4);
 
 
             orderQtyRepository.save(basket1);
@@ -110,6 +118,8 @@ public class ShopBackendApplication {
 
             orderQtyRepository.save(basket7);
             orderQtyRepository.save(basket8);
+            orderQtyRepository.save(basket9);
+            orderQtyRepository.save(basket10);
 
 
             // Check if the basket exsist
