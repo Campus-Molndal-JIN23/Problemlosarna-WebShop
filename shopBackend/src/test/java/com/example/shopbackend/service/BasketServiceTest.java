@@ -33,48 +33,57 @@ class BasketServiceTest {
         Long expectedId = 2L;
         int expectedQuantity = 3;
 
-         var item = basketService.addProduct(userID, new UpdateBasketDTO(expectedId ,expectedQuantity));
-        System.out.println(item);
+         var actual = basketService.addProduct(userID, new UpdateBasketDTO(expectedId ,expectedQuantity));
 
-        assertEquals(expectedId, item.getProduct().getId());
-        assertEquals(expectedQuantity, item.getQuantity());
+        assertEquals(expectedId, actual.getProduct().getId());
+        assertEquals(expectedQuantity, actual.getQuantity());
     }
 
     @Test
-    void SaveProductInBasketThatDoesNotExist() {
-        Long userID = 3L;
+    void SaveProductInBasketThatDoesNotExistWillCreateANewBasket() {
+        Long userID = 3L; // user should not have any baskets or orders
         Long expectedId = 2L;
         int expectedQuantity = 3;
 
-        var item = basketService.addProduct(userID, new UpdateBasketDTO(expectedId ,expectedQuantity));
-        System.out.println(item);
+        var actual = basketService.addProduct(userID, new UpdateBasketDTO(expectedId ,expectedQuantity));
 
-        assertEquals(expectedId, item.getProduct().getId());
-        assertEquals(expectedQuantity, item.getQuantity());
+        assertEquals(expectedId, actual.getProduct().getId());
+        assertEquals(expectedQuantity, actual.getQuantity());
     }
 
     @Test
     void tryToSaveProductThatDoesNotExistWillFail() {
-        Long userID = 3L; // todo
-        Long expectedId = 2L;
+        Long userID = 1L; // todo
+        Long productId = 9256754654L;
         int expectedQuantity = 3;
 
-        var item = basketService.addProduct(userID, new UpdateBasketDTO(expectedId ,expectedQuantity));
-        System.out.println(item);
+        var actual = basketService.addProduct(userID, new UpdateBasketDTO(productId ,expectedQuantity));
 
-        assertEquals(expectedId, item.getProduct().getId());
-        assertEquals(expectedQuantity, item.getQuantity());
+        assertNull(actual);
     }
 
     @Test
     void tryToSaveNegativeAmountOfProductWillFail() {
-        fail();
+        Long userID = 1L; // todo
+        Long expectedId = 2L;
+        int expectedQuantity = -2;
+
+        var actual = basketService.addProduct(userID, new UpdateBasketDTO(expectedId ,expectedQuantity));
+        System.out.println(actual);
+
+        assertNull(actual); // if negative quantity no object should be created
+
+        /* This code was used to develop the solution
+        assertEquals(expectedId, actual.getProduct().getId());
+        assertTrue(actual.getQuantity() > 0);
+         */
+
     }
 
     @Test
     @Disabled
     void saveWithUserThatDoesNotExist() {
-        // this should not be possible the controller will check for authority
+        // this should not be possible the controller.class will check for authority
         fail();
 
     }

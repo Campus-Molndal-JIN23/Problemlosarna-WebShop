@@ -46,13 +46,18 @@ public class BasketService {
             addItem.setProduct(productRepository.findById(payload.productId())
                     .orElseThrow(() ->
                             new NoSuchElementException(String.valueOf(payload.productId()))));
-
-            addItem.setQuantity(payload.quantity());
-
+            if (payload.quantity() > 0) {
+                addItem.setQuantity(payload.quantity());
+            } else {
+                return null;
+            }
             addItem.setOrder(orderRepository.findByUserIdAndActiveBasket(userID, true)
-                    .orElseThrow(() ->
-                            new NoSuchElementException(String.valueOf(userID))));
-
+                    .orElse(orderRepository.save(
+                            new Order(
+                                    userRepository.findById(userID).orElseThrow(() ->
+                                            new NoSuchElementException(String.valueOf(userID))),
+                                    true
+                            ))));
         } catch (Exception e) {
             return null;
         }
