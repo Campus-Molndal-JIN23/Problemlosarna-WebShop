@@ -1,9 +1,6 @@
 package com.example.shopfrontend.http;
 
-import com.example.shopfrontend.models.Basket;
-import com.example.shopfrontend.models.Order;
-import com.example.shopfrontend.models.OrderQty;
-import com.example.shopfrontend.models.Product;
+import com.example.shopfrontend.models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,7 +30,7 @@ public class BasketHttp {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    public Basket getBasket(String token) throws IOException, ParseException {
+    public BasketDTO getBasket(String token) throws IOException, ParseException {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/basket");
 
         request.setHeader("Authorization", "Bearer " + token);
@@ -47,13 +44,13 @@ public class BasketHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        Basket basket = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Basket>() {});
+        BasketDTO basket = mapper.readValue(EntityUtils.toString(entity), new TypeReference<BasketDTO>() {});
         log.info("getBasket: ", basket);
         return basket;
     }
 
 
-    public Basket addProductToBasket(OrderQty product, String token) throws IOException, ParseException {
+    public BasketDTO addProductToBasket(OrderQty product, String token) throws IOException, ParseException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(product));
@@ -69,7 +66,7 @@ public class BasketHttp {
 
         HttpEntity entity = response.getEntity();
 
-        Basket basketRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Basket>() {});
+        BasketDTO basketRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<BasketDTO>() {});
         log.info("createProduct: ", basketRespons);
         return basketRespons;
     }

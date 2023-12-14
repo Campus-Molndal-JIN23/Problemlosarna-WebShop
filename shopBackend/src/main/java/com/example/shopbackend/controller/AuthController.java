@@ -1,6 +1,5 @@
 package com.example.shopbackend.controller;
 
-
 import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponseDTO;
@@ -23,14 +22,12 @@ public class AuthController {
     //TODO delete .body
 
     private final AuthenticationService authenticationService;
-   private final AuthService authService;
-   private final ExtractData extractData;
-    @PostMapping("/register")    //TODO  check if LoginForm fungerar from annan application
-    public ResponseEntity<?> register (@RequestBody LoginForm loginForm){
+    private final AuthService authService;
+    private final ExtractData extractData;
 
-        if (authService.getUserByUsername(loginForm).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
-        }
+    @PostMapping("/register")    //TODO  check if LoginForm fungerar from annan application
+    public ResponseEntity<?> register(@RequestBody LoginForm loginForm) {
+
 
         if (!authService.isValidPassword(loginForm.getPassword())) {
             return ResponseEntity.badRequest().body("Invalid password");
@@ -49,7 +46,7 @@ public class AuthController {
 
 
     @PostMapping("/login") //TODO  check if LoginForm fungerar  from annan application
-    public ResponseEntity<Object> login(@RequestBody LoginForm loginForm ){
+    public ResponseEntity<Object> login(@RequestBody LoginForm loginForm) {
 
         try {
             Optional<User> userInfo = authService.getUserByUsername(loginForm);
@@ -72,11 +69,11 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
     }
-        //or if dont exist
-        //return ResponseEntity.status(404).body("User does not exist");
-
-
-
-
+    //or if dont exist
+    //return ResponseEntity.status(404).body("User does not exist");
 }
+
+
+
+
 
