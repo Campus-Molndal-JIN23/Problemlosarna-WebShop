@@ -1,7 +1,11 @@
 package com.example.shopbackend.controller;
 
 
-import com.example.shopbackend.entity.*;
+
+import com.example.shopbackend.entity.BasketOld;
+import com.example.shopbackend.entity.OrderOld;
+import com.example.shopbackend.entity.ProductOld;
+import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.UserTest;
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.service.OrderService;

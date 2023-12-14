@@ -171,7 +171,8 @@ Deletes the specified product.
 ## /webshop
 
 **GET /basket**
-----  use JWT token to get the basket?
+----
+use JWT token to get the basket?
 Returns information about the own basket
 * **URL Params**  
   None
@@ -208,10 +209,10 @@ Add a Product by id and to the basket
     None`
 * **Data Params** 
   *Required:*  `{ <productDTO>{
-  *                 <id>,
-    *             <quantity>
-      *           }
-        *           }`
+                   <id>,
+                 <quantity>
+                 }
+                   }`
 
 * **Headers**  
   Content-Type: application/json
@@ -229,15 +230,16 @@ Add a Product by id and to the basket
 **PUT /basket**
 ----
 Updates quantity on the specified product and returns the updated basket.
+Its the same logic as Postmapping.
 * **URL Params**  
   *Required:* 
   None
 * **Data Params**
   *Required:*  `{ <productDTO>{
-    *                 <id>,
-        *             <quantity>
-            *           }
-                *           }`
+                     <id>,
+                     <quantity>
+                      }
+                           }`
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -259,10 +261,10 @@ Delete the specified product.
   None`
 * **Data Params**  
   *Required:*  `{ <productDTO>{
-    *                 <id>,
-        *             <quantity>
-            *           }
-                *           }`
+                     <id>,
+                     <quantity>
+                       }
+                           }`
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`

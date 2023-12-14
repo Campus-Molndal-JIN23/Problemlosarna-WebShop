@@ -32,6 +32,12 @@ public class Order {
     @Column(name = "is_basket", nullable = false)
     private boolean activeBasket;
 
+    /**
+     * This constructor is for creating a mock database
+     * @param user
+     * @param activeBasket
+     */
+
     public Order(User user, boolean activeBasket) {
         this.user = user;
         this.activeBasket = activeBasket;
