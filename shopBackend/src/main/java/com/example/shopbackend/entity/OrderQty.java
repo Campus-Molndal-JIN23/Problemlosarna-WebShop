@@ -32,6 +32,7 @@ public class OrderQty {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    @Deprecated
     public OrderQty(Product product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
