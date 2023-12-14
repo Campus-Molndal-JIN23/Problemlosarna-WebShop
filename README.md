@@ -30,7 +30,7 @@ Aim to build the first fullstack application as a group. Even though prior small
 
 ## Usage
 
-Start both ShopBackend and ShopFrontend in the separate modules in your IDE. Go to http://localhost:8081/ and register a new user. Log in and start shopping!
+Start both ShopBackend and ShopFrontend in the separate modules in your IDE. Go to http://localhost:8081/index and register a new user. Log in and start shopping!
 
 ## Credits
 

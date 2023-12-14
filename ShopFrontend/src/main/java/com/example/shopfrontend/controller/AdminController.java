@@ -31,11 +31,6 @@ public class AdminController {
         return "admin_index";
     }
 
-    @GetMapping("/admin/one/{id}")
-    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
-        model1.addAttribute("product", productHttp.getProductById(id));
-        return "admin_view_one_product";
-    }
 
     @GetMapping ("/admin/create_product")
     public String createProductForm(Model model) {
