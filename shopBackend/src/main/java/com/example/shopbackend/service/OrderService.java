@@ -56,10 +56,12 @@ public class OrderService {
         List<List<OrderQty>> baskets = new ArrayList<>();
         List<User> users = findAllUsers();
         for(User user : users){
+            List<Order> orders=null;
             System.out.println(user.getId());
-            List<Order> orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
+            orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
             System.out.println(orders);
-            if(orders == null){
+            if(orders.isEmpty()){
+                System.out.println(user.getUserName());
                 continue;
             }
 

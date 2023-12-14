@@ -15,7 +15,7 @@ public class OrderDetailsDTO {
 
    // private HashMap<String,Object> orderList =new HashMap<>();
    private List <UserNameAndOrders> allOrders = new ArrayList<>();
-    private List<BasketDTO> orders =new ArrayList<>() ;
+    private List<BasketDTO> orders;
 
     public OrderDetailsDTO(HashMap<User,List<List<OrderQty>>> allUsersAndOrders) {
 
