@@ -3,36 +3,67 @@ package com.example.shopbackend.model;
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.entity.User;
-import com.example.shopbackend.repository.OrderRepository;
-import com.example.shopbackend.repository.UserRepository;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.io.Serializable;
+import java.util.*;
 
-@Component
+
 @Data
 public class OrderDetailsDTO {
 
 
-    private List<HashMap<String,Object>> orderList;
+   // private HashMap<String,Object> orderList =new HashMap<>();
+   private List <UserNameAndOrders> allOrders = new ArrayList<>();
+    private List<BasketDTO> orders =new ArrayList<>() ;
+
+    public OrderDetailsDTO(HashMap<User,List<List<OrderQty>>> allUsersAndOrders) {
+
+        for(Map.Entry<User,List<List<OrderQty>>>entry : allUsersAndOrders.entrySet() ){
+            orders =new ArrayList<>();
+              User user = entry.getKey();
+              List<List<OrderQty>> value = entry.getValue();
+              for(List<OrderQty>orderQtyList : value){
+                  orders.add(new BasketDTO(orderQtyList));
+
+              }
 
 
-
-    public OrderDetailsDTO(List<User> users, List<List<OrderQty>> orders) {
-
-        for(User user : users ){
-
-           orders.get(user);
-
-        }
+            allOrders.add(new UserNameAndOrders(user.getUserName(),orders));
+          }
 
 
     }
 
 
+   /* @Override
+    public String toString() {
+        String output = "OrderDTO{[";
+
+        for(UserNameAndOrders order : orderList ){
+                     output += "username='" + order.getName() + '\'' +
+                    ", orders=" + order.getOrders()+",";
+        }
+        output=output.substring(0,output.length()-1);
+        output+="]}";
+
+        return output;
+    }*/
+
+    @Data
+    public class UserNameAndOrders implements Serializable {
+
+        String name;
+        List<BasketDTO>orders = new ArrayList<>();
+        public UserNameAndOrders(String name,List<BasketDTO>orders){
+
+            this.name = name;
+            this.orders = orders;
+
+        }
+
+    }
+
 }
+
+

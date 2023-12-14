@@ -11,6 +11,7 @@ import com.example.shopbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -51,16 +52,27 @@ public class OrderService {
     }
 
     public OrderDetailsDTO findAllOrders(){
-        List<Order> orders = orderRepository.getAllByActiveBasket( false).orElse(null);
-        List<List<OrderQty>>baskets = new ArrayList<>();
-        if (orders == null) {
-            return null;
-        } else {
-            for (Order order : orders) {
-                baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+        HashMap<User,List<List<OrderQty>>> allUsersAndOrders = new HashMap<>();
+        List<List<OrderQty>> baskets = new ArrayList<>();
+        List<User> users = findAllUsers();
+        for(User user : users){
+            System.out.println(user.getId());
+            List<Order> orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
+            System.out.println(orders);
+            if(orders == null){
+                continue;
             }
-            return new OrderDetailsDTO(findAllUsers(),baskets);
+
+            for(Order order : orders) {
+                baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+
+            }
+
+            allUsersAndOrders.put(user,baskets);
+
         }
+            return new OrderDetailsDTO(allUsersAndOrders);
+
     }
 
 }
