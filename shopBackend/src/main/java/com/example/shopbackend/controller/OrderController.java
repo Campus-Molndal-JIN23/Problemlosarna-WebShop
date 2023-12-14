@@ -55,7 +55,7 @@ public class OrderController {
     public ResponseEntity<Object> getOrders() {
 
 
-        OrderDTO orders = orderService.findAllOrders();
+
         HashMap<String, ArrayList<UserTest>> users = new HashMap<>();
         users.put("users", getUserData());
 

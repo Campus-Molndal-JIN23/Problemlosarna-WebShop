@@ -43,6 +43,7 @@ public class ShopBackendApplication {
             var user2 = userRepository.save(new User("name2", "password"));
             var user3 = userRepository.save(new User("name3", "password"));
             var user4 = userRepository.save(new User("name4", "password"));
+            var user5 = userRepository.save(new User("wasabi", "password"));
 
             var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
             var product2 = productRepository.save(new Product("Product 2", "Text about the product 2", 200));
@@ -57,7 +58,7 @@ public class ShopBackendApplication {
             var order2 = new Order(user2, true);
             var order3 = new Order(user1, false);
             var order4 = new Order(user1, false);
-            var order5= new Order(user2,false);
+            var order5= new Order(user5,false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -76,7 +77,7 @@ public class ShopBackendApplication {
             var basket9 = new OrderQty(9, product55, 55, order4);
             var basket10 = new OrderQty(10, product66, 66, order4);
 
-            var basket11 = new OrderQty(6, product2, 2, order5);
+            var basket11 = new OrderQty(6, product2, 2000, order5);
 
 
 

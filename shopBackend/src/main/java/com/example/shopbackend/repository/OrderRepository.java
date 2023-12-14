@@ -21,6 +21,4 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 
 
-    Optional<List<Order>> findAllByActiveBasket(Boolean active);
-
 }

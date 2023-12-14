@@ -2,9 +2,12 @@ package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
+import com.example.shopbackend.entity.User;
 import com.example.shopbackend.model.OrderDTO;
+import com.example.shopbackend.model.OrderDetailsDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
+import com.example.shopbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,11 +17,14 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
+
 
     private final OrderQtyRepository orderQtyRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderQtyRepository orderQtyRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository) {
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
         this.orderQtyRepository = orderQtyRepository;
     }
 
@@ -38,19 +44,22 @@ public class OrderService {
         }
     }
 
-    public OrderDTO findAllOrders() {
-        List<List<OrderQty>> baskets = new ArrayList<>();
 
-        // orders are always past baskets and set to false
-        List<Order> orders = orderRepository.findAllByActiveBasket(false).orElse(null);
 
+    public List <User> findAllUsers(){
+        return  userRepository.findAll();
+    }
+
+    public OrderDetailsDTO findAllOrders(){
+        List<Order> orders = orderRepository.getAllByActiveBasket( false).orElse(null);
+        List<List<OrderQty>>baskets = new ArrayList<>();
         if (orders == null) {
             return null;
         } else {
             for (Order order : orders) {
                 baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
             }
-            return new OrderDTO(orders, baskets);
+            return new OrderDetailsDTO(findAllUsers(),baskets);
         }
     }
 
