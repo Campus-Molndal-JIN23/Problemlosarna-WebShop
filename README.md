@@ -23,22 +23,15 @@ Aim to build the first fullstack application as a group. Even though prior small
   If your README is long, add a table of contents to make it easy for users to find what they need.
 
 
-* Installation
-  Usage
-  Credits
-  License
+(## Installation)
+  
   Installation
   What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
 
 ## Usage
-* Provide instructions and examples for use. Include screenshots as needed.
 
+Start both ShopBackend and ShopFrontend in the separate modules in your IDE. Go to http://localhost:8081/ and register a new user. Log in and start shopping!
 
-* To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-```md
-![alt text](assets/images/screenshot.png)
-```
 ## Credits
 
 Emil Sivertsson - https://github.com/Emilsivertsson  
