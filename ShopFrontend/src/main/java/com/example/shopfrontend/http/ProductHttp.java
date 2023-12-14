@@ -108,13 +108,13 @@ public class ProductHttp {
     }
 
     public void deleteProductById(long id, String token) throws IOException {
-        HttpDelete request = new HttpDelete("http://localhost:8080/webshop/products"+ id);
+        HttpDelete request = new HttpDelete("http://localhost:8080/webshop/products/"+ id);
 
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
-        if (response.getCode() != 404) {
+        if (response.getCode() != 204) {
             log.error("Error uppstod");
         }
         log.info("Product deleted");

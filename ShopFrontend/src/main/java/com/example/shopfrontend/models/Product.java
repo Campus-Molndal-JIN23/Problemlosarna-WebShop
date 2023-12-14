@@ -10,6 +10,8 @@ public class Product {
     private String name;
     private int price;
     private String description;
+    private boolean deleted;
+
 
     @Override
     public String toString() {
