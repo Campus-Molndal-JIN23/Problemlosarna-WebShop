@@ -39,30 +39,31 @@ public class BasketService {
         return order.map(value -> new BasketDTO(orderQtyRepository.findOrderQtyByOrderId(value.getId()))).orElse(null);
     }
 
-    public OrderQty addProduct(Long userID, UpdateBasketDTO payload) {
+    public OrderQty addProduct(Long userId, UpdateBasketDTO payload) {
 
         OrderQty addItem = new OrderQty();
 
-        try { // make sure the product exists
-            addItem.setProduct(productRepository.findById(payload.productId())
-                    .orElseThrow(() ->
-                            new NoSuchElementException(String.valueOf(payload.productId()))
-                    ));
-            if (payload.quantity() > 0) {
-                addItem.setQuantity(payload.quantity());
-            } else {
-                return null;
-            }
-            // get the basket or else create new.
-            addItem.setOrder(orderRepository.findByUserIdAndActiveBasket(userID, true)
-                    .orElse(orderRepository.save(
-                            new Order(
-                                    userRepository.findById(userID).orElseThrow(() ->
-                                            new NoSuchElementException(String.valueOf(userID))),
-                                    true
-                            ))));
-        } catch (Exception e) {
+        // make sure the product exists
+        addItem.setProduct(productRepository.findById(payload.productId())
+                .orElse(null));
+        if (addItem.getProduct() == null) {
             return null;
+        }
+
+        if (payload.quantity() > 0) {
+            addItem.setQuantity(payload.quantity());
+        } else {
+            return null;
+        }
+        // get the active basket if not found create one
+        addItem.setOrder(orderRepository.findByUserIdAndActiveBasket(userId, true)
+                .orElse(null));
+        if (addItem.getOrder() == null) {
+            addItem.setOrder(orderRepository.save(new Order(userRepository.findById(userId).orElseThrow(() ->
+                    new NoSuchElementException(String.valueOf(userId))),
+                    true
+            )));
+
         }
         return orderQtyRepository.save(addItem);
     }
