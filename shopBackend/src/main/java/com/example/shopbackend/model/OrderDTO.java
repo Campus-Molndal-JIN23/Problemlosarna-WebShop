@@ -14,13 +14,21 @@ public class OrderDTO {
     private final List<BasketDTO> orders;
 
     public OrderDTO(List<Order> user, List<List<OrderQty>> baskets) {
-        this.username = user.getFirst().getUser().getUserName();
+        this.username = user.get(0).getUser().getUserName(); //Todo user.getFirst().getUser().getUserName();
 
         this.orders = new ArrayList<>();
 
         for (int i = 0; i < baskets.size(); i++) {
             orders.add(new BasketDTO(baskets.get(i)));
         }
+    }
+
+    public OrderDTO(Order user, List<OrderQty> baskets) {
+        this.username = user.getUser().getUserName(); //Todo user.getFirst().getUser().getUserName();
+
+        this.orders = new ArrayList<>();
+
+            orders.add(new BasketDTO(baskets));
     }
 
     @Override

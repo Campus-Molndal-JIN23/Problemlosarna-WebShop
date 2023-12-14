@@ -19,6 +19,7 @@ public class OrderDetailsDTO {
     public OrderDetailsDTO(HashMap<User,List<List<OrderQty>>> allUsersAndOrders) {
         List<BasketDTO> orders;
         allOrders = new ArrayList<>();
+
         for(Map.Entry<User,List<List<OrderQty>>>entry : allUsersAndOrders.entrySet() ){
             orders =new ArrayList<>();
             User user = entry.getKey();
@@ -30,20 +31,6 @@ public class OrderDetailsDTO {
           }
     }
 
-
-   /* @Override
-    public String toString() {
-        String output = "OrderDTO{[";
-
-        for(UserNameAndOrders order : orderList ){
-                     output += "username='" + order.getName() + '\'' +
-                    ", orders=" + order.getOrders()+",";
-        }
-        output=output.substring(0,output.length()-1);
-        output+="]}";
-
-        return output;
-    }*/
 
     @Data
     public class UserNameAndOrders implements Serializable {

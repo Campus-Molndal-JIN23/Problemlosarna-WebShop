@@ -1,20 +1,16 @@
 package com.example.shopbackend.controller;
 
 
-
-import com.example.shopbackend.entity.BasketOld;
-import com.example.shopbackend.entity.OrderOld;
-import com.example.shopbackend.entity.ProductOld;
-import com.example.shopbackend.entity.User;
+import com.example.shopbackend.entity.*;
 import com.example.shopbackend.form.UserTest;
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.model.OrderDetailsDTO;
 import com.example.shopbackend.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 
 @RestController
@@ -23,22 +19,17 @@ public class OrderController {
 
     private final OrderService orderService;
 
+
+
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 
-    @PostMapping("/order")             //TODO Check om vi ska använda userDTO
-    public ResponseEntity<Object> Order(@RequestBody User user) {
-
-        HashMap<ProductOld, Integer> products = new HashMap<>();
-
-        products.put(new ProductOld("Product 1", 100, "Text about the product 1"), 1);
-        products.put(new ProductOld("Product 2", 200, "Text about the product 2"), 2);
-
-        BasketOld basket = new BasketOld(100, products);
+    @PutMapping ("/order")             //TODO Check om vi ska använda userDTO
+    public ResponseEntity<Object> Order() {
 
 
-        return ResponseEntity.ok(new OrderOld(1, basket));
+        return ResponseEntity.ok(orderService.placeOrder(1L));
 
     }
 

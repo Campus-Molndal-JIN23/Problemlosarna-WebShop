@@ -3,6 +3,7 @@ package com.example.shopbackend.service;
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.entity.User;
+import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.model.OrderDetailsDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class OrderService {
@@ -20,13 +24,14 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
-
+    private final BasketService basketService;
     private final OrderQtyRepository orderQtyRepository;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository,BasketService basketService) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderQtyRepository = orderQtyRepository;
+        this.basketService=basketService;
     }
 
     public OrderDTO findAllUserOrders(Long userId) {
@@ -45,6 +50,17 @@ public class OrderService {
         }
     }
 
+    public Object placeOrder(Long userId){
+
+        Optional<Order> order = orderRepository.findByUserIdAndActiveBasket(userId, true);
+            order.get().setActiveBasket(false);
+             orderRepository.save(order.get());
+
+        return new OrderDTO(order.get(), orderQtyRepository.findOrderQtyByOrderId(order.get().getId()));
+
+    }
+
+
 
 
     public List <User> findAllUsers(){
@@ -52,12 +68,13 @@ public class OrderService {
     }
 
     public OrderDetailsDTO findAllOrders(){
+
         List<Order> orders;
         List<List<OrderQty>> baskets;
         HashMap<User,List<List<OrderQty>>> allUsersAndOrders = new HashMap<>();
         List<User> users = findAllUsers();
+
         for(User user : users){
-            orders = new ArrayList<>();
             baskets = new ArrayList<>();
             orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
             if(orders.isEmpty()){
