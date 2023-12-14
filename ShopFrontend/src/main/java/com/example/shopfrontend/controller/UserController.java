@@ -61,6 +61,7 @@ public class UserController {
 
     @PostMapping("/user/basket/add/{id}+{quantity}")
     public String addToBasket(@PathVariable int id ,@PathVariable int quantity) throws IOException, ParseException {
+        log.info("addToBasket: " + id + " " + quantity);
         OrderQty product = new OrderQty();
         product.setId(id);
         product.setQuantity(quantity);
