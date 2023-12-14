@@ -148,7 +148,7 @@ class BasketServiceTest {
         //update item
         var updateDTO = new UpdateBasketDTO(expectedId, expectedQty);
         var actual = basketService.addProduct(userID, updateDTO);
-
+        System.out.println(actual);
         assertEquals(expectedId, actual.getProduct().getId());
         assertEquals(expectedQty, actual.getQuantity());
     }
