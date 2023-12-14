@@ -62,7 +62,15 @@
         <tbody>
         <tr th:each = "product: ${products}">
             <td>
-                <input type="number" th:field="*{quantity}" class="form-control" min="1" style="width: 80px;"/>
+                <form th:action="@{/user/basket/add/{id}(id=${product.id})}" method="post" class="d-flex">
+
+                <input type="number"
+                       th:field="*{newProduct.quantity}"
+                       class="form-control"
+                       min="1"
+                       style="width: 80px;"/>
+                    <button type="submit" class="btn btn-primary ms-2">Put In Basket</button>
+                </form>
             </td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
@@ -70,8 +78,6 @@
             <td>
                 <a th:onclick="'openPopup(\'' + ${product.id} + '\')'"
                    class="btn btn-primary">More Info</a>
-                <a th:href="@{/user/basket/add/{id}/{quantity}(id=${product.id}, quantity=${quantity})}"
-                   class="btn btn-primary">Put In Basket</a>
             </td>
 
         </tr>

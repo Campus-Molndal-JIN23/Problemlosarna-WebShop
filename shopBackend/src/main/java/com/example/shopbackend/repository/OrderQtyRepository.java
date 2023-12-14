@@ -11,6 +11,8 @@ public interface OrderQtyRepository extends JpaRepository<OrderQty, Long> {
 
     List<OrderQty> findOrderQtyByOrderId(Long orderId);
 
+    OrderQty findOrderQtyByOrder_IdAndProductId(Long orderId, Long productId);
+
     void deleteOrderQtyByOrder_IdAndProductId(Long orderId, Long productId);
 
 

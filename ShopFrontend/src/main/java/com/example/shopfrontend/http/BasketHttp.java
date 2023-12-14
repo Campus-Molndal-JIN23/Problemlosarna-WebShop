@@ -20,7 +20,6 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -50,7 +49,7 @@ public class BasketHttp {
     }
 
 
-    public BasketDTO addProductToBasket(OrderQty product, String token) throws IOException, ParseException {
+    public void addProductToBasket(UpdateBasketDTO product, String token) throws IOException, ParseException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(product));
@@ -59,19 +58,16 @@ public class BasketHttp {
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
+
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return null;
+            return;
         }
 
-        HttpEntity entity = response.getEntity();
-
-        BasketDTO basketRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<BasketDTO>() {});
-        log.info("createProduct: ", basketRespons);
-        return basketRespons;
+        log.info("created Product");
     }
 
-    public void updateProductQuantityInBasket(OrderQty update, String token) throws IOException {
+    public void updateProductQuantityInBasket(UpdateBasketDTO update, String token) throws IOException {
         HttpPut request = new HttpPut("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(update));
@@ -79,6 +75,7 @@ public class BasketHttp {
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
+
         if (response.getCode() != 200) {
             log.error("Error uppstod");
             return;
@@ -86,7 +83,7 @@ public class BasketHttp {
         log.info("Product updated");
     }
 
-    public void removeProductFromBasket(OrderQty product, String token) throws IOException {
+    public void removeProductFromBasket(UpdateBasketDTO product, String token) throws IOException {
         HttpDelete request = new HttpDelete("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(product));
@@ -94,6 +91,7 @@ public class BasketHttp {
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
+
         if (response.getCode() != 404) {
             log.error("Error uppstod");
         }

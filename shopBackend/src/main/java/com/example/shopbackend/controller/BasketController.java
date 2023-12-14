@@ -39,11 +39,11 @@ public class BasketController {
 
     @PutMapping("")
     public ResponseEntity<?> updateQuantity(@RequestBody UpdateBasketDTO payload) {
-        // Yeah! It's the same as Post. If Checking for existence is crucial make that an early return.
-        Long userID = 1L; // todo get id form token
-        var updatedBasket = basketService.addProduct(userID, payload);
 
-        return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        Long userID = 1L; // todo get id form token
+        var updatedBasket = basketService.updateQuantityProduct(userID, payload);
+
+        return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
 
