@@ -25,7 +25,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PutMapping ("/order")             //TODO Check om vi ska använda userDTO
+    @PostMapping ("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> Order() {
 
 
