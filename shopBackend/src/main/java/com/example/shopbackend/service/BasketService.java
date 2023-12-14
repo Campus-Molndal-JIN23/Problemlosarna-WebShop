@@ -2,6 +2,7 @@ package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
+import com.example.shopbackend.entity.Product;
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
@@ -41,31 +42,51 @@ public class BasketService {
 
     public OrderQty addProduct(Long userId, UpdateBasketDTO payload) {
 
-        OrderQty addItem = new OrderQty();
-
-        // make sure the product exists
-        addItem.setProduct(productRepository.findByIdAndDeleted(payload.productId(), false)
-                .orElse(null));
-        if (addItem.getProduct() == null) {
-            return null;
-        }
-
-        if (payload.quantity() > 0) {
-            addItem.setQuantity(payload.quantity());
-        } else {
-            return null;
-        }
         // get the active basket if not found create one
-        addItem.setOrder(orderRepository.findByUserIdAndActiveBasket(userId, true)
-                .orElse(null));
-        if (addItem.getOrder() == null) {
-            addItem.setOrder(orderRepository.save(new Order(userRepository.findById(userId).orElseThrow(() ->
+        Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
+                .orElse(null);
+        if (order == null)
+            order = orderRepository.save(new Order(userRepository.findById(userId).orElseThrow(() ->
                     new NoSuchElementException(String.valueOf(userId))),
                     true
-            )));
+            ));
 
-        }
-        return orderQtyRepository.save(addItem);
+        // make sure the product exists and in use
+        Product product = productExists(payload);
+        if (product == null) return null;
+
+        if (!validQuantity(payload)) return null;
+
+        return orderQtyRepository.save(new OrderQty(product, payload.quantity(), order));
+    }
+
+    public OrderQty updateQuantityProduct(Long userId, UpdateBasketDTO payload) {
+
+        // get the active basket if not found return
+        Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
+                .orElse(null);
+        if (order == null) return null;
+
+        // get the object that needs updating from the table
+        OrderQty basket = orderQtyRepository.findOrderQtyByOrder_IdAndProductId(order.getId(), payload.productId());
+
+        // make sure the product exists and in use
+        if (productExists(payload) == null) return null;
+
+        if (!validQuantity(payload)) return null;
+
+        basket.setQuantity(payload.quantity());
+
+        return orderQtyRepository.save(basket);
+    }
+
+    private Boolean validQuantity(UpdateBasketDTO payload) {
+        return payload.quantity() > 0;
+    }
+
+    private Product productExists(UpdateBasketDTO payload) {
+        return productRepository.findByIdAndDeleted(payload.productId(), false)
+                .orElse(null);
     }
 
     @Transactional
