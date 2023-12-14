@@ -44,7 +44,7 @@ public class BasketService {
         OrderQty addItem = new OrderQty();
 
         // make sure the product exists
-        addItem.setProduct(productRepository.findById(payload.productId())
+        addItem.setProduct(productRepository.findByIdAndDeleted(payload.productId(), false)
                 .orElse(null));
         if (addItem.getProduct() == null) {
             return null;

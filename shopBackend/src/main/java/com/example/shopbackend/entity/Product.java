@@ -31,10 +31,14 @@ public class Product {
     @JdbcTypeCode(SqlTypes.INTEGER)
     private Integer price;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     public Product(String name, String description, Integer price) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.deleted = false;
     }
 
     @Override
