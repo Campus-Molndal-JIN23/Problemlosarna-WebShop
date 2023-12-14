@@ -43,7 +43,7 @@ public class ShopBackendApplication {
             var user2 = userRepository.save(new User("name2", "password"));
             var user3 = userRepository.save(new User("name3", "password"));
             var user4 = userRepository.save(new User("name4", "password"));
-            var user5 = userRepository.save(new User("wasabi", "password"));
+            var user5 = userRepository.save(new User("name5", "password"));
 
             var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
             var product2 = productRepository.save(new Product("Product 2", "Text about the product 2", 200));
