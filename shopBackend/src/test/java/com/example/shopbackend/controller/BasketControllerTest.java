@@ -43,15 +43,13 @@ class BasketControllerTest {
     @Test
     void updateQuantity() throws Exception {
 
-        var payload = new UpdateBasketDTO(2L, 999);
+        var payload = new UpdateBasketDTO(3L, 999);
         System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(put(API)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-
-
     }
 
     @Test
