@@ -31,7 +31,7 @@ class BasketControllerTest {
 
     @Test
     void addProductToBasket() throws Exception {
-        var payload = new UpdateBasketDTO(1L, 99);
+        var payload = new UpdateBasketDTO(5L, 99);
         System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
                         .contentType(MediaType.APPLICATION_JSON)
