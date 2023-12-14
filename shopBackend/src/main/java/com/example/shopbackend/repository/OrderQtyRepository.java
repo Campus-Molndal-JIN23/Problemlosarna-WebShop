@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface OrderQtyRepository extends JpaRepository<OrderQty, Long> {
 
-    List<OrderQty> findOrderQtyByOrderId(Long userId);
+    List<OrderQty> findOrderQtyByOrderId(Long orderId);
 
     void deleteOrderQtyByOrder_IdAndProductId(Long orderId, Long productId);
 

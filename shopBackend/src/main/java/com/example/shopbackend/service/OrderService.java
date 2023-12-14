@@ -52,16 +52,15 @@ public class OrderService {
     }
 
     public OrderDetailsDTO findAllOrders(){
+        List<Order> orders;
+        List<List<OrderQty>> baskets;
         HashMap<User,List<List<OrderQty>>> allUsersAndOrders = new HashMap<>();
-        List<List<OrderQty>> baskets = new ArrayList<>();
         List<User> users = findAllUsers();
         for(User user : users){
-            List<Order> orders=null;
-            System.out.println(user.getId());
+            orders = new ArrayList<>();
+            baskets = new ArrayList<>();
             orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
-            System.out.println(orders);
             if(orders.isEmpty()){
-                System.out.println(user.getUserName());
                 continue;
             }
 
@@ -69,7 +68,6 @@ public class OrderService {
                 baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
 
             }
-
             allUsersAndOrders.put(user,baskets);
 
         }
