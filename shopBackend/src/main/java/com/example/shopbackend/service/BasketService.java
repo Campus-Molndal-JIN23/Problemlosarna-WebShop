@@ -60,16 +60,18 @@ public class BasketService {
         return orderQtyRepository.save(new OrderQty(product, payload.quantity(), order));
     }
 
+
     public OrderQty updateQuantityProduct(Long userId, UpdateBasketDTO payload) {
 
         // get the active basket if not found return
         Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
                 .orElse(null);
         if (order == null) return null;
-
+        System.out.println(order);
         // get the object that needs updating from the table
-        OrderQty basket = orderQtyRepository.findOrderQtyByOrder_IdAndProductId(order.getId(), payload.productId());
-
+        var basket = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId()).orElse(null);
+        System.out.println(basket);
+        if (basket == null) return null;
         // make sure the product exists and in use
         if (productExists(payload) == null) return null;
 
