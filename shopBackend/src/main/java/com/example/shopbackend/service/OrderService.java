@@ -38,4 +38,20 @@ public class OrderService {
         }
     }
 
+    public OrderDTO findAllOrders() {
+        List<List<OrderQty>> baskets = new ArrayList<>();
+
+        // orders are always past baskets and set to false
+        List<Order> orders = orderRepository.findAllByActiveBasket(false).orElse(null);
+
+        if (orders == null) {
+            return null;
+        } else {
+            for (Order order : orders) {
+                baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+            }
+            return new OrderDTO(orders, baskets);
+        }
+    }
+
 }

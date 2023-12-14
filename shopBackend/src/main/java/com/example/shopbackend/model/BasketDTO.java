@@ -22,7 +22,7 @@ public class BasketDTO {
             this.products.add(new BasketProductDTO(ordQty));
         }
         this.totalCost = sum;
-        this.basketId = products.getFirst().getId();
+        this.basketId = products.getFirst().getId();//todo cHANGE LATER TO products.getFirst().getId()
     }
 
     @Override
