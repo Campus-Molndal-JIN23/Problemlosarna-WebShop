@@ -49,12 +49,6 @@ public class UserController {
         return "user_index";
     }
 
-    @GetMapping("/user/one/{id}")
-    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
-        model1.addAttribute("product", productHttp.getProductById(id));
-        return "user_view_one_product";
-    }
-
 
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
