@@ -1,11 +1,8 @@
 package com.example.shopbackend.controller;
 
 
-import com.example.shopbackend.entity.BasketOld;
-import com.example.shopbackend.entity.OrderOld;
-import com.example.shopbackend.entity.ProductOld;
+import com.example.shopbackend.entity.*;
 import com.example.shopbackend.form.UserTest;
-import com.example.shopbackend.entity.User;
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.service.OrderService;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/webshop")
@@ -51,10 +50,12 @@ public class OrderController {
     @GetMapping("/orders")
     public ResponseEntity<Object> getOrders() {
 
+
+        OrderDTO orders = orderService.findAllOrders();
         HashMap<String, ArrayList<UserTest>> users = new HashMap<>();
         users.put("users", getUserData());
 
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(orders);
     }
 
     private ArrayList<UserTest> getUserData() {
