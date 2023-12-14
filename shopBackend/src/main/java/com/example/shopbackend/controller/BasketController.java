@@ -34,7 +34,7 @@ public class BasketController {
         Long userID = 1L; // todo get id form token
         var updatedBasket = basketService.addProduct(userID, payload);
 
-        return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @PutMapping("")
