@@ -7,9 +7,11 @@
 
 
 ## Description
-A fullstack e-commerce, Maven Springboot RESTful API application where you can buy random stuff. The application uses both a frontend and a backend in 2 separate modules.
+A fullstack e-commerce, Maven Springboot RESTful API application where you as a registered user can buy <i>super</i> random stuff. The application uses both a frontend and a backend in multiple modules.
 
-The backend is built with Java and Springboot and the frontend is built with Thymeleaf, HTML, CSS and JavaScript. The application uses a MySQL database to store data.
+The backend is built with Java and Springboot and the frontend with Thymeleaf and HTML. The application uses a MySQL database to store data.
+
+Other features in the project are Spring Security, JWT, various Unittests, CSS and Javascript.
 
 ## What was your motivation?
 Aim to build the first fullstack application as a group. Even though prior small to no experience in frontend before.
