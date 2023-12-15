@@ -14,7 +14,7 @@ public class OrderDTO {
     private final List<BasketDTO> orders;
 
     public OrderDTO(List<Order> user, List<List<OrderQty>> baskets) {
-        this.username = user.getFirst().getUser().getUserName();
+        this.username = user.getFirst().getUser().getUsername();
 
         this.orders = new ArrayList<>();
 

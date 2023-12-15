@@ -26,7 +26,7 @@ public class OrderDetailsDTO {
               for(List<OrderQty>orderQtyList : value){
                   orders.add(new BasketDTO(orderQtyList));
               }
-            allOrders.add(new UserNameAndOrders(user.getUserName(),orders));
+            allOrders.add(new UserNameAndOrders(user.getUsername(),orders));
           }
     }
 
