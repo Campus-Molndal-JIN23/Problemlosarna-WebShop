@@ -3,8 +3,6 @@ package com.example.shopbackend.controller;
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.service.BasketService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/webshop/basket")
 public class BasketController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BasketController.class); // todo if no in use
     private final BasketService basketService;
 
     public BasketController(BasketService basketService) {
@@ -46,13 +43,10 @@ public class BasketController {
         return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-
     @DeleteMapping("")
     public ResponseEntity<?> deleteProduct(@RequestBody UpdateBasketDTO payload) {
 
         Long userID = 1L; // todo get id form token
         return basketService.deleteProductActiveBasket(userID, payload) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
-
-
 }

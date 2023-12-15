@@ -20,9 +20,7 @@ public class BasketService {
 
     private final OrderRepository orderRepository;
     private final OrderQtyRepository orderQtyRepository;
-
     private final UserRepository userRepository;
-
     private final ProductRepository productRepository;
 
 
