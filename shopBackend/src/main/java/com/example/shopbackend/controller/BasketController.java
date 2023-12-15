@@ -25,7 +25,6 @@ public class BasketController {
 
     @GetMapping("")
     public ResponseEntity<BasketDTO> getBasket(Principal principal) {
-        System.out.println("Principal: " + principal.toString());
 
         Long userid = getUser.getUserId(principal);
         BasketDTO basket = null;
