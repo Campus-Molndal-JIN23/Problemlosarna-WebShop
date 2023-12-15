@@ -2,7 +2,6 @@ package com.example.shopbackend.controller;
 
 
 import com.example.shopbackend.entity.User;
-
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponseDTO;
 import com.example.shopbackend.security.ExtractData;
@@ -12,7 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -22,7 +25,6 @@ import java.util.Set;
 public class AuthController {
 
     //TODO delete .body
-
     private final AuthenticationService authenticationService;
     private final AuthService authService;
     private final ExtractData extractData;
@@ -30,18 +32,16 @@ public class AuthController {
     @PostMapping("/register")    //TODO  check if LoginForm fungerar from annan application
     public ResponseEntity<?> register(@RequestBody LoginForm loginForm) {
 
-
         if (!authService.isValidPassword(loginForm.getPassword())) {
             return ResponseEntity.badRequest().body("Invalid password");
         }
-
         try {
             authService.register(loginForm);
+
             return ResponseEntity.ok("User created");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
         }
-
         //or if user already exists this
         //return ResponseEntity.status(409).body("User already exists");
     }
@@ -56,7 +56,6 @@ public class AuthController {
             if (!userInfo.isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exist");
             }
-
             String token = authenticationService.signin(loginForm).getToken();
 
             Set<String> role = extractData.getUserRoles(token);
