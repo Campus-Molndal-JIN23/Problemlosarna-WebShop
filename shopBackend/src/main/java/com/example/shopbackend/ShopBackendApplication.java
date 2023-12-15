@@ -34,10 +34,9 @@ public class ShopBackendApplication {
         return args -> {
 
 
-
-            if(roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
-            saveRoles(roleRepository,Role.ROLE_ADMIN);
-            saveRoles(roleRepository,Role.ROLE_USER);
+            if (roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
+                saveRoles(roleRepository, Role.ROLE_ADMIN);
+                saveRoles(roleRepository, Role.ROLE_USER);
             }
 
             Roles role = roleRepository.findByAuthority(Role.ROLE_ADMIN)
@@ -52,8 +51,6 @@ public class ShopBackendApplication {
 
 
             var user1 = userRepository.save(new User("name1", "password"));
-
-           /* var user1 = userRepository.save(new User("name1", "password"));
             var user2 = userRepository.save(new User("name2", "password"));
             var user3 = userRepository.save(new User("name3", "password"));
             var user4 = userRepository.save(new User("name4", "password"));
@@ -73,7 +70,7 @@ public class ShopBackendApplication {
             var order2 = new Order(user2, true);
             var order3 = new Order(user1, false);
             var order4 = new Order(user1, false);
-            var order5= new Order(user5,false);
+            var order5 = new Order(user5, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -84,8 +81,6 @@ public class ShopBackendApplication {
             var basket6 = new OrderQty(6, product2, 2, order2);
 
 
-
-
             var basket7 = new OrderQty(7, product55, 1, order3);
             var basket8 = new OrderQty(8, product66, 2, order3);
 
@@ -93,8 +88,6 @@ public class ShopBackendApplication {
             var basket10 = new OrderQty(10, product66, 66, order4);
 
             var basket11 = new OrderQty(6, product2, 2000, order5);
-
-
 
 
             order1.getOrderQty().add(basket1);
@@ -150,13 +143,11 @@ public class ShopBackendApplication {
             List<OrderQty> orderQtyList2 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder2.get().getId());
             for (OrderQty orderQty : orderQtyList2) {
                 System.out.println("Order qty id:" + orderQty.getId());
-            }*/
+
+            }
+
         };
-
-
-
     }
-
 
     public void saveRoles(RoleRepository repository, Role role){
         Roles roles = new Roles();

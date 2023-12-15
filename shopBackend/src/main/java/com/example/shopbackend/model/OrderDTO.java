@@ -23,7 +23,7 @@ public class OrderDTO {
     }
 
     public OrderDTO(Order user, List<OrderQty> baskets) {
-        this.username = user.getUser().getUserName();
+        this.username = user.getUser().getUsername();
 
         this.orders = new ArrayList<>();
 

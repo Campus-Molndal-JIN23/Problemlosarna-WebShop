@@ -23,7 +23,7 @@ public class OrderController {
 
     @PostMapping ("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> Order() {
-        OrderDTO order = orderService.placeOrder(0L);
+        OrderDTO order = orderService.placeOrder(1L);
 
         return order== null ? ResponseEntity.notFound().build():ResponseEntity.ok(order);
 
