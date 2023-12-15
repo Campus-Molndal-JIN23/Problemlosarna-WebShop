@@ -23,11 +23,10 @@ Aim to build the first fullstack application as a group. Even though prior small
   If your README is long, add a table of contents to make it easy for users to find what they need.
 
 
-(## Installation)
+## Installation
+IF, your using IntelliJ IDEA make sure you are using atleast version 2023.2, otherwise div. errors may occur. If they still do, try clearing IntelliJ:s cache and restart.
   
-  Installation
-  What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
-
+Make sure you have the MySQL workbench installed on your local device.
 ## Usage
 
 Start both ShopBackend and ShopFrontend in the separate modules in your IDE. Go to http://localhost:8081/index and register a new user. Log in and start shopping!
