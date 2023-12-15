@@ -21,11 +21,13 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final OrderQtyRepository orderQtyRepository;
+    private final BasketService basketService;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository, BasketService basketService) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderQtyRepository = orderQtyRepository;
+        this.basketService = basketService;
     }
 
     public OrderDTO findAllUserOrders(Long userId) {
@@ -52,7 +54,7 @@ public class OrderService {
             Order order = orderOptional.get();
             order.setActiveBasket(false);
             orderRepository.save(order);
-
+            basketService.createBasket(userId); // create a new basket
             return new OrderDTO(order, orderQtyRepository.findOrderQtyByOrderId(order.getId()));
         } else {
 

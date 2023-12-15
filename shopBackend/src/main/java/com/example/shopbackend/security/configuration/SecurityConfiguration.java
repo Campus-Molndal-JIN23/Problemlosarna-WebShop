@@ -34,7 +34,7 @@ public class SecurityConfiguration {
     private final static String PRODUCT_WHITE_LIST = "webshop/products*";
     private final static String ADMIN_PRODUCT_WHITE_LIST = "webshop/products**";
     private final static String AUTHORIZATION_WHITE_LIST = "/webshop/auth/**";
-    private final static String BASKET_WHITE_LIST = "webshop/basket*";
+    private final static String BASKET_WHITE_LIST = "webshop/basket**";
     private final static String USER_ORDER_WHITE_LIST = "webshop/order*";
     private final static String ADMIN_ORDER_WHITE_LIST = "webshop/order**";
 
