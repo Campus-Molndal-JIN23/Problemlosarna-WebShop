@@ -5,6 +5,8 @@ import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.http.UserHttp;
+import com.example.shopfrontend.models.ProductDTO;
+import com.example.shopfrontend.models.UpdateBasketDTO;
 import lombok.AllArgsConstructor;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -35,7 +37,9 @@ public class IndexController {
 
     @GetMapping("/index/one/{id}")
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
-        model1.addAttribute("product", productHttp.getProductById(id));
+        ProductDTO product = new ProductDTO();
+        product.setId(id);
+        model1.addAttribute("product", productHttp.getProductById(product));
         return "view_one_product";
     }
 
