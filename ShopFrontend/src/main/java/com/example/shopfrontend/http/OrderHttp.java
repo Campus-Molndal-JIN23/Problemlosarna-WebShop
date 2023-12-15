@@ -7,6 +7,7 @@ import com.example.shopfrontend.models.OrderDTO;
 import com.example.shopfrontend.models.OrderQty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -31,8 +32,10 @@ public class OrderHttp {
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private ObjectMapper mapper = new ObjectMapper();
 
+
     //gets all orders for all users
     public List<OrderDTO> getAllOrdersForAll(String token) throws IOException, ParseException {
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/orders");
 
@@ -70,7 +73,8 @@ public class OrderHttp {
         log.info("createProduct: ", orderRespons);
     }
 
-    public List<OrderDTO> getAllOrdersForOne(String token) throws IOException, ParseException {
+    public OrderDTO getAllOrdersForOne(String token) throws IOException, ParseException {
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/order");
 
@@ -85,7 +89,7 @@ public class OrderHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        List<OrderDTO> orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<OrderDTO>>() {});
+        OrderDTO orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDTO>() {});
         log.info("getAllOrders: ", orders);
         return orders;
     }

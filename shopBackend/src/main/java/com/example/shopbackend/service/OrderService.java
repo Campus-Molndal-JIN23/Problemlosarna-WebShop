@@ -2,23 +2,29 @@ package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
+import com.example.shopbackend.entity.User;
+import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.model.OrderDTO;
+import com.example.shopbackend.model.OrderDetailsDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
+import com.example.shopbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
-
+    private final UserRepository userRepository;
     private final OrderQtyRepository orderQtyRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderQtyRepository orderQtyRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository) {
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
         this.orderQtyRepository = orderQtyRepository;
     }
 
@@ -36,6 +42,57 @@ public class OrderService {
             }
             return new OrderDTO(orders, baskets);
         }
+    }
+
+    public OrderDTO placeOrder(Long userId){
+
+
+            Optional<Order> orderOptional = orderRepository.findByUserIdAndActiveBasket(userId, true);
+
+            if (orderOptional.isPresent()) {
+                Order order = orderOptional.get();
+                order.setActiveBasket(false);
+                orderRepository.save(order);
+
+                return new OrderDTO(order, orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+            } else {
+
+                return null;
+            }
+
+
+    }
+
+
+
+
+    public List <User> findAllUsers(){
+        return  userRepository.findAll();
+    }
+
+    public OrderDetailsDTO findAllOrders(){
+
+        List<Order> orders;
+        List<List<OrderQty>> baskets;
+        HashMap<User,List<List<OrderQty>>> allUsersAndOrders = new HashMap<>();
+        List<User> users = findAllUsers();
+
+        for(User user : users){
+            baskets = new ArrayList<>();
+            orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
+            if(orders.isEmpty()){
+                continue;
+            }
+
+            for(Order order : orders) {
+                baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+
+            }
+            allUsersAndOrders.put(user,baskets);
+
+        }
+            return new OrderDetailsDTO(allUsersAndOrders);
+
     }
 
 }

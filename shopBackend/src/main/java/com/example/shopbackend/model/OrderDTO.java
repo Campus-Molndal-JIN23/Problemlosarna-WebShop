@@ -23,6 +23,14 @@ public class OrderDTO {
         }
     }
 
+    public OrderDTO(Order user, List<OrderQty> baskets) {
+        this.username = user.getUser().getUserName();
+
+        this.orders = new ArrayList<>();
+
+            orders.add(new BasketDTO(baskets));
+    }
+
     @Override
     public String toString() {
         return "OrderDTO{" +

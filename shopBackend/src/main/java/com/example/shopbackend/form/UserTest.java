@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserTest {
 
-    private String username;
+  /*  private String username;
     private List<OrderOld> orders;
-
+*/
 
 }

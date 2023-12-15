@@ -1,6 +1,7 @@
 package com.example.shopfrontend.http;
 
 import com.example.shopfrontend.models.Product;
+import com.example.shopfrontend.models.ProductDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class ProductHttp {
     private ObjectMapper mapper = new ObjectMapper();
 
 
-    public List<Product> getAllProducts() throws IOException, ParseException {
+    public List<ProductDTO> getAllProducts() throws IOException, ParseException {
 
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products");
 
@@ -42,14 +43,18 @@ public class ProductHttp {
         }
         HttpEntity entity = response.getEntity();
 
-        List<Product> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Product>>() {});
+        List<ProductDTO> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<ProductDTO>>() {});
         log.info("getAllProducts: ", products);
         return products;
     }
 
-    public Product getProductById(Long id) throws IOException, ParseException {
+    public ProductDTO getProductById(ProductDTO product) throws IOException, ParseException {
 
-        HttpGet request = new HttpGet("http://localhost:8080/webshop/products/"+ id);
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/products/one");
+
+        StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
+
+        request.setEntity(payload);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
@@ -61,12 +66,12 @@ public class ProductHttp {
 
         HttpEntity entity = response.getEntity();
 
-        Product product = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
-        log.info("getProductById: ", product);
-        return product;
+        ProductDTO productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<ProductDTO>() {});
+        log.info("getProductById: ", productRespons);
+        return productRespons;
     }
 
-    public void createProduct(Product product, String token) throws IOException, ParseException {
+    public void createProduct(ProductDTO product, String token) throws IOException, ParseException {
 
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
@@ -89,7 +94,7 @@ public class ProductHttp {
         log.info("createProduct: ", productRespons);
     }
 
-    public void updateProduct(Product product, String token) throws IOException {
+    public void updateProduct(ProductDTO product, String token) throws IOException {
 
         HttpPut request = new HttpPut("http://localhost:8080/webshop/products");
 
@@ -107,14 +112,17 @@ public class ProductHttp {
         log.info("Product updated");
     }
 
-    public void deleteProductById(long id, String token) throws IOException {
-        HttpDelete request = new HttpDelete("http://localhost:8080/webshop/products"+ id);
+    public void deleteProductById(ProductDTO product, String token) throws IOException {
+        HttpDelete request = new HttpDelete("http://localhost:8080/webshop/products");
+
+        StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
+        request.setEntity(payload);
 
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
-        if (response.getCode() != 404) {
+        if (response.getCode() != 204) {
             log.error("Error uppstod");
         }
         log.info("Product deleted");

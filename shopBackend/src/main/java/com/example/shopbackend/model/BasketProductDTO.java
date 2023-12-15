@@ -15,7 +15,7 @@ public class BasketProductDTO {
     private final int price;
 
     public BasketProductDTO(OrderQty item) {
-        this.id = item.getId();
+        this.id = item.getProduct().getId();
         this.quantity = item.getQuantity();
         this.name = item.getProduct().getName();
         this.description = item.getProduct().getDescription();
@@ -25,7 +25,8 @@ public class BasketProductDTO {
     @Override
     public String toString() {
         return "BasketProductDTO{" +
-                "quantity=" + quantity +
+                "id=" + id +
+                ", quantity=" + quantity +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +

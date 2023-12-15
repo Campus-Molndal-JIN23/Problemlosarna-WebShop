@@ -4,6 +4,7 @@ import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.models.Product;
 
+import com.example.shopfrontend.models.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -31,34 +32,33 @@ public class AdminController {
         return "admin_index";
     }
 
-    @GetMapping("/admin/one/{id}")
-    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
-        model1.addAttribute("product", productHttp.getProductById(id));
-        return "admin_view_one_product";
-    }
 
     @GetMapping ("/admin/create_product")
     public String createProductForm(Model model) {
-        Product product = new Product();
+        ProductDTO product = new ProductDTO();
         model.addAttribute("product", product);
         return "create_product";
     }
 
     @PostMapping("/admin/create_product")
-    public String saveProduct(Product product) throws IOException, ParseException {
+    public String saveProduct(ProductDTO product) throws IOException, ParseException {
         productHttp.createProduct(product,IndexController.currentUser.getToken());
         return "redirect:/admin";
     }
 
     @GetMapping("/admin/edit_product/{id}")
     public String updateProductForm(@PathVariable long id ,Model model) throws IOException, ParseException {
-        model.addAttribute("product", productHttp.getProductById(id));
+        ProductDTO product = new ProductDTO();
+        product.setId(id);
+        model.addAttribute("product", productHttp.getProductById(product));
         return "update_product";
     }
 
     @PostMapping ("/admin/edit_product/{id}")
-    public String updateProduct(@PathVariable long id , @ModelAttribute Product product) throws IOException, ParseException {
-        Product productToUpdate = productHttp.getProductById(id);
+    public String updateProduct(@PathVariable long id , @ModelAttribute ProductDTO product) throws IOException, ParseException {
+        ProductDTO productId = new ProductDTO();
+        productId.setId(id);
+        ProductDTO productToUpdate = productHttp.getProductById(productId);
         productToUpdate.setId(product.getId());
         productToUpdate.setName(product.getName());
         productToUpdate.setPrice(product.getPrice());
@@ -70,7 +70,9 @@ public class AdminController {
 
     @GetMapping("/admin/delete_product/{id}")
     public String deleteProductForm(@PathVariable long id) throws IOException {
-        productHttp.deleteProductById(id,IndexController.currentUser.getToken());
+        ProductDTO productToDelete = new ProductDTO();
+        productToDelete.setId(id);
+        productHttp.deleteProductById(productToDelete,IndexController.currentUser.getToken());
         return "redirect:/admin";
     }
 
