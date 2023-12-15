@@ -39,7 +39,7 @@ public class ShopBackendApplication {
     CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper) {
         return args -> {
 
-           /* var user1 = userRepository.save(new User("name1", "password"));
+           var user1 = userRepository.save(new User("name1", "password"));
             var user2 = userRepository.save(new User("name2", "password"));
             var user3 = userRepository.save(new User("name3", "password"));
             var user4 = userRepository.save(new User("name4", "password"));
@@ -135,7 +135,7 @@ public class ShopBackendApplication {
             List<OrderQty> orderQtyList2 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder2.get().getId());
             for (OrderQty orderQty : orderQtyList2) {
                 System.out.println("Order qty id:" + orderQty.getId());
-            }*/
+            }
         };
 
     }
