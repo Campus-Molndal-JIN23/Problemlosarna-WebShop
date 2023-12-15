@@ -1,10 +1,8 @@
 package com.example.shopbackend.model;
 
-import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.entity.User;
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.*;
 
