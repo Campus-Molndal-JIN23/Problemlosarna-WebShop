@@ -8,9 +8,16 @@ import java.util.List;
 @Data
 public class OrderDTO {
 
-    private final String username;
-    private final List<BasketDTO> orders;
+    private String username;
+    private List<BasketDTO> orders;
 
+    public OrderDTO() {
+    }
+
+    public OrderDTO(String username, List<BasketDTO> orders) {
+        this.username = username;
+        this.orders = orders;
+    }
 
     @Override
     public String toString() {
