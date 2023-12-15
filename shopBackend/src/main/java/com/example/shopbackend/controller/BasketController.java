@@ -3,6 +3,7 @@ package com.example.shopbackend.controller;
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.service.BasketService;
+import com.example.shopbackend.security.ExtractData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,42 +12,45 @@ import org.springframework.web.bind.annotation.*;
 public class BasketController {
 
     private final BasketService basketService;
+    private final ExtractData extractData;
 
-    public BasketController(BasketService basketService) {
+    public BasketController(BasketService basketService, ExtractData extractData) {
         this.basketService = basketService;
+        this.extractData = extractData;
     }
 
     @GetMapping("")
-    public ResponseEntity<BasketDTO> getBasket() {
+    public ResponseEntity<BasketDTO> getBasket(String jwt) {
 
-        Long userID = 1L; // todo get id form token
-        BasketDTO basket = basketService.getBasket(userID);
+        long userid = extractData.getUserID(jwt);
+
+        BasketDTO basket = basketService.getBasket(userid);
         return basket != null ? ResponseEntity.ok(basket) : ResponseEntity.notFound().build();
     }
 
 
     @PostMapping("") // this is a product id
-    public ResponseEntity<?> addProductToBasket(@RequestBody UpdateBasketDTO payload) {
+    public ResponseEntity<?> addProductToBasket(@RequestBody UpdateBasketDTO payload, String jwt) {
 
-        Long userID = 1L; // todo get id form token
-        var updatedBasket = basketService.addProduct(userID, payload);
+        long userid = extractData.getUserID(jwt);
+        var updatedBasket = basketService.addProduct(userid, payload);
 
         return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateQuantity(@RequestBody UpdateBasketDTO payload) {
+    public ResponseEntity<?> updateQuantity(@RequestBody UpdateBasketDTO payload, String jwt) {
 
-        Long userID = 1L; // todo get id form token
-        var updatedBasket = basketService.updateQuantityProduct(userID, payload);
+        long userid = extractData.getUserID(jwt);
+        var updatedBasket = basketService.updateQuantityProduct(userid, payload);
 
         return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> deleteProduct(@RequestBody UpdateBasketDTO payload) {
+    public ResponseEntity<?> deleteProduct(@RequestBody UpdateBasketDTO payload, String jwt) {
 
-        Long userID = 1L; // todo get id form token
-        return basketService.deleteProductActiveBasket(userID, payload) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        long userid = extractData.getUserID(jwt);
+        return basketService.deleteProductActiveBasket(userid, payload) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
