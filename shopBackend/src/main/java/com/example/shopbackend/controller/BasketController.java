@@ -26,8 +26,8 @@ public class BasketController {
     public ResponseEntity<BasketDTO> getBasket(Authentication authentication, Principal principal) {
         System.out.println("Principal: " + principal.toString());
 //        System.out.println("Authentication: " + authentication.toString()); // is null
-        String userid = principal.getName();
-
+        String userName = principal.getName();
+        System.out.println(userName);
 //        System.out.println(userid);
 //        BasketDTO basket = basketService.getBasket(userid);
         BasketDTO basket = null;
