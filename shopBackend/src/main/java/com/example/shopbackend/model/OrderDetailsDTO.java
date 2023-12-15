@@ -16,6 +16,7 @@ public class OrderDetailsDTO {
 
     public OrderDetailsDTO(HashMap<User,List<List<OrderQty>>> allUsersAndOrders) {
         List<BasketDTO> orders;
+
         if(!allUsersAndOrders.isEmpty()) {
             allOrders = new ArrayList<>();
 
@@ -26,7 +27,7 @@ public class OrderDetailsDTO {
                 for (List<OrderQty> orderQtyList : value) {
                     orders.add(new BasketDTO(orderQtyList));
                 }
-                allOrders.add(new UserNameAndOrders(user.getUserName(), orders));
+                allOrders.add(new UserNameAndOrders(user.getUsername(), orders));
             }
         }
     }

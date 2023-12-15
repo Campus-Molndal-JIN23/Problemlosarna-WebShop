@@ -1,23 +1,16 @@
 package com.example.shopbackend;
 
-import com.example.shopbackend.entity.Order;
-import com.example.shopbackend.entity.OrderQty;
-import com.example.shopbackend.entity.Product;
-import com.example.shopbackend.entity.User;
-import com.example.shopbackend.repository.OrderQtyRepository;
-import com.example.shopbackend.repository.OrderRepository;
-import com.example.shopbackend.repository.ProductRepository;
-import com.example.shopbackend.repository.UserRepository;
+import com.example.shopbackend.entity.*;
+import com.example.shopbackend.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}) // Exclude to make sure the project runs for all.
 //@SpringBootApplication
 public class ShopBackendApplication {
@@ -36,14 +29,32 @@ public class ShopBackendApplication {
      * @return
      */
     @Bean
-    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper) {
+    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository,PasswordEncoder passwordEncoder) {
         return args -> {
 
-           var user1 = userRepository.save(new User("name1", "password"));
+
+            if (roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
+                saveRoles(roleRepository, Role.ROLE_ADMIN);
+                saveRoles(roleRepository, Role.ROLE_USER);
+            }
+
+            Roles role = roleRepository.findByAuthority(Role.ROLE_ADMIN)
+                    .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_ADMIN)));
+
+            var user = User.builder()
+                    .userName("name")
+                    .roles(new HashSet<>(Collections.singletonList(role)))
+                    .password(passwordEncoder.encode("Password1"))
+                    .build();
+            userRepository.save(user);
+
+
+            var user1 = userRepository.save(new User("name1", "password"));
             var user2 = userRepository.save(new User("name2", "password"));
             var user3 = userRepository.save(new User("name3", "password"));
             var user4 = userRepository.save(new User("name4", "password"));
             var user5 = userRepository.save(new User("name5", "password"));
+
 
             var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
             var product2 = productRepository.save(new Product("Product 2", "Text about the product 2", 200));
@@ -61,7 +72,7 @@ public class ShopBackendApplication {
             var order2 = new Order(user2, true);
             var order3 = new Order(user1, false);
             var order4 = new Order(user1, false);
-            var order5= new Order(user5,false);
+            var order5 = new Order(user5, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -72,8 +83,6 @@ public class ShopBackendApplication {
             var basket6 = new OrderQty(6, product2, 2, order2);
 
 
-
-
             var basket7 = new OrderQty(7, product55, 1, order3);
             var basket8 = new OrderQty(8, product66, 2, order3);
 
@@ -81,8 +90,6 @@ public class ShopBackendApplication {
             var basket10 = new OrderQty(10, product66, 66, order4);
 
             var basket11 = new OrderQty(6, product2, 2000, order5);
-
-
 
 
             order1.getOrderQty().add(basket1);
@@ -138,9 +145,16 @@ public class ShopBackendApplication {
             List<OrderQty> orderQtyList2 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder2.get().getId());
             for (OrderQty orderQty : orderQtyList2) {
                 System.out.println("Order qty id:" + orderQty.getId());
+
             }
         };
 
+    }
+
+    public void saveRoles(RoleRepository repository, Role role){
+        Roles roles = new Roles();
+        roles.setAuthority(role);
+        repository.save(roles);
     }
 
 }

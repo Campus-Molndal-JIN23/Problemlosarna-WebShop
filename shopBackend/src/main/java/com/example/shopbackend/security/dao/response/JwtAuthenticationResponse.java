@@ -1,4 +1,4 @@
-package com.example.shopbackend.form;
+package com.example.shopbackend.security.dao.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginForm {
 
-    /**  login id*/
-    String userName;
-    /**  password */
-    String password;
+public class JwtAuthenticationResponse {
+
+    private String token;
 
 }
