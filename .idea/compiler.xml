@@ -9,16 +9,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ShopFrontend" />
         <module name="shopBackend (2)" />
+        <module name="shopBackend" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="21">
-      <module name="shopBackend" target="21" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="21" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ShopFrontend" options="-parameters" />
-      <module name="shopBackend" options="" />
+      <module name="shopBackend" options="-parameters" />
       <module name="shopBackend (2)" options="-parameters" />
     </option>
   </component>

@@ -10,28 +10,22 @@ import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-
-    private final BasketService basketService;
     private final OrderQtyRepository orderQtyRepository;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository,BasketService basketService) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderQtyRepository orderQtyRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderQtyRepository = orderQtyRepository;
-        this.basketService=basketService;
     }
 
     public OrderDTO findAllUserOrders(Long userId) {
@@ -50,13 +44,22 @@ public class OrderService {
         }
     }
 
-    public Object placeOrder(Long userId){
+    public OrderDTO placeOrder(Long userId){
 
-        Optional<Order> order = orderRepository.findByUserIdAndActiveBasket(userId, true);
-            order.get().setActiveBasket(false);
-             orderRepository.save(order.get());
 
-        return new OrderDTO(order.get(), orderQtyRepository.findOrderQtyByOrderId(order.get().getId()));
+            Optional<Order> orderOptional = orderRepository.findByUserIdAndActiveBasket(userId, true);
+
+            if (orderOptional.isPresent()) {
+                Order order = orderOptional.get();
+                order.setActiveBasket(false);
+                orderRepository.save(order);
+
+                return new OrderDTO(order, orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+            } else {
+
+                return null;
+            }
+
 
     }
 

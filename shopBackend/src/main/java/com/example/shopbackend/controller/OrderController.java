@@ -27,9 +27,9 @@ public class OrderController {
 
     @PostMapping ("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> Order() {
+        OrderDTO order = orderService.placeOrder(1L);
 
-
-        return ResponseEntity.ok(orderService.placeOrder(1L));
+        return order== null ? ResponseEntity.notFound().build():ResponseEntity.ok(order);
 
     }
 
@@ -47,10 +47,10 @@ public class OrderController {
 
        OrderDetailsDTO orders = orderService.findAllOrders();
 
-        return ResponseEntity.ok(orders);
+        return orders == null? ResponseEntity.notFound().build(): ResponseEntity.ok(orders);
     }
 
-    private ArrayList<UserTest> getUserData() {
+   /* private ArrayList<UserTest> getUserData() {
         ArrayList<UserTest> users = new ArrayList<>();
 
         UserTest userTest = new UserTest("user1", orders());
@@ -77,5 +77,5 @@ public class OrderController {
 
         return orders;
     }
-
+*/
 }
