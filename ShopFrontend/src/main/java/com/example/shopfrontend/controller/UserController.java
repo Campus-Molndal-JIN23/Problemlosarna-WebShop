@@ -31,6 +31,8 @@ public class UserController {
     private UserHttp userHttp;
     private BasketHttp basketHttp;
 
+    String message = "";
+
 
 
     public UserController(ProductHttp productHttp, OrderHttp orderHttp, UserHttp userHttp, BasketHttp basketHttp) {
@@ -46,6 +48,7 @@ public class UserController {
         model.addAttribute("products", productHttp.getAllProducts());
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("newProduct", new UpdateBasketDTO());
+        model.addAttribute("message", message);
         return "user_index";
     }
 
@@ -95,7 +98,10 @@ public class UserController {
 
     @GetMapping("/user/checkout")
     public String checkoutBasket () throws IOException, ParseException {
-        orderHttp.placeOrder(IndexController.currentUser.getToken());
+        int status = orderHttp.placeOrder(IndexController.currentUser.getToken());
+        if (status == 200) {
+            message = "Order placed successfully";
+        }
         return "redirect:/user";
     }
 }
