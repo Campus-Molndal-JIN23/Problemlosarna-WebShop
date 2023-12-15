@@ -42,18 +42,18 @@ public class ShopBackendApplication {
                     .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_ADMIN)));
 
             var user = User.builder()
-                    .userName("name")
+                    .userName("admin")
                     .roles(new HashSet<>(Collections.singletonList(role)))
                     .password(passwordEncoder.encode("Password1"))
                     .build();
             userRepository.save(user);
 
 
-            var user1 = userRepository.save(new User("name1", "password"));
-            var user2 = userRepository.save(new User("name2", "password"));
-            var user3 = userRepository.save(new User("name3", "password"));
-            var user4 = userRepository.save(new User("name4", "password"));
-            var user5 = userRepository.save(new User("name5", "password"));
+            var user1 = userRepository.save(new User("name1",  passwordEncoder.encode("password")));
+            var user2 = userRepository.save(new User("name2",  passwordEncoder.encode("password")));
+            var user3 = userRepository.save(new User("name3",  passwordEncoder.encode("password")));
+            var user4 = userRepository.save(new User("name4",  passwordEncoder.encode("password")));
+            var user5 = userRepository.save(new User("name5", passwordEncoder.encode("password")));
 
 
             var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
@@ -68,10 +68,10 @@ public class ShopBackendApplication {
             // one to delete in tests
             var product7 = productRepository.save(new Product("One to delete in test", "Text about..", 365));
 
-            var order1 = new Order(user1, true); // fake a basket to order history
+            var order1 = new Order(user, true); // fake a basket to order history
             var order2 = new Order(user2, true);
-            var order3 = new Order(user1, false);
-            var order4 = new Order(user1, false);
+            var order3 = new Order(user, false);
+            var order4 = new Order(user, false);
             var order5 = new Order(user5, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
@@ -130,7 +130,7 @@ public class ShopBackendApplication {
 
             // Check if the basket exsist
 // out to check construction of table
-            Optional<Order> fetchOrder1 = orderRepository.findByUserIdAndActiveBasket(user1.getId(), true);
+          /*  Optional<Order> fetchOrder1 = orderRepository.findByUserIdAndActiveBasket(user1.getId(), true);
             System.out.println("Order 1 id: " + fetchOrder1.get().getId());
 
             List<OrderQty> orderQtyList1 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder1.get().getId());
@@ -146,7 +146,7 @@ public class ShopBackendApplication {
             for (OrderQty orderQty : orderQtyList2) {
                 System.out.println("Order qty id:" + orderQty.getId());
 
-            }
+            } */
         };
 
     }
