@@ -1,6 +1,7 @@
 package com.example.shopbackend.repository;
 
 import com.example.shopbackend.entity.Order;
+import com.example.shopbackend.form.UpdateBasketDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +17,29 @@ class OrderRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    OrderQtyRepository orderQtyRepository;
+
     @Test
     void findByUserIdAndActiveBasket() {
         Long userID = 1L;
 
         var result = orderRepository.findByUserIdAndActiveBasket(userID, true);
         System.out.println(result);
+    }
+
+    @Test
+    void FindActiveBasketForUser() {
+        Long userId = 1L;
+        var payload = new UpdateBasketDTO(2L, 999);
+
+        Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
+                .orElse(null);
+        System.out.println(order);
+        // get the object that needs updating from the table
+        var basket = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId()).orElse(null);
+        System.out.println(basket);
+
     }
 
     @Test

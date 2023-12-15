@@ -2,12 +2,14 @@ package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.model.ProductDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,31 +29,41 @@ public class ProductService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAllByDeleted(false);
+    public List<ProductDTO> findAll() {
+        List<Product> products = productRepository.findAllByDeleted(false);
+        List<ProductDTO> dtoList = new ArrayList<>();
+
+        for (Product product : products)
+            dtoList.add(new ProductDTO(product));
+
+        return dtoList;
     }
 
     public Product findById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    public Product save(Product product) {
-        return productRepository.save(product);
+    public ProductDTO save(ProductDTO product) {
+        // Returns ProductDTO saves a Product constructed from ProductDTO
+        return new ProductDTO(productRepository.save(new Product(product)));
     }
 
     /**
      * @param product updates a product
      * @return the updated product if fail null
      */
-    public Product update(Product product) {
+    public Product update(ProductDTO product) {
 
         // check that the product exists
-        var findProduct = productRepository.findById(product.getId()).orElse(null);
+        Product updateProduct = productRepository.findById(product.id()).orElse(null);
 
-        if (findProduct == null) {
+        if (updateProduct == null) {
             return null;
         } else {
-            return productRepository.save(product);
+            updateProduct.setPrice(product.price());
+            updateProduct.setName(product.name());
+            updateProduct.setDescription(product.description());
+            return productRepository.save(updateProduct);
         }
     }
 
@@ -64,13 +76,13 @@ public class ProductService {
     @Transactional
     public boolean delete(long productId) {
 
-        var productExists = productRepository.findById(productId).orElse(null);
+        Product productExists = productRepository.findById(productId).orElse(null);
 
         if (productExists == null) {
             return false;
         } else {
             productExists.setDeleted(true);
-            save(productExists);
+            productRepository.save(productExists);
 
             // find all active baskets and delete there
             Optional<List<Order>> activeBasket = orderRepository.getAllByActiveBasket(true);

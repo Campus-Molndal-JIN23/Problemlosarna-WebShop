@@ -2,6 +2,7 @@ package com.example.shopbackend.controller;
 
 
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.model.ProductDTO;
 import com.example.shopbackend.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,10 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Product>> getAll() {
+    public ResponseEntity<List<ProductDTO>> getAll() {
 
         return ResponseEntity.ok(productService.findAll());
     }
-
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getOne(@PathVariable long id) {
@@ -38,7 +37,7 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Product> createOne(@RequestBody Product product) {
+    public ResponseEntity<ProductDTO> createOne(@RequestBody ProductDTO product) {
 
         var savedProduct = productService.save(product);
 
@@ -50,7 +49,7 @@ public class ProductController {
     }
 
     @PutMapping("")
-    public ResponseEntity<Product> updateOne(@RequestBody Product product) {
+    public ResponseEntity<ProductDTO> updateOne(@RequestBody ProductDTO product) {
         var response = productService.update(product);
         if (response != null) {
             return ResponseEntity.ok(product);

@@ -1,6 +1,7 @@
 package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.model.ProductDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,20 +37,24 @@ class ProductServiceTest {
 
     @Test
     void save() {
-        var expected = new Product("Created by test", "A short description written by test", 123);
+        var product = new Product("Created by test", "A short description written by test", 123);
+
+        var expected = new ProductDTO(product);
+
         var actual = productService.save(expected);
 
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getName(), actual.getName());
-        assertEquals(expected.getDescription(), actual.getDescription());
-        assertEquals(expected.getPrice(), actual.getPrice());
+        assertEquals(expected.id(), null); // Cant check for id its created when a product is saved
+        assertEquals(expected.name(), actual.name());
+        assertEquals(expected.description(), actual.description());
+        assertEquals(expected.price(), actual.price());
     }
 
     @Test
     void FailUpdateIdDoesNotExist() {
         var expected = productService.findById(1L);// Product("Created by test", "A short description written by test", 123);
-            expected.setId(98235L);
-        var actual = productService.update(expected);
+            expected.setId(98235L); //
+        var badId = new ProductDTO(expected);
+        var actual = productService.update(badId);
 
         assertNull(actual);
 
@@ -61,17 +66,17 @@ class ProductServiceTest {
         String expectedDesc = "updated desc";
         int expectedPrice = 42;
 
-        var expected = productService.findById(1L);// Product("Created by test", "A short description written by test", 123);
-        expected.setName(expectedName);
-        expected.setDescription(expectedDesc);
-        expected.setPrice(expectedPrice);
-
+        var product = productService.findById(1L);// Product("Created by test", "A short description written by test", 123);
+        product.setName(expectedName);
+        product.setDescription(expectedDesc);
+        product.setPrice(expectedPrice);
+        var expected = new ProductDTO(product);
         var actual = productService.update(expected);
 
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getName(), actual.getName());
-        assertEquals(expected.getDescription(), actual.getDescription());
-        assertEquals(expected.getPrice(), actual.getPrice());
+        assertEquals(expected.id(), actual.getId());
+        assertEquals(expected.name(), actual.getName());
+        assertEquals(expected.description(), actual.getDescription());
+        assertEquals(expected.price(), actual.getPrice());
 
     }
 
@@ -79,10 +84,14 @@ class ProductServiceTest {
     void SuccessfullyDelete() {
         // created preconditions
         var product = new Product("Created to be deleted", "A short description for a product to delete", 123);
-        var savedProduct = productService.save(product);
+        var productDTO = new ProductDTO(product);
+
+
+
+        var savedProduct = productService.save(productDTO);
 
         // perform action
-        boolean actual = productService.delete(savedProduct.getId());
+        boolean actual = productService.delete(savedProduct.id());
 
         assertTrue(actual);
     }
