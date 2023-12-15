@@ -16,7 +16,7 @@ public class UserController {
         this.extractData = extractData;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> userDetails(@RequestBody String jwt) {
         return ResponseEntity.ok(new UserDTO(extractData.getUserID(jwt), extractData.getUserName(jwt), extractData.getUserName(jwt)));
     }

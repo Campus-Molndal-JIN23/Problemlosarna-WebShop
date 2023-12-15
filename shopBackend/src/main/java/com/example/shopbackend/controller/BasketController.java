@@ -4,8 +4,11 @@ import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.service.BasketService;
 import com.example.shopbackend.security.ExtractData;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/webshop/basket")
@@ -20,11 +23,14 @@ public class BasketController {
     }
 
     @GetMapping("")
-    public ResponseEntity<BasketDTO> getBasket(String jwt) {
+    public ResponseEntity<BasketDTO> getBasket(Authentication authentication, Principal principal) {
+        System.out.println("Principal: " + principal.toString());
+//        System.out.println("Authentication: " + authentication.toString()); // is null
+        String userid = principal.getName();
 
-        long userid = extractData.getUserID(jwt);
-
-        BasketDTO basket = basketService.getBasket(userid);
+//        System.out.println(userid);
+//        BasketDTO basket = basketService.getBasket(userid);
+        BasketDTO basket = null;
         return basket != null ? ResponseEntity.ok(basket) : ResponseEntity.notFound().build();
     }
 
