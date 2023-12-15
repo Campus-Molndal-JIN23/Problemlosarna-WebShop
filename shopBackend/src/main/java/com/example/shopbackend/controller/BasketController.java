@@ -1,10 +1,11 @@
 package com.example.shopbackend.controller;
 
+import com.example.shopbackend.entity.OrderQty;
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
-import com.example.shopbackend.service.BasketService;
 import com.example.shopbackend.security.ExtractData;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.example.shopbackend.service.BasketService;
+import com.example.shopbackend.service.GetUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,48 +16,53 @@ import java.security.Principal;
 public class BasketController {
 
     private final BasketService basketService;
-    private final ExtractData extractData;
+    private final GetUser getUser;
 
-    public BasketController(BasketService basketService, ExtractData extractData) {
+    public BasketController(BasketService basketService, GetUser getUser, ExtractData extractData) {
         this.basketService = basketService;
-        this.extractData = extractData;
+        this.getUser = getUser;
     }
 
     @GetMapping("")
-    public ResponseEntity<BasketDTO> getBasket(Authentication authentication, Principal principal) {
+    public ResponseEntity<BasketDTO> getBasket(Principal principal) {
         System.out.println("Principal: " + principal.toString());
-//        System.out.println("Authentication: " + authentication.toString()); // is null
-        String userName = principal.getName();
-        System.out.println(userName);
-//        System.out.println(userid);
-//        BasketDTO basket = basketService.getBasket(userid);
+
+        Long userid = getUser.getUserId(principal);
         BasketDTO basket = null;
+
+        if (userid != null) basket = basketService.getBasket(userid);
+
         return basket != null ? ResponseEntity.ok(basket) : ResponseEntity.notFound().build();
     }
 
 
     @PostMapping("") // this is a product id
-    public ResponseEntity<?> addProductToBasket(@RequestBody UpdateBasketDTO payload, String jwt) {
+    public ResponseEntity<?> addProductToBasket(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
-        long userid = extractData.getUserID(jwt);
-        var updatedBasket = basketService.addProduct(userid, payload);
+        Long userid = getUser.getUserId(principal);
+        OrderQty result = null;
 
-        return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+        if (userid != null) result = basketService.addProduct(userid, payload);
+
+        return result != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateQuantity(@RequestBody UpdateBasketDTO payload, String jwt) {
+    public ResponseEntity<?> updateQuantity(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
-        long userid = extractData.getUserID(jwt);
-        var updatedBasket = basketService.updateQuantityProduct(userid, payload);
+        Long userid = getUser.getUserId(principal);
+        OrderQty result = null;
 
-        return updatedBasket != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+        if (userid != null) result = basketService.updateQuantityProduct(userid, payload);
+
+        return result != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> deleteProduct(@RequestBody UpdateBasketDTO payload, String jwt) {
+    public ResponseEntity<?> deleteProduct(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
-        long userid = extractData.getUserID(jwt);
+        Long userid = getUser.getUserId(principal);
+
         return basketService.deleteProductActiveBasket(userid, payload) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

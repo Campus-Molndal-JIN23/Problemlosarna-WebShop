@@ -2,12 +2,15 @@ package com.example.shopbackend.controller;
 
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.model.OrderDetailsDTO;
-import com.example.shopbackend.security.ExtractData;
+import com.example.shopbackend.service.GetUser;
 import com.example.shopbackend.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-
+import java.security.Principal;
 
 
 @RestController
@@ -15,32 +18,34 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     private final OrderService orderService;
-    private final ExtractData extractData;
+    private final GetUser getUser;
 
 
-    public OrderController(OrderService orderService, ExtractData extractData) {
+    public OrderController(OrderService orderService, GetUser getUser) {
         this.orderService = orderService;
-        this.extractData = extractData;
+        this.getUser = getUser;
     }
 
-    @PostMapping ("/order")
-    public ResponseEntity<Object> Order(@RequestBody String jwt) {
+    @PostMapping("/order")
+    public ResponseEntity<Object> Order(Principal principal) {
 
-        long userid = extractData.getUserID(jwt);
-        OrderDTO order = orderService.placeOrder(userid);
+        Long userid = getUser.getUserId(principal);
 
-        return order== null ? ResponseEntity.notFound().build():ResponseEntity.ok(order);
+        OrderDTO result = orderService.placeOrder(userid);
+
+        return result == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(result);
 
     }
 
 
     @GetMapping("/order")             //TODO Check om vi ska använda userDTO
-    public ResponseEntity<Object> getOrder(@RequestBody String jwt) {
+    public ResponseEntity<Object> getOrder(Principal principal) {
 
-        long userid = extractData.getUserID(jwt);
-        OrderDTO orders = orderService.findAllUserOrders(userid);
+        Long userid = getUser.getUserId(principal);
 
-        return orders == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(orders);
+        OrderDTO result = orderService.findAllUserOrders(userid);
+
+        return result == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(result);
     }
 
     @GetMapping("/orders")
