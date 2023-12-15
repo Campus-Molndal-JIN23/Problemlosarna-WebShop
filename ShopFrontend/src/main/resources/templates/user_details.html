@@ -42,14 +42,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/details}">
-                    <img src="/path/to/profile-logo.png" alt="Profile Logo" style="width: 30px; height: 30px; border-radius: 50%;">
+                    <img src="/ProfileLogoGold.png" alt="Profile Logo" style="width: 30px; height: 30px; border-radius: 50%;">
                 </a>
             </li>
         </ul>
     </div>
 </nav>
 <br>
-<div class ="container">
+<div class="container">
     <div class="row">
         <div class="col-lg-6">
             <h1>User information</h1>
@@ -58,24 +58,22 @@
             <h5>Logged in as <span th:text="${username}"></span></h5>
         </div>
     </div>
+
     <br>
-    <table class ="table table-striped table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each = "user: ${users}">
+    <div class="container" style="width: 600px; height: 400px; overflow: auto;">
+        <div class="card">
+            <div class="card-body text-center">
+                <dl class="row">
+                    <dt class="col-sm-3">Username:</dt>
+                    <dd class="col-sm-9" th:text="${user.username}"></dd>
 
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.password}"></td>
+                    <dt class="col-sm-3">Password:</dt>
+                    <dd class="col-sm-9" th:text="${user.password}"></dd>
+                </dl>
 
-        </tr>
-        </tbody>
-
-    </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

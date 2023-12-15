@@ -42,7 +42,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/details}">
-                    <img src="/path/to/profile-logo.png" alt="Profile Logo" style="width: 30px; height: 30px; border-radius: 50%;">
+                    <img src="/ProfileLogoGold.png" alt="Profile Logo" style="width: 30px; height: 30px; border-radius: 50%;">
                 </a>
             </li>
         </ul>
@@ -50,12 +50,13 @@
 </nav>
 
 <br>
-<div class ="container">
+<div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <h1> Basket</h1>
+            <h1>Basket</h1>
         </div>
         <div class="col-lg-6 text-end">
+            <h5>Logged in as <span th:text="${username}"></span></h5>
             <h5>Basket total cost: <span th:text="${basket.getTotalCost()}"></span></h5>
         </div>
     </div>
