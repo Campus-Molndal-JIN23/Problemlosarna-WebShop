@@ -15,6 +15,9 @@ class BasketServiceTest {
     @Autowired
     private BasketService basketService;
 
+    @Autowired
+    private ProductService productService;
+
 
     @Test
     void getAExistingBasket() {
@@ -111,8 +114,13 @@ class BasketServiceTest {
         Long userID = 4L; // fresh user with no baskets
         Long expectedProductId = 1L; // price 100
         int expectedQuantity = 7;
-        int expectedPrice = 100 * expectedQuantity;
-        var added = basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedQuantity));
+
+        int expectedPrice = 0;
+        var initialBasket = basketService.getBasket(userID);
+        expectedPrice = initialBasket == null ? 0 : initialBasket.getTotalCost();
+        expectedPrice += productService.findById(expectedProductId).getPrice() * expectedQuantity;
+
+        basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedQuantity));
 
         var actual = basketService.getBasket(userID);
 
@@ -134,8 +142,23 @@ class BasketServiceTest {
         var updateDTO = new UpdateBasketDTO(expectedId, expectedQty);
         var actual = basketService.addProduct(userID, updateDTO);
 
+        assertNull(actual);
+    }
+    @Test
+    void updateToMoreOfAProductThatAlreadyInTheBasket() {
+
+        // get a basket with known conditions
+        Long userID = 2L;
+        BasketDTO basket = basketService.getBasket(userID);
+        Long expectedId = basket.getProducts().getFirst().getId();
+        int expectedQty = basket.getProducts().getFirst().getQuantity() + 32;
+        //update item
+        var updateDTO = new UpdateBasketDTO(expectedId, expectedQty);
+        var actual = basketService.updateQuantityProduct(userID, updateDTO);
+
         assertEquals(expectedId, actual.getProduct().getId());
         assertEquals(expectedQty, actual.getQuantity());
+//        assertNull(actual);
     }
 
     @Test
@@ -145,10 +168,24 @@ class BasketServiceTest {
         BasketDTO basket = basketService.getBasket(userID);
         Long expectedId = basket.getProducts().getLast().getId();
         int expectedQty = basket.getProducts().getLast().getQuantity() - 1;
-        //update item
+        //try to add product
         var updateDTO = new UpdateBasketDTO(expectedId, expectedQty);
         var actual = basketService.addProduct(userID, updateDTO);
-        System.out.println(actual);
+//        System.out.println(actual);
+
+        assertNull(actual);
+    }
+    @Test
+    void updateToLessOfAProductThatAlreadyInTheBasket() {
+        // get a basket with known conditions
+        Long userID = 1L;
+        BasketDTO basket = basketService.getBasket(userID);
+        Long expectedId = basket.getProducts().getLast().getId();
+        int expectedQty = basket.getProducts().getLast().getQuantity() - 1;
+        //update item
+        var updateDTO = new UpdateBasketDTO(expectedId, expectedQty);
+        var actual = basketService.updateQuantityProduct(userID, updateDTO);
+
         assertEquals(expectedId, actual.getProduct().getId());
         assertEquals(expectedQty, actual.getQuantity());
     }

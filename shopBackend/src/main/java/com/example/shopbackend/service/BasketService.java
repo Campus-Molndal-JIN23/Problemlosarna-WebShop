@@ -41,24 +41,30 @@ public class BasketService {
     }
 
     public OrderQty addProduct(Long userId, UpdateBasketDTO payload) {
+        // make sure the product exists and in use and valid quantity
+        Product product = productExists(payload);
+        if (product == null) return null;
+        if (!validQuantity(payload)) return null;
 
         // get the active basket if not found create one
         Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
                 .orElse(null);
-        if (order == null)
+        if (order != null) {
+            // find if product exists in the basket
+            var exists = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId());
+            if (exists.isPresent()) return null;
+        }
+
+        if (order == null) {
             order = orderRepository.save(new Order(userRepository.findById(userId).orElseThrow(() ->
                     new NoSuchElementException(String.valueOf(userId))),
                     true
             ));
-
-        // make sure the product exists and in use
-        Product product = productExists(payload);
-        if (product == null) return null;
-
-        if (!validQuantity(payload)) return null;
+        }
 
         return orderQtyRepository.save(new OrderQty(product, payload.quantity(), order));
     }
+
 
     public OrderQty updateQuantityProduct(Long userId, UpdateBasketDTO payload) {
 
@@ -66,10 +72,11 @@ public class BasketService {
         Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
                 .orElse(null);
         if (order == null) return null;
-
+        System.out.println(order);
         // get the object that needs updating from the table
-        OrderQty basket = orderQtyRepository.findOrderQtyByOrder_IdAndProductId(order.getId(), payload.productId());
-
+        var basket = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId()).orElse(null);
+        System.out.println(basket);
+        if (basket == null) return null;
         // make sure the product exists and in use
         if (productExists(payload) == null) return null;
 
