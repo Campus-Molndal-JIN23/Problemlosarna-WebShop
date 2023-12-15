@@ -65,7 +65,27 @@
             <td></td>
             <td th:text="${basket.basketId}"></td>
             <td th:text="${basket.totalCost}"></td>
-        </tr>
+            <td>
+                <details>
+                    <summary>Show Products</summary>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product: ${basket.products}">
+                            <td th:text="${product.name}"></td>
+                            <td th:text="${product.quantity}"></td>
+                            <td th:text="${product.price}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </details>
+            </td>
         </tbody>
     </table>
 </div>

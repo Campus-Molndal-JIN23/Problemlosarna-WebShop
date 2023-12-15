@@ -89,7 +89,7 @@ public class UserController {
 
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
-        OrderDetailsDTO orders = orderHttp.getAllOrdersForAll(IndexController.currentUser.getToken());
+        OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
         return "user_past_orders";
