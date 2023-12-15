@@ -37,9 +37,7 @@ public class IndexController {
 
     @GetMapping("/index/one/{id}")
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
-        ProductDTO product = new ProductDTO();
-        product.setId(id);
-        model1.addAttribute("product", productHttp.getProductById(product));
+        model1.addAttribute("product", productHttp.getProductById(id));
         return "view_one_product";
     }
 
