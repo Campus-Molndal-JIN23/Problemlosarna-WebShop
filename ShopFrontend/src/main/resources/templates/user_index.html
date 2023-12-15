@@ -45,6 +45,9 @@
             <div class="col-lg-6">
                 <h1>Current products in Store</h1>
             </div>
+            <div class = text-center>
+                <h5><span th:text="${message}" style="color: red;"></span></h5>
+            </div>
             <div class="col-lg-6 text-end">
                 <h5>Logged in as <span th:text="${username}"></span></h5>
             </div>
@@ -53,7 +56,6 @@
     <table class ="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
-            <th style="width: 80px;">Quantity</th>
             <th>Name</th>
             <th>Price</th>
             <th></th>
@@ -61,23 +63,15 @@
         </thead>
         <tbody>
         <tr th:each = "product: ${products}">
-            <td>
-                <form th:action="@{/user/basket/add/{id}(id=${product.id})}" method="post" class="d-flex">
 
-                <input type="number"
-                       th:field="*{newProduct.quantity}"
-                       class="form-control"
-                       min="1"
-                       style="width: 80px;"/>
-                    <button type="submit" class="btn btn-primary ms-2">Put In Basket</button>
-                </form>
-            </td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
 
             <td>
                 <a th:onclick="'openPopup(\'' + ${product.id} + '\')'"
                    class="btn btn-primary">More Info</a>
+                <a th:href="@{/user/basket/add/{id}(id=${product.id})}"
+                   class="btn btn-primary">Add to basket</a>
             </td>
 
         </tr>

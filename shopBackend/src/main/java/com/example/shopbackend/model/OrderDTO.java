@@ -3,7 +3,6 @@ package com.example.shopbackend.model;
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 @Getter
@@ -21,6 +20,14 @@ public class OrderDTO {
         for (int i = 0; i < baskets.size(); i++) {
             orders.add(new BasketDTO(baskets.get(i)));
         }
+    }
+
+    public OrderDTO(Order user, List<OrderQty> baskets) {
+        this.username = user.getUser().getUserName();
+
+        this.orders = new ArrayList<>();
+
+            orders.add(new BasketDTO(baskets));
     }
 
     @Override

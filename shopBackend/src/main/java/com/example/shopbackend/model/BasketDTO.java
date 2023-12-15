@@ -2,7 +2,6 @@ package com.example.shopbackend.model;
 
 import com.example.shopbackend.entity.OrderQty;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class BasketDTO {
             this.products.add(new BasketProductDTO(ordQty));
         }
         this.totalCost = sum;
-        this.basketId = products.getFirst().getId();
+        this.basketId = products.getFirst().getOrder().getId();
     }
 
     @Override

@@ -48,13 +48,10 @@ public class ProductHttp {
         return products;
     }
 
-    public ProductDTO getProductById(ProductDTO product) throws IOException, ParseException {
+    public ProductDTO getProductById(long id) throws IOException, ParseException {
 
-        HttpGet request = new HttpGet("http://localhost:8080/webshop/products/one");
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/products/" + id);
 
-        StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
-
-        request.setEntity(payload);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
