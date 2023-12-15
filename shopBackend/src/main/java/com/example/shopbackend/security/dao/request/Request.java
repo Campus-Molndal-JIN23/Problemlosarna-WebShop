@@ -1,4 +1,4 @@
-package com.example.shopbackend.form;
+package com.example.shopbackend.security.dao.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginForm {
+public class Request {
 
-    /**  login id*/
-    String userName;
-    /**  password */
-    String password;
+    private String userName;
+    private String password;
 
 }

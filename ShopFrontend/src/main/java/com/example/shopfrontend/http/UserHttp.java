@@ -30,6 +30,7 @@ public class UserHttp {
     private ObjectMapper mapper = new ObjectMapper();
 
     public int loginUser(LoginForm form) throws IOException, ParseException, IOException {
+        log.info("form: " + form);
 
             HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/login");
 
@@ -51,6 +52,7 @@ public class UserHttp {
 
     public int registerUser(RegistrationForm form) throws IOException, ParseException, IOException {
 
+        log.info("form: " + form);
         HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/register");
 
         request.setEntity(createPayload(form));

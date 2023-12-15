@@ -62,7 +62,7 @@ public class IndexController {
             return "redirect:/registration";
         }
         else {
-            if (currentUser.getRole().equals("ROLE_ADMIN")) {
+            if (currentUser.getRole().contains("ROLE_ADMIN")) {
                 return "redirect:/admin";
             } else {
                 return "redirect:/user";

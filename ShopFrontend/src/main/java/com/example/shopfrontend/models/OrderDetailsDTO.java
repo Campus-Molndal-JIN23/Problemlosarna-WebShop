@@ -20,12 +20,12 @@ public class OrderDetailsDTO {
     public OrderDetailsDTO() {
     }
 
-
     @Data
-    public static class UserNameAndOrders implements Serializable {
+    public static class UserNameAndOrders {
 
         String name;
-        List<BasketDTO>orders = new ArrayList<>();
+        List<BasketDTO>orders;
+
         public UserNameAndOrders(String name,List<BasketDTO>orders){
             this.name = name;
             this.orders = orders;

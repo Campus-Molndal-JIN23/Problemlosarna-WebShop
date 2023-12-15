@@ -4,9 +4,7 @@ package com.example.shopfrontend.controller;
 import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
-import com.example.shopfrontend.models.BasketDTO;
-import com.example.shopfrontend.models.ProductDTO;
-import com.example.shopfrontend.models.UpdateBasketDTO;
+import com.example.shopfrontend.models.*;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,8 +95,9 @@ public class UserController {
 
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
+        OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
         model.addAttribute("username", IndexController.currentUser.getUsername());
-        model.addAttribute("pastOrders", orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken()));
+        model.addAttribute("pastOrders", orders);
         return "user_past_orders";
     }
 
