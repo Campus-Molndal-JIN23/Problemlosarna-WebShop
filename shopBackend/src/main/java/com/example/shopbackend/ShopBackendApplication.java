@@ -10,7 +10,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}) // Exclude to make sure the project runs for all.
 //@SpringBootApplication
 public class ShopBackendApplication {
@@ -29,7 +33,7 @@ public class ShopBackendApplication {
      * @return
      */
     @Bean
-    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository,PasswordEncoder passwordEncoder) {
+    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         return args -> {
 
 
@@ -41,6 +45,9 @@ public class ShopBackendApplication {
             Roles role = roleRepository.findByAuthority(Role.ROLE_ADMIN)
                     .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_ADMIN)));
 
+            Roles roleUser = roleRepository.findByAuthority(Role.ROLE_USER)
+                    .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_USER)));
+
             var user = User.builder()
                     .userName("admin")
                     .roles(new HashSet<>(Collections.singletonList(role)))
@@ -48,13 +55,23 @@ public class ShopBackendApplication {
                     .build();
             userRepository.save(user);
 
+            String[] users = {"name1", "name2", "name3", "name4", "name5"};
+            List<User> savedUsers = new ArrayList<>();
+            for (String name : users) {
+                var newUser = User.builder()
+                        .userName(name)
+                        .roles(new HashSet<>(Collections.singletonList(roleUser)))
+                        .password(passwordEncoder.encode("Password1"))
+                        .build();
+                userRepository.save(newUser);
+                savedUsers.add(newUser);
+            }
 
-            var user1 = userRepository.save(new User("name1",  passwordEncoder.encode("password")));
-            var user2 = userRepository.save(new User("name2",  passwordEncoder.encode("password")));
-            var user3 = userRepository.save(new User("name3",  passwordEncoder.encode("password")));
-            var user4 = userRepository.save(new User("name4",  passwordEncoder.encode("password")));
-            var user5 = userRepository.save(new User("name5", passwordEncoder.encode("password")));
-
+            var order1 = new Order(savedUsers.get(0), true); // fake a basket to order history
+            var order2 = new Order(savedUsers.get(1), true);
+            var order3 = new Order(savedUsers.get(2), false);
+            var order4 = new Order(savedUsers.get(3), false);
+            var order5 = new Order(savedUsers.get(4), false);
 
             var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
             var product2 = productRepository.save(new Product("Product 2", "Text about the product 2", 200));
@@ -68,11 +85,6 @@ public class ShopBackendApplication {
             // one to delete in tests
             var product7 = productRepository.save(new Product("One to delete in test", "Text about..", 365));
 
-            var order1 = new Order(user, true); // fake a basket to order history
-            var order2 = new Order(user2, true);
-            var order3 = new Order(user, false);
-            var order4 = new Order(user, false);
-            var order5 = new Order(user5, false);
 
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
@@ -151,7 +163,7 @@ public class ShopBackendApplication {
 
     }
 
-    public void saveRoles(RoleRepository repository, Role role){
+    public void saveRoles(RoleRepository repository, Role role) {
         Roles roles = new Roles();
         roles.setAuthority(role);
         repository.save(roles);
