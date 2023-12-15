@@ -1,10 +1,17 @@
 package com.example.shopbackend.service;
 
+import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.model.ProductDTO;
+import com.example.shopbackend.repository.OrderQtyRepository;
+import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -12,54 +19,80 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    private final OrderQtyRepository orderQtyRepository;
+
+    private final OrderRepository orderRepository;
+
+    public ProductService(ProductRepository productRepository, OrderQtyRepository orderQtyRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
+        this.orderQtyRepository = orderQtyRepository;
+        this.orderRepository = orderRepository;
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<ProductDTO> findAll() {
+        List<Product> products = productRepository.findAllByDeleted(false);
+        List<ProductDTO> dtoList = new ArrayList<>();
+
+        for (Product product : products)
+            dtoList.add(new ProductDTO(product));
+
+        return dtoList;
     }
 
     public Product findById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    public Product save(Product product) {
-        return productRepository.save(product);
+    public ProductDTO save(ProductDTO product) {
+        // Returns ProductDTO saves a Product constructed from ProductDTO
+        return new ProductDTO(productRepository.save(new Product(product)));
     }
 
     /**
-     * @param product
-     * @return
+     * @param product updates a product
+     * @return the updated product if fail null
      */
-    public Product update(Product product) {
+    public Product update(ProductDTO product) {
 
         // check that the product exists
-        var findProduct = productRepository.findById(product.getId()).orElse(null);
+        Product updateProduct = productRepository.findById(product.id()).orElse(null);
 
-        if (findProduct == null) {
+        if (updateProduct == null) {
             return null;
         } else {
-            return productRepository.save(product);
+            updateProduct.setPrice(product.price());
+            updateProduct.setName(product.name());
+            updateProduct.setDescription(product.description());
+            return productRepository.save(updateProduct);
         }
     }
 
     /**
-     * Checks if a products exist, deletes object that exist.
+     * Checks if a products exist, Set item to deleted = true and removes from all active baskets.
      *
-     * @param id
+     * @param productId primary key of a product
      * @return true if deleted, false if not found
      */
-    public boolean delete(long id) {
-        // todo make endpoint delete stuff in db
-        var productExists = productRepository.findById(id).orElse(null);
+    @Transactional
+    public boolean delete(long productId) {
+
+        Product productExists = productRepository.findById(productId).orElse(null);
 
         if (productExists == null) {
             return false;
         } else {
-            productRepository.deleteById(id);
+            productExists.setDeleted(true);
+            productRepository.save(productExists);
+
+            // find all active baskets and delete there
+            Optional<List<Order>> activeBasket = orderRepository.getAllByActiveBasket(true);
+
+            if (activeBasket.isPresent()) {
+                for (int i = 0; i < activeBasket.get().size(); i++) {
+                    orderQtyRepository.deleteOrderQtyByOrder_IdAndProductId(activeBasket.get().get(i).getId(), productId);
+                }
+            }
             return true;
         }
     }
 }
-

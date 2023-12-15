@@ -1,5 +1,6 @@
 package com.example.shopbackend.entity;
 
+import com.example.shopbackend.model.ProductDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,10 +32,21 @@ public class Product {
     @JdbcTypeCode(SqlTypes.INTEGER)
     private Integer price;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     public Product(String name, String description, Integer price) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.deleted = false;
+    }
+
+    public Product(ProductDTO newProduct) {
+        this.name = newProduct.name();
+        this.description = newProduct.description();
+        this.price = newProduct.price();
+        this.deleted = false;
     }
 
     @Override
