@@ -2,6 +2,7 @@ package com.example.shopbackend.controller;
 
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.model.OrderDetailsDTO;
+import com.example.shopbackend.security.ExtractData;
 import com.example.shopbackend.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +15,19 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     private final OrderService orderService;
+    private final ExtractData extractData;
 
 
-
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, ExtractData extractData) {
         this.orderService = orderService;
+        this.extractData = extractData;
     }
 
-    @PostMapping ("/order")             //TODO Check om vi ska använda userDTO
-    public ResponseEntity<Object> Order() {
-        OrderDTO order = orderService.placeOrder(1L);
+    @PostMapping ("/order")
+    public ResponseEntity<Object> Order(@RequestBody String jwt) {
+
+        long userid = extractData.getUserID(jwt);
+        OrderDTO order = orderService.placeOrder(userid);
 
         return order== null ? ResponseEntity.notFound().build():ResponseEntity.ok(order);
 
@@ -31,10 +35,10 @@ public class OrderController {
 
 
     @GetMapping("/order")             //TODO Check om vi ska använda userDTO
-    public ResponseEntity<Object> getOrder() {
+    public ResponseEntity<Object> getOrder(@RequestBody String jwt) {
 
-
-        OrderDTO orders = orderService.findAllUserOrders(1L);
+        long userid = extractData.getUserID(jwt);
+        OrderDTO orders = orderService.findAllUserOrders(userid);
 
         return orders == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(orders);
     }
