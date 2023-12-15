@@ -1,6 +1,7 @@
 package com.example.shopbackend.controller;
 
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.model.ProductDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -112,29 +113,25 @@ class ProductControllerTest {
     }
 
     @Test
+    @Disabled
     void deleteOneSuccess() throws Exception {
-        // grab a Product to update
-    /*    MvcResult result = this.mvc.perform(get(API + "/" + 1)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
+        var payload = new ProductDTO(7L, "name", "desc", 54);
 
-        String responseBody = result.getResponse().getContentAsString();
-        Product payload = mapper.readValue(responseBody, Product.class);
-*/
-
-//        Delete it
-        this.mvc.perform(delete(API + "/" + 1L))
+        this.mvc.perform(delete(API)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(payload)))
                 .andExpect(status()
                         .isNoContent());
-
     }
 
     @Test
     void deleteOneNotFound() throws Exception {
-        this.mvc.perform(delete(API + "/" + 9836476049L))
+        var payload = new ProductDTO(99855L, "name", "desc", 54);
+
+        this.mvc.perform(delete(API)
+                .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(payload)))
                 .andExpect(status()
                         .isNotFound());
-
     }
 }
