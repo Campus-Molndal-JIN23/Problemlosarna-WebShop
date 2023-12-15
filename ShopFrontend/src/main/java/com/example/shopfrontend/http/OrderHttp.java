@@ -48,7 +48,8 @@ public class OrderHttp {
         HttpEntity entity = response.getEntity();
 
         OrderDetailsDTO orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDetailsDTO>() {});
-        log.info("getAllOrders: ", orders);
+
+        log.info("getAllOrders: ", orders.toString());
         return orders;
     }
 

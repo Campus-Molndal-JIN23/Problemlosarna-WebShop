@@ -75,7 +75,7 @@ public class AdminController {
 
     @GetMapping("/admin/all_orders")
     public String getAllOrders(Model model) throws IOException, ParseException {
-        model.addAttribute("allOrders", orderHttp.getAllOrdersForAll(IndexController.currentUser.getToken()));
+        model.addAttribute("pastOrders", orderHttp.getAllOrdersForAll(IndexController.currentUser.getToken()));
         model.addAttribute("username", IndexController.currentUser.getUsername());
         return "all_orders";
     }
