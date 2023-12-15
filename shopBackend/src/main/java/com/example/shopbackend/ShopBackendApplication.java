@@ -54,6 +54,9 @@ public class ShopBackendApplication {
             var product55 = productRepository.save(new Product("product in order history 1", "Text about..", 55));
             var product66 = productRepository.save(new Product("product in order history 2", "Text about..", 66));
 
+            // one to delete in tests
+            var product7 = productRepository.save(new Product("One to delete in test", "Text about..", 365));
+
             var order1 = new Order(user1, true); // fake a basket to order history
             var order2 = new Order(user2, true);
             var order3 = new Order(user1, false);
