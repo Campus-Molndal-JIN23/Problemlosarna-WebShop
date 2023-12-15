@@ -30,19 +30,41 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
 
+    private final static String USER_WHITE_LIST = "webshop/user/:id**";
+    private final static String PRODUCT_WHITE_LIST = "webshop/products";
+    private final static String ADMIN_PRODUCT_WHITE_LIST = "webshop/products**";
+    private final static String AUTHORIZATION_WHITE_LIST = "/webshop/auth/**";
+    private final static String BASKET_WHITE_LIST = "webshop/basket";
+    private final static String USER_ORDER_WHITE_LIST = "webshop/order";
+    private final static String ADMIN_ORDER_WHITE_LIST = "webshop/order**";
+
+
     @Bean //TODO check rights
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
 
         http.authorizeHttpRequests(authz -> authz
+                        // In memory database used during development
                         .requestMatchers("/h2-console/**").permitAll()
                         // Allow public access to authentication-related endpoints
-                        .requestMatchers("/webshop/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/webshop/products/**").permitAll()
-                        // Restrict access to certain endpoints based on user roles
-                        .requestMatchers(HttpMethod.GET,"/webshop/orders").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/webshop/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/webshop/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/webshop/products/**").hasRole("ADMIN")
+                        .requestMatchers(AUTHORIZATION_WHITE_LIST).permitAll()
+//                        .requestMatchers(HttpMethod.GET,"/webshop/products/**").permitAll()
+                        // Access to the Basket for all logged in
+                        .requestMatchers(HttpMethod.GET, BASKET_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.POST, BASKET_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.PUT, BASKET_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, BASKET_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        // Access to Products based on authority
+                        .requestMatchers(HttpMethod.GET, PRODUCT_WHITE_LIST).permitAll()
+                        .requestMatchers(HttpMethod.GET, ADMIN_PRODUCT_WHITE_LIST).hasRole("ADMIN") // admin can look at deleted items
+                        .requestMatchers(HttpMethod.POST, ADMIN_PRODUCT_WHITE_LIST).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, ADMIN_PRODUCT_WHITE_LIST).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, ADMIN_PRODUCT_WHITE_LIST).hasRole("ADMIN")
+                        // Access to User for all logged in
+                        .requestMatchers(HttpMethod.GET, USER_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        // Access to Order based on authority
+                        .requestMatchers(HttpMethod.GET, USER_ORDER_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.POST, USER_ORDER_WHITE_LIST).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.GET, ADMIN_ORDER_WHITE_LIST).hasRole("ADMIN")
                         // Require authentication for any other endpoint */
                         .anyRequest().authenticated())
                          .headers((headers) ->        //TODO remove headers added just for using H2
