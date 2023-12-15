@@ -61,7 +61,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order: ${orders}">
+        <tr th:each="order: ${pastOrders.orders}">
             <td th:text="${order.basketId}"></td>
             <td th:text="${order.totalCost}"></td>
             <td>

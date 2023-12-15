@@ -5,6 +5,7 @@ import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.models.BasketDTO;
+import com.example.shopfrontend.models.ProductDTO;
 import com.example.shopfrontend.models.UpdateBasketDTO;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -58,10 +59,11 @@ public class UserController {
         return "user_basket";
     }
 
-    @PostMapping("/user/basket/add/{id}")
-    public String addToBasket(@PathVariable long id , @ModelAttribute UpdateBasketDTO newProduct) throws IOException, ParseException {
-        log.info("addToBasket: " + id + " " + newProduct);
+    @GetMapping("/user/basket/add/{id}")
+    public String addToBasket(@PathVariable long id) throws IOException, ParseException {
+        UpdateBasketDTO newProduct = new UpdateBasketDTO();
         newProduct.setProductId(id);
+        newProduct.setQuantity(1);
         basketHttp.addProductToBasket(newProduct, IndexController.currentUser.getToken());
         return "redirect:/user";
     }
@@ -87,7 +89,7 @@ public class UserController {
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         model.addAttribute("username", IndexController.currentUser.getUsername());
-        model.addAttribute("orders", orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken()));
+        model.addAttribute("pastOrders", orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken()));
         return "user_past_orders";
     }
 
