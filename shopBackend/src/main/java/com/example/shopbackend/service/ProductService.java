@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +19,7 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
-
     private final OrderQtyRepository orderQtyRepository;
-
     private final OrderRepository orderRepository;
 
     public ProductService(ProductRepository productRepository, OrderQtyRepository orderQtyRepository, OrderRepository orderRepository) {
@@ -44,8 +43,15 @@ public class ProductService {
     }
 
     public ProductDTO save(ProductDTO product) {
-        // Returns ProductDTO saves a Product constructed from ProductDTO
-        return new ProductDTO(productRepository.save(new Product(product)));
+        // catch String name unique = true errors
+        try {
+            // Returns ProductDTO saves a Product constructed from ProductDTO
+            return new ProductDTO(productRepository.save(new Product(product)));
+
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return null;
+        }
     }
 
     /**
@@ -60,10 +66,15 @@ public class ProductService {
         if (updateProduct == null) {
             return null;
         } else {
-            updateProduct.setPrice(product.price());
-            updateProduct.setName(product.name());
-            updateProduct.setDescription(product.description());
-            return productRepository.save(updateProduct);
+            try {
+                updateProduct.setPrice(product.price());
+                updateProduct.setName(product.name());
+                updateProduct.setDescription(product.description());
+                return productRepository.save(updateProduct);
+            } catch (Exception e) {
+                System.out.println(Arrays.toString(e.getStackTrace()));
+                return null;
+            }
         }
     }
 
@@ -78,7 +89,7 @@ public class ProductService {
 
         Product productExists = productRepository.findById(productId).orElse(null);
 
-        if (productExists == null) {
+        if (productExists == null || productExists.isDeleted()) {
             return false;
         } else {
             productExists.setDeleted(true);

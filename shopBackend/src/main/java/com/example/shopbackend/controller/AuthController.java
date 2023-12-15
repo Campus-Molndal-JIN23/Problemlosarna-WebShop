@@ -1,6 +1,4 @@
 package com.example.shopbackend.controller;
-
-import ch.qos.logback.core.model.Model;
 import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.form.LoginResponseDTO;
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,6 @@ import com.example.shopbackend.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Slf4j
@@ -39,12 +38,12 @@ public class ProductController {
     @PostMapping("")
     public ResponseEntity<ProductDTO> createOne(@RequestBody ProductDTO product) {
 
-        var savedProduct = productService.save(product);
+        ProductDTO savedProduct = productService.save(product);
 
         if (savedProduct != null) {
             return ResponseEntity.ok(savedProduct);
         } else { // How to write a test for this condition?
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -54,14 +53,14 @@ public class ProductController {
         if (response != null) {
             return ResponseEntity.ok(product);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOne(@PathVariable long id) {
+    @DeleteMapping("")
+    public ResponseEntity<String> deleteOne(@RequestBody ProductDTO product) {
 
-        if (productService.delete(id)) {
+        if (productService.delete(product.id())) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
