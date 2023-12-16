@@ -7,6 +7,27 @@
           rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
+
+    <!-- CSS-Styles etc for Gif+text nedan -->
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #randomGif, #movingText {
+            position: absolute;
+            top: calc(100vh - 100px); /* Adjust the height as needed */
+            left: -100px;
+            white-space: nowrap; /* Prevent text from wrapping */
+            font-family: 'cursive', "Lucida Handwriting"; /* Change 'Your Desired Font' to the desired font name */
+            display: flex;
+            align-items: center;
+            margin-right: 10px; /* Add space between the text and the gif */
+            line-height: 0; /* Adjust line height of text container (Change space between text and gif) */
+        }
+    </style>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -89,6 +110,13 @@
 
     </table>
 </div>
+
+<!-- Insert text+random gif to body of template -->
+<div id="movingText" style="position: absolute; top: 0; left: -200px; font-size: 15px; color: lightgray;">
+    <B>Welcome! Thy most fantastic <span th:text="${username}"></span>!</B>
+</div>
+<!-- Randomly appearing and moving GIF -->
+<img id="randomGif" alt="Random Gif" style="width: 100px; height: 100px; position: absolute;">
 
 </body>
 </html>
