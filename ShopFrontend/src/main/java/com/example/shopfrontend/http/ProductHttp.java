@@ -68,7 +68,7 @@ public class ProductHttp {
         return productRespons;
     }
 
-    public void createProduct(ProductDTO product, String token) throws IOException, ParseException {
+    public int createProduct(ProductDTO product, String token) throws IOException, ParseException {
 
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
@@ -82,16 +82,16 @@ public class ProductHttp {
         log.info(String.valueOf(response.getCode()));
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return;
+            return response.getCode();
         }
 
         HttpEntity entity = response.getEntity();
 
-        Product productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Product>() {});
-        log.info("createProduct: ", productRespons);
+        log.info("createProduct ");
+        return response.getCode();
     }
 
-    public void updateProduct(ProductDTO product, String token) throws IOException {
+    public int updateProduct(ProductDTO product, String token) throws IOException {
 
         HttpPut request = new HttpPut("http://localhost:8080/webshop/products");
 
@@ -102,14 +102,17 @@ public class ProductHttp {
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
+
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return;
+            return response.getCode();
         }
+
         log.info("Product updated");
+        return response.getCode();
     }
 
-    public void deleteProductById(ProductDTO product, String token) throws IOException {
+    public int deleteProductById(ProductDTO product, String token) throws IOException {
         HttpDelete request = new HttpDelete("http://localhost:8080/webshop/products");
 
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
@@ -121,8 +124,10 @@ public class ProductHttp {
         log.info(String.valueOf(response.getCode()));
         if (response.getCode() != 204) {
             log.error("Error uppstod");
+            return response.getCode();
         }
         log.info("Product deleted");
+        return response.getCode();
 
     }
 }

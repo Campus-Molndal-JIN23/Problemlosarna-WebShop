@@ -49,7 +49,7 @@ public class BasketHttp {
     }
 
 
-    public void addProductToBasket(UpdateBasketDTO product, String token) throws IOException, ParseException {
+    public int addProductToBasket(UpdateBasketDTO product, String token) throws IOException, ParseException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(product));
@@ -61,13 +61,14 @@ public class BasketHttp {
 
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return;
+            return response.getCode();
         }
 
         log.info("created Product");
+        return response.getCode();
     }
 
-    public void updateProductQuantityInBasket(UpdateBasketDTO update, String token) throws IOException {
+    public int updateProductQuantityInBasket(UpdateBasketDTO update, String token) throws IOException {
         HttpPut request = new HttpPut("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(update));
@@ -78,12 +79,13 @@ public class BasketHttp {
 
         if (response.getCode() != 200) {
             log.error("Error uppstod");
-            return;
+            return response.getCode();
         }
         log.info("Product updated");
+        return response.getCode();
     }
 
-    public void removeProductFromBasket(UpdateBasketDTO product, String token) throws IOException {
+    public int removeProductFromBasket(UpdateBasketDTO product, String token) throws IOException {
         HttpDelete request = new HttpDelete("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(product));
@@ -94,8 +96,10 @@ public class BasketHttp {
 
         if (response.getCode() != 404) {
             log.error("Error uppstod");
+            return response.getCode();
         }
         log.info("Product deleted");
+        return response.getCode();
     }
 
     public StringEntity createPayload(Object object) throws JsonProcessingException {

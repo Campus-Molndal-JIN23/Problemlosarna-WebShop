@@ -55,7 +55,7 @@
             <h1>User information</h1>
         </div>
         <div class="col-lg-6 text-end">
-            <h5>Logged in as <span th:text="${username}"></span></h5>
+            <h5>Logged in as <span th:text="${user}"></span></h5>
         </div>
     </div>
 
@@ -65,7 +65,7 @@
             <div class="card-body text-center">
                 <dl class="row">
                     <dt class="col-sm-3">Username:</dt>
-                    <dd class="col-sm-9" th:text="${user.username}"></dd>
+                    <dd class="col-sm-9" th:text="${user.userName}"></dd>
 
                     <dt class="col-sm-3">Password:</dt>
                     <dd class="col-sm-9" th:text="${user.password}"></dd>
