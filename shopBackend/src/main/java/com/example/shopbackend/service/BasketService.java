@@ -44,25 +44,27 @@ public class BasketService {
         if (product == null) return null;
         if (!validQuantity(payload)) return null;
 
-        // get the active basket if not found create one
-        Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
+        // get the active basket
+        Order basket = orderRepository.findByUserIdAndActiveBasket(userId, true)
                 .orElse(null);
-        if (order != null) {
-            // find if product exists in the basket
-            var exists = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId());
+        // if the basket exists, check if the product is there already
+        if (basket != null) {
+            var exists = orderQtyRepository.findByOrder_IdAndProductId(basket.getId(), payload.productId());
             if (exists.isPresent()) return null;
         }
+        // create a new basket
+        if (basket == null) basket = createBasket(userId);
 
-        if (order == null) {
-            order = orderRepository.save(new Order(userRepository.findById(userId).orElseThrow(() ->
-                    new NoSuchElementException(String.valueOf(userId))),
-                    true
-            ));
-        }
-
-        return orderQtyRepository.save(new OrderQty(product, payload.quantity(), order));
+        // save product in basket
+        return orderQtyRepository.save(new OrderQty(product, payload.quantity(), basket));
     }
 
+    public Order createBasket(Long userId) {
+        return orderRepository.save(new Order(userRepository.findById(userId).orElseThrow(() ->
+                new NoSuchElementException(String.valueOf(userId))),
+                true
+        ));
+    }
 
     public OrderQty updateQuantityProduct(Long userId, UpdateBasketDTO payload) {
 
