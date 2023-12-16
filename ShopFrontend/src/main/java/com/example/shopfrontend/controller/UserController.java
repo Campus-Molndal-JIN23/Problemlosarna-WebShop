@@ -87,6 +87,12 @@ public class UserController {
 
     }
 
+    @GetMapping("/user/details")
+    public String viewUserDetails(Model model) throws IOException, ParseException {
+        model.addAttribute("user", IndexController.currentUser.getToken());
+        return "user_details";
+    }
+
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
