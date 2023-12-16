@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.example.shopfrontend.http.UserHttp;
 import lombok.extern.slf4j.Slf4j;
@@ -23,38 +24,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
 
-    private  ProductHttp productHttp;
-    private OrderHttp orderHttp;
-
-    private UserHttp userHttp;
-    private BasketHttp basketHttp;
+    private final ProductHttp productHttp;
+    private final OrderHttp orderHttp;
+    private final BasketHttp basketHttp;
+    private final UserHttp userHttp;
 
     String message = "";
 
+    int status = 0;
 
 
-    public UserController(ProductHttp productHttp, OrderHttp orderHttp, UserHttp userHttp, BasketHttp basketHttp) {
+
+    public UserController(ProductHttp productHttp, OrderHttp orderHttp, BasketHttp basketHttp, UserHttp userHttp) {
         this.productHttp = productHttp;
         this.orderHttp = orderHttp;
-        this.userHttp = userHttp;
         this.basketHttp = basketHttp;
+        this.userHttp = userHttp;
     }
 
     @GetMapping("/user")
     public String userIndex(Model model) throws IOException, ParseException {
-
-        model.addAttribute("products", productHttp.getAllProducts());
-        model.addAttribute("username", IndexController.currentUser.getUsername());
-        model.addAttribute("newProduct", new UpdateBasketDTO());
-        model.addAttribute("message", message);
-        return "user_index";
+        List<ProductDTO> products = productHttp.getAllProducts();
+        if(products == null) {
+            return "redirect:/error";
+        } else {
+            model.addAttribute("products", products);
+            model.addAttribute("username", IndexController.currentUser.getUsername());
+            model.addAttribute("newProduct", new UpdateBasketDTO());
+            model.addAttribute("message", message);
+            return "user_index";
+        }
     }
 
 
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
-        model.addAttribute("username", IndexController.currentUser.getUsername());
         BasketDTO basket = basketHttp.getBasket(IndexController.currentUser.getToken());
+        if(basket == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("newProduct", new UpdateBasketDTO());
         model.addAttribute("basket", basket);
         return "user_basket";
@@ -65,16 +74,24 @@ public class UserController {
         UpdateBasketDTO newProduct = new UpdateBasketDTO();
         newProduct.setProductId(id);
         newProduct.setQuantity(1);
-        basketHttp.addProductToBasket(newProduct, IndexController.currentUser.getToken());
-        return "redirect:/user";
+        status = basketHttp.addProductToBasket(newProduct, IndexController.currentUser.getToken());
+        if (status == 200) {
+            return "redirect:/user";
+        } else {
+            return "redirect:/error";
+        }
     }
 
     @PostMapping("/user/basket/edit/{id}")
     public String updateBasketItem(@PathVariable long id ,@ModelAttribute UpdateBasketDTO newProduct) throws IOException {
         log.info("updateBasketItem: " + id + " " + newProduct);
         newProduct.setProductId(id);
-        basketHttp.updateProductQuantityInBasket(newProduct, IndexController.currentUser.getToken());
-        return "redirect:/user/basket";
+        status = basketHttp.updateProductQuantityInBasket(newProduct, IndexController.currentUser.getToken());
+        if(status == 200) {
+            return "redirect:/user/basket";
+        } else {
+            return "redirect:/error";
+        }
     }
 
     @GetMapping("/user/basket/remove/{id}")
@@ -82,20 +99,32 @@ public class UserController {
         UpdateBasketDTO itemToRemove = new UpdateBasketDTO();
         itemToRemove.setProductId(id);
         log.info("removeBasketItem: " + itemToRemove);
-        basketHttp.removeProductFromBasket(itemToRemove, IndexController.currentUser.getToken());
-        return "redirect:/user/basket";
-
+        status = basketHttp.removeProductFromBasket(itemToRemove, IndexController.currentUser.getToken());
+        if(status == 200) {
+            return "redirect:/user/basket";
+        } else {
+            return "redirect:/error";
+        }
     }
+
 
     @GetMapping("/user/details")
     public String viewUserDetails(Model model) throws IOException, ParseException {
-        model.addAttribute("user", IndexController.currentUser.getToken());
+        //TODO vad får vi för objekt tillbaka?
+        Object user = userHttp.getUserDetails(IndexController.currentUser.getToken());
+        if (user == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("user", user);
         return "user_details";
     }
 
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
+        if(orders == null) {
+            return "redirect:/error";
+        }
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
         return "user_past_orders";
@@ -104,8 +133,11 @@ public class UserController {
     @GetMapping("/user/checkout")
     public String checkoutBasket () throws IOException, ParseException {
         int status = orderHttp.placeOrder(IndexController.currentUser.getToken());
-        if (status == 200) {
+        if (status == 204) {
             message = "Order placed successfully";
+        }
+        else {
+            return "redirect:/error";
         }
         return "redirect:/user";
     }

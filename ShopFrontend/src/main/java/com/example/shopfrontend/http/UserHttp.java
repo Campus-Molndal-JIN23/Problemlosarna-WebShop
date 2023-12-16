@@ -4,10 +4,12 @@ import com.example.shopfrontend.controller.IndexController;
 import com.example.shopfrontend.form.LoginForm;
 import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
+import com.example.shopfrontend.models.ProductDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -76,4 +78,23 @@ public class UserHttp {
         return payload;
     }
 
+    //TODO Vad får vi tillbaka?
+    public Object getUserDetails(String token) throws IOException, ParseException {
+        HttpGet request = new HttpGet("http://localhost:8080/webshop/user");
+
+
+        CloseableHttpResponse response = httpClient.execute(request);
+        log.info(String.valueOf(response.getCode()));
+
+        if (response.getCode() != 200) {
+            log.error("Error uppstod");
+            return null;
+        }
+
+        HttpEntity entity = response.getEntity();
+
+        Object productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Object>() {});
+        log.info("getProductById: ", productRespons);
+        return productRespons;
+    }
 }

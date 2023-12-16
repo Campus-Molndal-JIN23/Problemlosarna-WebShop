@@ -17,28 +17,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
-@AllArgsConstructor
 
 public class IndexController {
 
-    private ProductHttp productHttp;
-    private  UserHttp userHttp;
+    private final ProductHttp productHttp;
+    private final UserHttp userHttp;
     public static LoginResponse currentUser = new LoginResponse();
-    static String errorMessage = "";
-    static int status = 0;
+    String errorMessage = "";
+    int status = 0;
+
+    public IndexController(ProductHttp productHttp, UserHttp userHttp) {
+        this.productHttp = productHttp;
+        this.userHttp = userHttp;
+    }
 
     @GetMapping("/index")
     public String listProducts(Model model) throws IOException, ParseException {
-        model.addAttribute("products", productHttp.getAllProducts());
-        return "index";
+        List<ProductDTO> products = productHttp.getAllProducts();
+        if(products == null) {
+            return "redirect:/error";
+        } else {
+            model.addAttribute("products", products);
+            return "index";
+        }
     }
 
     @GetMapping("/index/one/{id}")
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
-        model1.addAttribute("product", productHttp.getProductById(id));
-        return "view_one_product";
+        ProductDTO product = productHttp.getProductById(id);
+        if(product == null) {
+            return "redirect:/error";
+        } else {
+            model1.addAttribute("product", product);
+            return "view_one_product";
+        }
     }
 
     @GetMapping("/login")
@@ -79,7 +94,7 @@ public class IndexController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(RegistrationForm form, Model model) throws IOException, ParseException {
+    public String registerUser(RegistrationForm form) throws IOException, ParseException {
         status = userHttp.registerUser(form);
         if (status == 200) {
             return "redirect:/login";
@@ -96,5 +111,10 @@ public class IndexController {
     public String logout() {
         currentUser = new LoginResponse();
         return "redirect:/index";
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        return "error";
     }
 }

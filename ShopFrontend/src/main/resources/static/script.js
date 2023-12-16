@@ -18,6 +18,10 @@ function validatePassword() {
     }
 }
 
+function closeWindow() {
+    window.close();
+}
+
 
 // --------- Functions below, for fantastic text + random gif appearing ---------
 
