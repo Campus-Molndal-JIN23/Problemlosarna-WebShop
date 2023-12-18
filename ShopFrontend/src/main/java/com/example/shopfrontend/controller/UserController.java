@@ -143,11 +143,11 @@ public class UserController {
     public String checkoutBasket () throws IOException, ParseException {
         int status = orderHttp.placeOrder(IndexController.currentUser.getToken());
         if (status == 204) {
-            message = "Order placed successfully";
+            return "redirect:/user";
         }
         else {
             return "redirect:/unauthorized";
         }
-        return "redirect:/user";
+
     }
 }

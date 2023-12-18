@@ -99,7 +99,7 @@ public class AdminController {
         ProductDTO productToDelete = new ProductDTO();
         productToDelete.setId(id);
         status = productHttp.deleteProductById(productToDelete,IndexController.currentUser.getToken());
-        if (status == 200) {
+        if (status == 204) {
             return "redirect:/admin";
         }
         if (status == 401 || status == 403) {
