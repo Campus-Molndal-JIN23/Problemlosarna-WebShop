@@ -1,9 +1,12 @@
 package com.example.shopbackend.service;
 
+import com.example.shopbackend.entity.User;
+import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Optional;
 
 
 /**
@@ -11,11 +14,11 @@ import java.security.Principal;
  */
 
 @Service
-public class GetUser {
+public class UserService {
 
     UserRepository userRepository;
 
-    public GetUser(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -23,4 +26,12 @@ public class GetUser {
         var  user = userRepository.findUserByUserName(principal.getName()).orElse(null);
         return user == null ? null : user.getId();
     }
+
+    public Optional<User> exists(LoginForm loginForm) {
+        // todo find user in db and return
+        return userRepository.findUserByUserName(loginForm.getUserName());
+
+
+    }
+
 }

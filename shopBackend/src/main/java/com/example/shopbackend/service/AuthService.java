@@ -28,7 +28,7 @@ public class AuthService {
         this.basketService = basketService;
     }
 
-    public Optional<User> register(LoginForm loginForm) {
+    public User register(LoginForm loginForm) {
         Roles role = roleRepository.findByAuthority(Role.ROLE_USER)
                 .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_USER)));
         var userInfo = User.builder()
@@ -36,8 +36,10 @@ public class AuthService {
                 .roles(new HashSet<>(Collections.singletonList(role)))
                 .password(passwordEncoder.encode(loginForm.getPassword()))
                 .build();
-        basketService.createBasket(userInfo.getId()); // TODO gives user a basket, this will create buggs if the user is not created,
-        return Optional.of(userRepository.save(userInfo));
+        System.out.println(userInfo); // todo remove
+        var newUser = userRepository.save(userInfo);
+        basketService.createBasket(newUser.getId()); // TODO gives user a basket, this will create buggs if the user is not created,
+        return newUser;
     }
 
     public Optional<User> getUserByUsername(LoginForm loginForm) {
