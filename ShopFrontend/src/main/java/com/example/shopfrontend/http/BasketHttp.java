@@ -94,7 +94,7 @@ public class BasketHttp {
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
 
-        if (response.getCode() != 404) {
+        if (response.getCode() != 204) {
             log.error("Error uppstod");
             return response.getCode();
         }
