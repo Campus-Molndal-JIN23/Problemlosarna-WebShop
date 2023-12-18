@@ -48,7 +48,7 @@
                 </div>
             <div class="card-body">
                 <form th:action="@{/registration}" th:object="${registrationForm}" method="post"
-                      onsubmit="return validatePassword()">
+                      onsubmit="return validatePasswordAndUsername()">
                     <div class="form-group">
                         <label>Username</label>
                         <input
@@ -57,6 +57,7 @@
                                 th:field="*{userName}"
                                 class="form-control"
                                 placeholder="Enter Username"
+                                required
                         />
                     </div>
 
