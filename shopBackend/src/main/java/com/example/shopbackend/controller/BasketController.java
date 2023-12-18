@@ -5,7 +5,7 @@ import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import com.example.shopbackend.security.ExtractData;
 import com.example.shopbackend.service.BasketService;
-import com.example.shopbackend.service.GetUser;
+import com.example.shopbackend.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,17 +16,17 @@ import java.security.Principal;
 public class BasketController {
 
     private final BasketService basketService;
-    private final GetUser getUser;
+    private final UserService userService;
 
-    public BasketController(BasketService basketService, GetUser getUser, ExtractData extractData) {
+    public BasketController(BasketService basketService, UserService userService, ExtractData extractData) {
         this.basketService = basketService;
-        this.getUser = getUser;
+        this.userService = userService;
     }
 
     @GetMapping("")
     public ResponseEntity<BasketDTO> getBasket(Principal principal) {
 
-        Long userid = getUser.getUserId(principal);
+        Long userid = userService.getUserId(principal);
         BasketDTO basket = null;
 
         if (userid != null) basket = basketService.getBasket(userid);
@@ -38,7 +38,7 @@ public class BasketController {
     @PostMapping("") // this is a product id
     public ResponseEntity<?> addProductToBasket(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
-        Long userid = getUser.getUserId(principal);
+        Long userid = userService.getUserId(principal);
         OrderQty result = null;
 
         if (userid != null) result = basketService.addProduct(userid, payload);
@@ -49,7 +49,7 @@ public class BasketController {
     @PutMapping("")
     public ResponseEntity<?> updateQuantity(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
-        Long userid = getUser.getUserId(principal);
+        Long userid = userService.getUserId(principal);
         OrderQty result = null;
 
         if (userid != null) result = basketService.updateQuantityProduct(userid, payload);
@@ -60,7 +60,7 @@ public class BasketController {
     @DeleteMapping("")
     public ResponseEntity<?> deleteProduct(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
-        Long userid = getUser.getUserId(principal);
+        Long userid = userService.getUserId(principal);
 
         return basketService.deleteProductActiveBasket(userid, payload) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
