@@ -16,6 +16,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<?> userDetails(Principal principal) {
+        System.out.println(principal.toString());
         return ResponseEntity.ok(principal);
     }
 }
