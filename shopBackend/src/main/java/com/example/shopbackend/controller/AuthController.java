@@ -40,7 +40,7 @@ public class AuthController {
 
             return ResponseEntity.ok("User created");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("An unexpected error occurred");
         }
         //or if user already exists this
         //return ResponseEntity.status(409).body("User already exists");
