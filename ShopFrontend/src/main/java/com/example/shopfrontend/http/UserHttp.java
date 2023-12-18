@@ -79,7 +79,6 @@ public class UserHttp {
         return payload;
     }
 
-    //TODO Vad får vi tillbaka?
     public UserDTO getUserDetails(String token) throws IOException, ParseException {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/user");
 
