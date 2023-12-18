@@ -77,6 +77,9 @@ public class UserController {
         status = basketHttp.addProductToBasket(newProduct, IndexController.currentUser.getToken());
         if (status == 200) {
             return "redirect:/user";
+        }
+        if (status == 401 || status == 403) {
+            return "redirect:/unauthorized";
         } else {
             return "redirect:/error";
         }
@@ -89,6 +92,9 @@ public class UserController {
         status = basketHttp.updateProductQuantityInBasket(newProduct, IndexController.currentUser.getToken());
         if(status == 200) {
             return "redirect:/user/basket";
+        }
+        if (status == 401 || status == 403) {
+            return "redirect:/unauthorized";
         } else {
             return "redirect:/error";
         }
@@ -102,6 +108,9 @@ public class UserController {
         status = basketHttp.removeProductFromBasket(itemToRemove, IndexController.currentUser.getToken());
         if(status == 200) {
             return "redirect:/user/basket";
+        }
+        if (status == 401 || status == 403) {
+            return "redirect:/unauthorized";
         } else {
             return "redirect:/error";
         }
@@ -137,7 +146,7 @@ public class UserController {
             message = "Order placed successfully";
         }
         else {
-            return "redirect:/error";
+            return "redirect:/unauthorized";
         }
         return "redirect:/user";
     }
