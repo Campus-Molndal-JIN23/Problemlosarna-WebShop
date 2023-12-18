@@ -117,4 +117,9 @@ public class IndexController {
     public String error() {
         return "error";
     }
+
+    @GetMapping("/unauthorized")
+    public String unauthorized() {
+        return "unauthorized";
+    }
 }
