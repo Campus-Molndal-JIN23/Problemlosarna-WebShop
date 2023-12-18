@@ -55,7 +55,11 @@ public class AdminController {
         status = productHttp.createProduct(product,IndexController.currentUser.getToken());
         if (status == 200) {
             return "redirect:/admin";
-        } else {
+        }
+        if (status == 401 || status == 403) {
+            return "redirect:/unauthorized";
+        }
+        else {
             return "redirect:/error";
         }
     }
@@ -64,7 +68,7 @@ public class AdminController {
     public String updateProductForm(@PathVariable long id ,Model model) throws IOException, ParseException {
         ProductDTO product = productHttp.getProductById(id);
         if(product == null) {
-            return "redirect:/error";
+            return "redirect:/unauthorized";
         } else {
             model.addAttribute("product", product);
             return "update_product";
@@ -86,7 +90,7 @@ public class AdminController {
             log.info("updateProduct: " + productToUpdate);
             return "redirect:/admin";
         } else {
-            return "redirect:/error";
+            return "redirect:/unauthorized";
         }
     }
 
@@ -97,7 +101,11 @@ public class AdminController {
         status = productHttp.deleteProductById(productToDelete,IndexController.currentUser.getToken());
         if (status == 200) {
             return "redirect:/admin";
-        } else {
+        }
+        if (status == 401 || status == 403) {
+            return "redirect:/unauthorized";
+        }
+        else {
             return "redirect:/error";
         }
     }
@@ -106,7 +114,7 @@ public class AdminController {
     public String getAllOrders(Model model) throws IOException, ParseException {
         OrderDetailsDTO orders = orderHttp.getAllOrdersForAll(IndexController.currentUser.getToken());
         if(orders == null) {
-            return "redirect:/error";
+            return "redirect:/unauthorized";
         } else {
             model.addAttribute("pastOrders", orders);
             model.addAttribute("username", IndexController.currentUser.getUsername());
