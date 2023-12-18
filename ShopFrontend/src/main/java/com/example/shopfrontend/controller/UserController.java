@@ -75,7 +75,7 @@ public class UserController {
         newProduct.setProductId(id);
         newProduct.setQuantity(1);
         status = basketHttp.addProductToBasket(newProduct, IndexController.currentUser.getToken());
-        if (status == 200) {
+        if (status == 200 || status == 400) {
             return "redirect:/user";
         }
         if (status == 401 || status == 403) {
