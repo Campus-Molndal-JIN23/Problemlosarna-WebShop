@@ -61,7 +61,7 @@ public class UserController {
     public String getBasket(Model model) throws IOException, ParseException {
         BasketDTO basket = basketHttp.getBasket(IndexController.currentUser.getToken());
         if(basket == null) {
-            return "redirect:/error";
+            return "user_basket_empty";
         }
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("newProduct", new UpdateBasketDTO());
@@ -132,7 +132,7 @@ public class UserController {
     public String getOrders(Model model) throws IOException, ParseException {
         OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
         if(orders == null) {
-            return "redirect:/error";
+            return "user_past_orders_empty";
         }
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
@@ -148,6 +148,7 @@ public class UserController {
         else {
             return "redirect:/unauthorized";
         }
-
     }
+
+
 }
