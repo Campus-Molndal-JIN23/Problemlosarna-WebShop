@@ -100,24 +100,7 @@ class UserControllerTest {
 
     }
 
-    /**
-     * Method under test: {@link UserController#viewUserDetails(Model)}
-     */
-    @Test
-    void testViewUserDetails() throws IOException, ParseException {
-        try (MockedStatic<InetAddress> mockInetAddress = mockStatic(InetAddress.class)) {
-            mockInetAddress.when(() -> InetAddress.getAllByName(Mockito.<String>any())).thenReturn(new InetAddress[]{null});
-            UserHttp userHttp = mock(UserHttp.class);
-            when(userHttp.getUserDetails(Mockito.<String>any())).thenReturn("User Details");
-            ProductHttp productHttp = new ProductHttp();
-            OrderHttp orderHttp = new OrderHttp();
-            UserController userController = new UserController(productHttp, orderHttp, new BasketHttp(), userHttp);
-            String actualViewUserDetailsResult = userController.viewUserDetails(new ConcurrentModel());
-            verify(userHttp).getUserDetails(Mockito.<String>any());
-            assertEquals("user_details", actualViewUserDetailsResult);
-        }
 
-    }
 
     /**
      * Method under test: {@link UserController#viewUserDetails(Model)}

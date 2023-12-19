@@ -5,6 +5,7 @@ import com.example.shopfrontend.form.LoginForm;
 import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
 import com.example.shopfrontend.models.ProductDTO;
+import com.example.shopfrontend.models.UserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -78,10 +79,8 @@ public class UserHttp {
         return payload;
     }
 
-    //TODO Vad får vi tillbaka?
-    public Object getUserDetails(String token) throws IOException, ParseException {
+    public UserDTO getUserDetails(String token) throws IOException, ParseException {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/user");
-
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
@@ -93,8 +92,8 @@ public class UserHttp {
 
         HttpEntity entity = response.getEntity();
 
-        Object productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<Object>() {});
-        log.info("getProductById: ", productRespons);
-        return productRespons;
+        UserDTO userInfo = mapper.readValue(EntityUtils.toString(entity), new TypeReference<UserDTO>() {});
+        log.info("getProductById: ", userInfo);
+        return userInfo;
     }
 }
