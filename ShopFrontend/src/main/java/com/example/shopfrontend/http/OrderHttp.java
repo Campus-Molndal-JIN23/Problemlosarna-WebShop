@@ -27,7 +27,7 @@ import java.io.IOException;
 public class OrderHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
 
     //gets all orders for all users
