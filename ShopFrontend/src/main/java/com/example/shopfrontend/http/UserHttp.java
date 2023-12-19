@@ -82,6 +82,8 @@ public class UserHttp {
     public UserDTO getUserDetails(String token) throws IOException, ParseException {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/user");
 
+        request.setHeader("Authorization", "Bearer " + token);
+
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
 
