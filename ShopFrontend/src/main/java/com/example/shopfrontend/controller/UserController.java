@@ -119,8 +119,8 @@ public class UserController {
 
     @GetMapping("/user/details")
     public String viewUserDetails(Model model) throws IOException, ParseException {
-        //TODO vad får vi för objekt tillbaka?
-        Object user = userHttp.getUserDetails(IndexController.currentUser.getToken());
+
+        UserDTO user = userHttp.getUserDetails(IndexController.currentUser.getToken());
         if (user == null) {
             return "redirect:/error";
         }
@@ -142,7 +142,7 @@ public class UserController {
     @GetMapping("/user/checkout")
     public String checkoutBasket () throws IOException, ParseException {
         int status = orderHttp.placeOrder(IndexController.currentUser.getToken());
-        if (status == 204) {
+        if (status == 200) {
             return "redirect:/user";
         }
         else {
