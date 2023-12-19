@@ -30,7 +30,7 @@ public class UserHttp {
 
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public int loginUser(LoginForm form) throws ParseException, IOException {
         log.info("form: " + form);

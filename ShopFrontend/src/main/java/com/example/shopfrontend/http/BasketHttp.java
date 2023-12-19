@@ -27,7 +27,7 @@ public class BasketHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public BasketDTO getBasket(String token) throws IOException, ParseException {
         HttpGet request = new HttpGet("http://localhost:8080/webshop/basket");

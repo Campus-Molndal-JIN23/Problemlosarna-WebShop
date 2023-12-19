@@ -27,7 +27,7 @@ import java.util.List;
 public class ProductHttp {
 
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
 
     public List<ProductDTO> getAllProducts() throws IOException, ParseException {
