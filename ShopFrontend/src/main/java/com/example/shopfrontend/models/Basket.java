@@ -2,7 +2,7 @@ package com.example.shopfrontend.models;
 
 import lombok.Data;
 
-import java.util.HashMap;
+
 import java.util.List;
 
 @Data

@@ -4,7 +4,7 @@ import com.example.shopfrontend.controller.IndexController;
 import com.example.shopfrontend.form.LoginForm;
 import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
-import com.example.shopfrontend.models.ProductDTO;
+
 import com.example.shopfrontend.models.UserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,7 +32,7 @@ public class UserHttp {
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private ObjectMapper mapper = new ObjectMapper();
 
-    public int loginUser(LoginForm form) throws IOException, ParseException, IOException {
+    public int loginUser(LoginForm form) throws ParseException, IOException {
         log.info("form: " + form);
 
             HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/login");
@@ -53,7 +53,7 @@ public class UserHttp {
             return response.getCode();
     }
 
-    public int registerUser(RegistrationForm form) throws IOException, ParseException, IOException {
+    public int registerUser(RegistrationForm form) throws IOException {
 
         log.info("form: " + form);
         HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/register");

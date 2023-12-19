@@ -58,7 +58,7 @@
             <h1>User information</h1>
         </div>
         <div class="col-lg-6 text-end">
-            <h5>Logged in as <span th:text="${user}"></span></h5>
+            <h5>Logged in as <span th:text="${user.name}"></span></h5>
         </div>
     </div>
 
@@ -68,10 +68,19 @@
             <div class="card-body text-center">
                 <dl class="row">
                     <dt class="col-sm-3">Username:</dt>
-                    <dd class="col-sm-9" th:text="${user.userName}"></dd>
+                    <dd class="col-sm-9" th:text="${user.name}"></dd>
 
                     <dt class="col-sm-3">Password:</dt>
-                    <dd class="col-sm-9" th:text="${user.password}"></dd>
+                    <dd class="col-sm-9" th:text="${user.principal.password}"></dd>
+
+                    <dt class="col-sm-3">Authenticated:</dt>
+                    <dd class="col-sm-9" th:text="${user.authenticated}"></dd>
+
+                    <dt class="col-sm-3">Remote Adress:</dt>
+                    <dd class="col-sm-9" th:text="${user.details.remoteAddress}"></dd>
+
+                    <dt class="col-sm-3">Is Account Active:</dt>
+                    <dd class="col-sm-9" th:text="${user.principal.accountNonExpired}"></dd>
                 </dl>
 
             </div>

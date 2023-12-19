@@ -61,7 +61,7 @@ public class UserController {
     public String getBasket(Model model) throws IOException, ParseException {
         BasketDTO basket = basketHttp.getBasket(IndexController.currentUser.getToken());
         if(basket == null) {
-            return "redirect:/error";
+            return "user_basket_empty";
         }
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("newProduct", new UpdateBasketDTO());
@@ -119,8 +119,8 @@ public class UserController {
 
     @GetMapping("/user/details")
     public String viewUserDetails(Model model) throws IOException, ParseException {
-        //TODO vad får vi för objekt tillbaka?
-        Object user = userHttp.getUserDetails(IndexController.currentUser.getToken());
+        model.addAttribute("username", IndexController.currentUser.getUsername());
+        UserDTO user = userHttp.getUserDetails(IndexController.currentUser.getToken());
         if (user == null) {
             return "redirect:/error";
         }
@@ -132,7 +132,7 @@ public class UserController {
     public String getOrders(Model model) throws IOException, ParseException {
         OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
         if(orders == null) {
-            return "redirect:/error";
+            return "user_past_orders_empty";
         }
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
@@ -142,12 +142,11 @@ public class UserController {
     @GetMapping("/user/checkout")
     public String checkoutBasket () throws IOException, ParseException {
         int status = orderHttp.placeOrder(IndexController.currentUser.getToken());
-        if (status == 204) {
+        if (status == 200) {
             return "redirect:/user";
         }
         else {
             return "redirect:/unauthorized";
         }
-
     }
 }

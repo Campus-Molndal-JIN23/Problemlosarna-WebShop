@@ -6,8 +6,7 @@ import com.example.shopfrontend.form.RegistrationForm;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.http.UserHttp;
 import com.example.shopfrontend.models.ProductDTO;
-import com.example.shopfrontend.models.UpdateBasketDTO;
-import lombok.AllArgsConstructor;
+
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

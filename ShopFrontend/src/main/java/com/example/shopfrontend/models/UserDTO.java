@@ -1,11 +1,18 @@
 package com.example.shopfrontend.models;
 
+import lombok.Data;
+
+
 import java.util.List;
 
+
+@Data
 public class UserDTO {
-    private String username;
+    private String name;
     private boolean authenticated;
-    private List<String> authorities;
-    private String remoteAddress;
-    private String sessionId;
+    private Principal principal;
+    private Details details;
+    private String password;
+    private String credentials;
+    private List<Authority> authorities;
 }

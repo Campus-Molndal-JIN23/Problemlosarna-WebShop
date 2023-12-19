@@ -3,7 +3,6 @@ package com.example.shopfrontend.controller;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.models.OrderDetailsDTO;
-import com.example.shopfrontend.models.Product;
 
 import com.example.shopfrontend.models.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
