@@ -106,7 +106,7 @@ public class UserController {
         itemToRemove.setProductId(id);
         log.info("removeBasketItem: " + itemToRemove);
         status = basketHttp.removeProductFromBasket(itemToRemove, IndexController.currentUser.getToken());
-        if(status == 200) {
+        if(status == 204) {
             return "redirect:/user/basket";
         }
         if (status == 401 || status == 403) {
