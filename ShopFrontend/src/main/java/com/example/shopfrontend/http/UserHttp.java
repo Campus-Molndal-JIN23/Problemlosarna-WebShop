@@ -4,7 +4,7 @@ import com.example.shopfrontend.controller.IndexController;
 import com.example.shopfrontend.form.LoginForm;
 import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
-import com.example.shopfrontend.models.ProductDTO;
+
 import com.example.shopfrontend.models.UserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
