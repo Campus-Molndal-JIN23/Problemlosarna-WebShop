@@ -53,7 +53,7 @@ public class OrderHttp {
         return orders;
     }
 
-    public int placeOrder(String token) throws IOException, ParseException {
+    public int placeOrder(String token) throws IOException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/order");
 
         request.setHeader("Authorization", "Bearer " + token);

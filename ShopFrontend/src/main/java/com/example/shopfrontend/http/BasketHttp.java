@@ -49,7 +49,7 @@ public class BasketHttp {
     }
 
 
-    public int addProductToBasket(UpdateBasketDTO product, String token) throws IOException, ParseException {
+    public int addProductToBasket(UpdateBasketDTO product, String token) throws IOException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/basket");
 
         request.setEntity(createPayload(product));

@@ -119,7 +119,7 @@ public class UserController {
 
     @GetMapping("/user/details")
     public String viewUserDetails(Model model) throws IOException, ParseException {
-
+        model.addAttribute("username", IndexController.currentUser.getUsername());
         UserDTO user = userHttp.getUserDetails(IndexController.currentUser.getToken());
         if (user == null) {
             return "redirect:/error";
@@ -149,6 +149,4 @@ public class UserController {
             return "redirect:/unauthorized";
         }
     }
-
-
 }

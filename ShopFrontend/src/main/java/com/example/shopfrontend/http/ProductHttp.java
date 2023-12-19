@@ -68,7 +68,7 @@ public class ProductHttp {
         return productRespons;
     }
 
-    public int createProduct(ProductDTO product, String token) throws IOException, ParseException {
+    public int createProduct(ProductDTO product, String token) throws IOException {
 
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
