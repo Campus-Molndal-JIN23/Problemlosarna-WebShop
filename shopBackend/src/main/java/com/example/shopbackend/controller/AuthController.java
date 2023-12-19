@@ -7,6 +7,7 @@ import com.example.shopbackend.form.LoginResponseDTO;
 import com.example.shopbackend.security.ExtractData;
 import com.example.shopbackend.security.service.AuthenticationService;
 import com.example.shopbackend.service.AuthService;
+import com.example.shopbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class AuthController {
 
     //TODO delete .body
     private final AuthenticationService authenticationService;
+    private final UserService userService;
     private final AuthService authService;
     private final ExtractData extractData;
 
@@ -35,12 +37,16 @@ public class AuthController {
         if (!authService.isValidPassword(loginForm.getPassword())) {
             return ResponseEntity.badRequest().body("Invalid password");
         }
-        try {
-            authService.register(loginForm);
+        if (userService.exists(loginForm).isPresent()) {// todo if user exists return 409
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        }
+        var user = authService.register(loginForm);
+        System.out.println(user.toString());
 
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+        } else {
             return ResponseEntity.ok("User created");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("An unexpected error occurred");
         }
         //or if user already exists this
         //return ResponseEntity.status(409).body("User already exists");
@@ -53,7 +59,7 @@ public class AuthController {
         try {
             Optional<User> userInfo = authService.getUserByUsername(loginForm);
 
-            if (!userInfo.isPresent()) {
+            if (userInfo.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exist");
             }
             String token = authenticationService.signin(loginForm).getToken();

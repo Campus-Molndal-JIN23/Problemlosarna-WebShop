@@ -2,7 +2,7 @@ package com.example.shopbackend.controller;
 
 import com.example.shopbackend.model.OrderDTO;
 import com.example.shopbackend.model.OrderDetailsDTO;
-import com.example.shopbackend.service.GetUser;
+import com.example.shopbackend.service.UserService;
 import com.example.shopbackend.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,18 +18,18 @@ import java.security.Principal;
 public class OrderController {
 
     private final OrderService orderService;
-    private final GetUser getUser;
+    private final UserService userService;
 
 
-    public OrderController(OrderService orderService, GetUser getUser) {
+    public OrderController(OrderService orderService, UserService userService) {
         this.orderService = orderService;
-        this.getUser = getUser;
+        this.userService = userService;
     }
 
     @PostMapping("/order")
     public ResponseEntity<Object> Order(Principal principal) {
 
-        Long userid = getUser.getUserId(principal);
+        Long userid = userService.getUserId(principal);
 
         OrderDTO result = orderService.placeOrder(userid);
 
@@ -41,7 +41,7 @@ public class OrderController {
     @GetMapping("/order")             //TODO Check om vi ska använda userDTO
     public ResponseEntity<Object> getOrder(Principal principal) {
 
-        Long userid = getUser.getUserId(principal);
+        Long userid = userService.getUserId(principal);
 
         OrderDTO result = orderService.findAllUserOrders(userid);
 
