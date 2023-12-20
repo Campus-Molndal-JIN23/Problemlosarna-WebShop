@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                         .requestMatchers(PUT, "/webshop/basket").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(DELETE, "/webshop/basket/").hasAnyRole("USER", "ADMIN")
 
-//                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
+                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(POST, "/webshop/products").hasRole("ADMIN")
                         .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
                         .requestMatchers(DELETE, "/webshop/products").hasRole("ADMIN")
