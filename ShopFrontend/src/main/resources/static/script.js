@@ -19,6 +19,11 @@ function validatePasswordAndUsername() {
     }
 }
 
+function openPopup(productId) {
+    let url = '/index/one/' + productId;
+    window.open(url, 'Product Details', 'width=600,height=400');
+}
+
 function closeWindow() {
     window.close();
 }
