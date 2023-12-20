@@ -23,7 +23,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+//@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -39,16 +39,14 @@ public class SecurityConfiguration {
 
                         .requestMatchers(GET, "/webshop/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(POST, "/webshop/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(PUT, "/webshop/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(DELETE, "/webshop/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(PUT, "/webshop/basket").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(DELETE, "/webshop/basket/").hasAnyRole("USER", "ADMIN")
 
-                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
+//                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(POST, "/webshop/products").hasRole("ADMIN")
                         .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
                         .requestMatchers(DELETE, "/webshop/products").hasRole("ADMIN")
-                //orders for admin todo
-                        // Access to the Basket for all logged in
-                        // Require authentication for any other endpoint */
+
                         .requestMatchers("/h2-console/**").permitAll()  // In memory database used during development
                         .anyRequest().authenticated())
                 .headers((headers) ->        //TODO remove headers added just for using H2
