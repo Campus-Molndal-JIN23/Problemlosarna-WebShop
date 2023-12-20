@@ -1,6 +1,7 @@
 package com.example.shopfrontend.http;
 
-import com.example.shopfrontend.models.*;
+import com.example.shopfrontend.models.dto.BasketDTO;
+import com.example.shopfrontend.models.dto.UpdateBasketDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

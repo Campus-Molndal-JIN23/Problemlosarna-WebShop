@@ -1,5 +1,8 @@
-package com.example.shopfrontend.models;
+package com.example.shopfrontend.models.userDetails;
 
+import com.example.shopfrontend.models.userDetails.Authority;
+import com.example.shopfrontend.models.userDetails.Details;
+import com.example.shopfrontend.models.userDetails.Principal;
 import lombok.Data;
 
 

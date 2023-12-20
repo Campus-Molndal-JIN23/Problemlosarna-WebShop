@@ -1,7 +1,7 @@
 package com.example.shopfrontend.http;
 
 
-import com.example.shopfrontend.models.ProductDTO;
+import com.example.shopfrontend.models.dto.ProductDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

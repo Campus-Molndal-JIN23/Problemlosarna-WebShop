@@ -10,9 +10,9 @@ import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.http.UserHttp;
-import com.example.shopfrontend.models.BasketDTO;
-import com.example.shopfrontend.models.OrderDTO;
-import com.example.shopfrontend.models.UpdateBasketDTO;
+import com.example.shopfrontend.models.dto.BasketDTO;
+import com.example.shopfrontend.models.dto.OrderDTO;
+import com.example.shopfrontend.models.dto.UpdateBasketDTO;
 
 import java.io.IOException;
 import java.net.InetAddress;
