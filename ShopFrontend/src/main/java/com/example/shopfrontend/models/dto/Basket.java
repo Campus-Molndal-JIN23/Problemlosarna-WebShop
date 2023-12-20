@@ -1,5 +1,6 @@
-package com.example.shopfrontend.models;
+package com.example.shopfrontend.models.dto;
 
+import com.example.shopfrontend.models.dto.BasketProductDTO;
 import lombok.Data;
 
 

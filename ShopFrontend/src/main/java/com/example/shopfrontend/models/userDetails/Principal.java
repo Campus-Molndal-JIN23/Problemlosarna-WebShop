@@ -1,5 +1,6 @@
-package com.example.shopfrontend.models;
+package com.example.shopfrontend.models.userDetails;
 
+import com.example.shopfrontend.models.userDetails.Authority;
 import lombok.Data;
 
 import java.util.List;

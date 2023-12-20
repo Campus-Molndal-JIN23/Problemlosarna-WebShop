@@ -5,7 +5,7 @@ import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
 import com.example.shopfrontend.http.ProductHttp;
 import com.example.shopfrontend.http.UserHttp;
-import com.example.shopfrontend.models.ProductDTO;
+import com.example.shopfrontend.models.dto.ProductDTO;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -113,12 +113,29 @@ public class IndexController {
     }
 
     @GetMapping("/error")
-    public String error() {
+    public String error(Model model) {
+
+        if (currentUser.getRole().contains("ROLE_ADMIN")) {
+            model.addAttribute("home", "/admin");
+        }
+        if (currentUser.getRole().contains("ROLE_USER")) {
+            model.addAttribute("home", "/user");
+        } else {
+            model.addAttribute("home", "/index");
+        }
         return "error";
     }
 
     @GetMapping("/unauthorized")
-    public String unauthorized() {
+    public String unauthorized(Model model) {
+        if (currentUser.getRole().contains("ROLE_ADMIN")) {
+            model.addAttribute("home", "/admin");
+        }
+        if (currentUser.getRole().contains("ROLE_USER")) {
+            model.addAttribute("home", "/user");
+        } else {
+            model.addAttribute("home", "/index");
+        }
         return "unauthorized";
     }
 }

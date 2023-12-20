@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
-import com.example.shopfrontend.models.OrderDetailsDTO;
-import com.example.shopfrontend.models.ProductDTO;
+import com.example.shopfrontend.models.dto.OrderDetailsDTO;
+import com.example.shopfrontend.models.dto.ProductDTO;
 
 import java.io.IOException;
 import java.net.InetAddress;

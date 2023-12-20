@@ -4,7 +4,11 @@ package com.example.shopfrontend.controller;
 import com.example.shopfrontend.http.BasketHttp;
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
-import com.example.shopfrontend.models.*;
+import com.example.shopfrontend.models.dto.BasketDTO;
+import com.example.shopfrontend.models.dto.OrderDTO;
+import com.example.shopfrontend.models.dto.ProductDTO;
+import com.example.shopfrontend.models.dto.UpdateBasketDTO;
+import com.example.shopfrontend.models.userDetails.UserDTO;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,17 +64,17 @@ public class UserController {
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
         BasketDTO basket = basketHttp.getBasket(IndexController.currentUser.getToken());
-        if(basket == null) {
-            return "user_basket_empty";
-        }
         model.addAttribute("username", IndexController.currentUser.getUsername());
         model.addAttribute("newProduct", new UpdateBasketDTO());
         model.addAttribute("basket", basket);
+        if(basket == null) {
+            return "user_basket_empty";
+        }
         return "user_basket";
     }
 
     @GetMapping("/user/basket/add/{id}")
-    public String addToBasket(@PathVariable long id) throws IOException, ParseException {
+    public String addToBasket(@PathVariable long id) throws IOException {
         UpdateBasketDTO newProduct = new UpdateBasketDTO();
         newProduct.setProductId(id);
         newProduct.setQuantity(1);
@@ -131,17 +135,18 @@ public class UserController {
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         OrderDTO orders = orderHttp.getAllOrdersForOne(IndexController.currentUser.getToken());
+        model.addAttribute("username", IndexController.currentUser.getUsername());
+        model.addAttribute("pastOrders", orders);
         if(orders == null) {
             return "user_past_orders_empty";
         }
-        model.addAttribute("username", IndexController.currentUser.getUsername());
-        model.addAttribute("pastOrders", orders);
+
         return "user_past_orders";
     }
 
     @GetMapping("/user/checkout")
-    public String checkoutBasket () throws IOException, ParseException {
-        int status = orderHttp.placeOrder(IndexController.currentUser.getToken());
+    public String checkoutBasket () throws IOException {
+        status = orderHttp.placeOrder(IndexController.currentUser.getToken());
         if (status == 200) {
             return "redirect:/user";
         }

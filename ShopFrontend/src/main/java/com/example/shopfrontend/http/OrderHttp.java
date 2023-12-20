@@ -1,8 +1,8 @@
 package com.example.shopfrontend.http;
 
-import com.example.shopfrontend.models.*;
 
-
+import com.example.shopfrontend.models.dto.OrderDTO;
+import com.example.shopfrontend.models.dto.OrderDetailsDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

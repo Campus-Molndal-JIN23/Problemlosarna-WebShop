@@ -2,9 +2,9 @@ package com.example.shopfrontend.controller;
 
 import com.example.shopfrontend.http.OrderHttp;
 import com.example.shopfrontend.http.ProductHttp;
-import com.example.shopfrontend.models.OrderDetailsDTO;
+import com.example.shopfrontend.models.dto.OrderDetailsDTO;
 
-import com.example.shopfrontend.models.ProductDTO;
+import com.example.shopfrontend.models.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
