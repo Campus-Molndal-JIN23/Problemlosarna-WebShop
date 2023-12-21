@@ -36,13 +36,13 @@ public class SecurityConfiguration {
 
         http.authorizeHttpRequests(authz -> authz
 //                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
-                        .requestMatchers(GET, "/webshop/products/**").permitAll()
-
-                        .requestMatchers(POST, "/webshop/products/").hasRole("ADMIN")
-                        .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
-                        .requestMatchers(DELETE, "/webshop/products*").hasRole("ADMIN")
-
+                        .requestMatchers(GET, "/webshop/products/*").permitAll()
+                        .requestMatchers(GET, "/webshop/products").permitAll()
                         .requestMatchers(POST, "/webshop/auth/*").permitAll()
+
+                        .requestMatchers(POST, "/webshop/products").hasRole("ADMIN")
+                        .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
+                        .requestMatchers(DELETE, "/webshop/products").hasRole("ADMIN")
 
                         .requestMatchers(GET, "/webshop/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(POST, "/webshop/**").hasAnyRole("USER", "ADMIN")

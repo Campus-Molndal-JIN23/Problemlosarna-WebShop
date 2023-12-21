@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class TestRequestMatchers {
 
-    private final String roleAdmin = "ADMIN";
+    private final String roleAdmin = "ROLE_ADMIN";
     private final String roleUser = "USER";
     private final ObjectMapper mapper = new ObjectMapper();
     @Autowired
@@ -96,6 +96,7 @@ public class TestRequestMatchers {
     void SfcRequiresAuthorizationToPutProductWithNoAuthIsForbidden() throws Exception {
         String url = "/webshop/products";
         var payload = new ProductDTO(0L, "The name", "the description", 42);
+        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(put(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
