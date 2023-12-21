@@ -38,6 +38,10 @@ public class UserController {
     private final String UNAUTHORIZED_URL = "/unauthorized";
     private final String ERROR_URL = "/error";
 
+    private final String USER_URL = "/user";
+
+    private final String USERBASKET_URL = "/user/basket";
+
     String message = "";
 
     int status = 0;
@@ -94,7 +98,7 @@ public class UserController {
         newProduct.setQuantity(1);
         status = basketHttp.addProductToBasket(newProduct, currentUser.getToken());
         if (status == 200 || status == 400) {
-            return "redirect:/user";
+            return "redirect:" + USER_URL;
         }
         if (status == 401 || status == 403) {
             return "redirect:" + UNAUTHORIZED_URL;
@@ -131,7 +135,7 @@ public class UserController {
         log.info("removeBasketItem: " + itemToRemove);
         status = basketHttp.removeProductFromBasket(itemToRemove, currentUser.getToken());
         if(status == 204) {
-            return "redirect:/user/basket";
+            return "redirect:" + USERBASKET_URL;
         }
         if (status == 401 || status == 403) {
             return "redirect:" + UNAUTHORIZED_URL;
