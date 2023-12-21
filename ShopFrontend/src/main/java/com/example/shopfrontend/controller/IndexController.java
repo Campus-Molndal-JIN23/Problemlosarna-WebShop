@@ -25,6 +25,10 @@ public class IndexController {
     private final ProductHttp productHttp;
     private final UserHttp userHttp;
     public static LoginResponse currentUser = new LoginResponse();
+
+    private final String ERROR_URL = "/error";
+    private final String ADMIN_ROLE = "ROLE_ADMIN";
+    private final String USER_ROLE = "ROLE_USER";
     String errorMessage = "";
     int status = 0;
 
@@ -37,7 +41,7 @@ public class IndexController {
     public String listProducts(Model model) throws IOException, ParseException {
         List<ProductDTO> products = productHttp.getAllProducts();
         if(products == null) {
-            return "redirect:/error";
+            return "redirect:" + ERROR_URL;
         } else {
             model.addAttribute("products", products);
             return "index";
@@ -48,7 +52,7 @@ public class IndexController {
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
         ProductDTO product = productHttp.getProductById(id);
         if(product == null) {
-            return "redirect:/error";
+            return "redirect:" + ERROR_URL;
         } else {
             model1.addAttribute("product", product);
             return "view_one_product";
@@ -76,7 +80,7 @@ public class IndexController {
             return "redirect:/registration";
         }
         else {
-            if (currentUser.getRole().contains("ROLE_ADMIN")) {
+            if (currentUser.getRole().contains(ADMIN_ROLE)) {
                 return "redirect:/admin";
             } else {
                 return "redirect:/user";
@@ -93,7 +97,7 @@ public class IndexController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(RegistrationForm form) throws IOException, ParseException {
+    public String registerUser(RegistrationForm form) throws IOException {
         status = userHttp.registerUser(form);
         if (status == 200) {
             return "redirect:/login";
@@ -107,7 +111,7 @@ public class IndexController {
     }
 
     @GetMapping("/logout")
-    public String logout() {
+    public static String logout() {
         currentUser = new LoginResponse();
         return "redirect:/index";
     }
@@ -115,10 +119,10 @@ public class IndexController {
     @GetMapping("/error")
     public String error(Model model) {
 
-        if (currentUser.getRole().contains("ROLE_ADMIN")) {
+        if (currentUser.getRole().contains(ADMIN_ROLE)) {
             model.addAttribute("home", "/admin");
         }
-        if (currentUser.getRole().contains("ROLE_USER")) {
+        if (currentUser.getRole().contains(USER_ROLE)) {
             model.addAttribute("home", "/user");
         } else {
             model.addAttribute("home", "/index");
