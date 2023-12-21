@@ -91,7 +91,7 @@ class IndexControllerTest {
             user.setUserName("janedoe");
             String actualLoginUserResult = indexController.loginUser(user);
             verify(userHttp).loginUser(Mockito.<LoginForm>any());
-            assertEquals("Wrong username or password", indexController.errorMessage);
+            assertEquals("Wrong username or password", indexController.loginErrorMessage);
             assertEquals("redirect:/registration", actualLoginUserResult);
             assertEquals(401, indexController.status);
         }
@@ -112,7 +112,7 @@ class IndexControllerTest {
             user.setUserName("janedoe");
             String actualLoginUserResult = indexController.loginUser(user);
             verify(userHttp).loginUser(Mockito.<LoginForm>any());
-            assertEquals("User not found", indexController.errorMessage);
+            assertEquals("User not found", indexController.loginErrorMessage);
             assertEquals("redirect:/registration", actualLoginUserResult);
             assertEquals(404, indexController.status);
         }
@@ -153,7 +153,7 @@ class IndexControllerTest {
             form.setUserName("janedoe");
             String actualRegisterUserResult = indexController.registerUser(form);
             verify(userHttp).registerUser(Mockito.<RegistrationForm>any());
-            assertEquals("Something went wrong with the registration", indexController.errorMessage);
+            assertEquals("Something went wrong with the registration", indexController.loginErrorMessage);
             assertEquals("redirect:/registration", actualRegisterUserResult);
             assertEquals(1, indexController.status);
         }
@@ -194,7 +194,7 @@ class IndexControllerTest {
             form.setUserName("janedoe");
             String actualRegisterUserResult = indexController.registerUser(form);
             verify(userHttp).registerUser(Mockito.<RegistrationForm>any());
-            assertEquals("Username already exists", indexController.errorMessage);
+            assertEquals("Username already exists", indexController.loginErrorMessage);
             assertEquals("redirect:/registration", actualRegisterUserResult);
             assertEquals(409, indexController.status);
         }
