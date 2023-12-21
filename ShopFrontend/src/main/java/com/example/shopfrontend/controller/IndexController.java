@@ -49,9 +49,19 @@ public class IndexController {
         this.productHttp = productHttp;
         this.userHttp = userHttp;
     }
+    @GetMapping("")
+    public String listProducts(Model model) throws IOException, ParseException {
+        List<ProductDTO> products = productHttp.getAllProducts();
+        if(products == null) {
+            return "redirect:" + ERROR_URL;
+        } else {
+            model.addAttribute("products", products);
+            return "index";
+        }
+    }
 
     @GetMapping("/index")
-    public String listProducts(Model model) throws IOException, ParseException {
+    public String listProductsIndex(Model model) throws IOException, ParseException {
         List<ProductDTO> products = productHttp.getAllProducts();
         if(products == null) {
             return "redirect:" + ERROR_URL;
