@@ -8,6 +8,7 @@ import com.example.shopbackend.model.OrderDetailsDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class OrderService {
 
@@ -34,16 +36,19 @@ public class OrderService {
         List<List<OrderQty>> baskets = new ArrayList<>();
 
         // orders are always past baskets and set to false
-        List<Order> orders = orderRepository.getByUserIdAndActiveBasket(userId, false).orElse(null);
+        try {
+            List<Order> orders = orderRepository.getByUserIdAndActiveBasket(userId, false).orElse(null);
 
-        if (orders == null) {
-            return null;
-        } else {
+            assert orders != null;
             for (Order order : orders) {
                 baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
+                return new OrderDTO(orders, baskets);
             }
-            return new OrderDTO(orders, baskets);
+
+        } catch (Exception e) {
+            log.info(e.getMessage());
         }
+        return null;
     }
 
     public OrderDTO placeOrder(Long userId) {

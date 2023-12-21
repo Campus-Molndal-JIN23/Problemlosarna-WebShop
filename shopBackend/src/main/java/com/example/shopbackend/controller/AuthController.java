@@ -41,15 +41,12 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         }
         var user = authService.register(loginForm);
-        System.out.println(user.toString());
 
         if (user == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
         } else {
             return ResponseEntity.ok("User created");
         }
-        //or if user already exists this
-        //return ResponseEntity.status(409).body("User already exists");
     }
 
 

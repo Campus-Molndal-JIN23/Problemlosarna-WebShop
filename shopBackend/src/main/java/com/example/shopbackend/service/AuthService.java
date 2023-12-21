@@ -36,9 +36,8 @@ public class AuthService {
                 .roles(new HashSet<>(Collections.singletonList(role)))
                 .password(passwordEncoder.encode(loginForm.getPassword()))
                 .build();
-        System.out.println(userInfo); // todo remove
         var newUser = userRepository.save(userInfo);
-        basketService.createBasket(newUser.getId()); // TODO gives user a basket, this will create buggs if the user is not created,
+        basketService.createBasket(newUser.getId()); // Give the User a basket. What happens if a user can't be created?
         return newUser;
     }
 

@@ -35,7 +35,7 @@ public class BasketController {
     }
 
 
-    @PostMapping("") // this is a product id
+    @PostMapping("")
     public ResponseEntity<?> addProductToBasket(@RequestBody UpdateBasketDTO payload, Principal principal) {
 
         Long userid = userService.getUserId(principal);

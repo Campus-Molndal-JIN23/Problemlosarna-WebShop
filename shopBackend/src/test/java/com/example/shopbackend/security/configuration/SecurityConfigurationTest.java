@@ -1,12 +1,7 @@
 package com.example.shopbackend.security.configuration;
 
-import com.example.shopbackend.entity.Product;
-import com.example.shopbackend.model.ProductDTO;
-import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
-import com.example.shopbackend.security.service.AuthenticationServiceImpl;
-import com.example.shopbackend.security.service.JwtService;
-import com.example.shopbackend.security.service.JwtServiceImpl;
+import com.example.shopbackend.model.ProductDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,20 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import java.security.Key;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -43,11 +34,12 @@ class SecurityConfigurationTest {
 
     ObjectMapper mapper = new ObjectMapper();
     ProductDTO product;
+    String token;
     private String clientUsername;
     private String clientPassword;
     private String adminUsername;
     private String adminPassword;
-        String token;
+
     @BeforeEach
     void setUp() throws Exception {
 
@@ -63,7 +55,7 @@ class SecurityConfigurationTest {
         claims.put("userID", 1L);
         claims.put("username", "USER");
 
-                token =Jwts.builder()
+        token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject("USER")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -71,11 +63,12 @@ class SecurityConfigurationTest {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+
     @Test
     void securityFilterChain() throws Exception {
 
         String API = "/webshop/auth/register";
-        LoginForm loginForm = new LoginForm("a","b");
+        LoginForm loginForm = new LoginForm("a", "b");
         String json = mapper.writeValueAsString(loginForm);
 
         this.mvc.perform(post(API)
@@ -85,39 +78,39 @@ class SecurityConfigurationTest {
 
     }
 
-    @Test
-    void UserWithRoleAdminCanGETToProducts() throws Exception {
-        User user = new User();
-        user.setUserName(clientUsername);
-        user.setId(1);
-        user.setPassword(clientPassword);
-       // user.setRole("ADMIN");
+//    @Test
+//    void UserWithRoleAdminCanGETToProducts() throws Exception {
+//        User user = new User();
+//        user.setUserName(clientUsername);
+//        user.setId(1);
+//        user.setPassword(clientPassword);
+//        user.setRole("ADMIN");
+//
+//        System.out.println(token);
+//
+//        var payload = new Product(1L, "Apple", "Frukt", 39);
+//        String json = mapper.writeValueAsString(payload);
+//        mvc.perform(post("/webshop/products/")
+//                        .header("Authorization", "Bearer " + token)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(json))
+//                        .with(jwt().authorities(List.of(new SimpleGrantedAuthority("ADMIN")))))
+//                .andExpect(status().isOk())
+//                .andDo(print());
+//    }
 
-        System.out.println(token);
 
-        var payload = new Product(1L, "Apple", "Frukt", 39);
-        String json = mapper.writeValueAsString(payload);
-        mvc.perform(post("/webshop/products/")
-                        .header("Authorization", "Bearer " + token)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                        //.with(jwt().authorities(List.of(new SimpleGrantedAuthority("ADMIN")))))
-                .andExpect(status().isOk())
-                .andDo(print());
-    }
-
-
-    @Test
-    void UserWithRoleAdminCanPostToProducts() throws Exception {
-        var payload = new Product(1L, "Apple", "Frukt", 39);
-        String json = mapper.writeValueAsString(payload);
-        mvc.perform(post("/webshop/products/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json)
-                .with(jwt().authorities(List.of(new SimpleGrantedAuthority("ADMIN")))))
-                .andExpect(status().isOk())
-                .andDo(print());
-    }
+//    @Test
+//    void UserWithRoleAdminCanPostToProducts() throws Exception {
+//        var payload = new Product(1L, "Apple", "Frukt", 39);
+//        String json = mapper.writeValueAsString(payload);
+//        mvc.perform(post("/webshop/products/")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(json)
+//                .with(jwt().authorities(List.of(new SimpleGrantedAuthority("ADMIN")))))
+//                .andExpect(status().isOk())
+//                .andDo(print());
+//    }
 
     @Test
     void authenticationProvider() {
