@@ -2,6 +2,7 @@ package com.example.shopbackend.service;
 
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 @SpringBootTest
 class BasketServiceTest {
 
@@ -39,7 +41,7 @@ class BasketServiceTest {
         int expectedQuantity = 6;
 
         var actual = basketService.addProduct(userID, new UpdateBasketDTO(expectedId, expectedQuantity));
-        System.out.println(actual);
+        log.info(actual.toString());
         assertEquals(expectedId, actual.getProduct().getId());
         assertEquals(expectedQuantity, actual.getQuantity());
     }

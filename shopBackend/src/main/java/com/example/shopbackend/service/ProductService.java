@@ -6,6 +6,7 @@ import com.example.shopbackend.model.ProductDTO;
 import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
 @Service
 public class ProductService {
 
@@ -49,7 +50,7 @@ public class ProductService {
             return new ProductDTO(productRepository.save(new Product(product)));
 
         } catch (Exception e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            log.info(Arrays.toString(e.getStackTrace()));
             return null;
         }
     }

@@ -9,12 +9,14 @@ import com.example.shopbackend.repository.OrderQtyRepository;
 import com.example.shopbackend.repository.OrderRepository;
 import com.example.shopbackend.repository.ProductRepository;
 import com.example.shopbackend.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class BasketService {
 
@@ -72,7 +74,7 @@ public class BasketService {
         Order order = orderRepository.findByUserIdAndActiveBasket(userId, true)
                 .orElse(null);
         if (order == null) return null;
-        System.out.println(order);
+        log.info(order.toString());
         // get the object that needs updating from the table
         var basket = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId()).orElse(null);
         System.out.println(basket);
