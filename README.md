@@ -26,10 +26,23 @@ Aim to build the first fullstack application as a group. Even though prior small
 ## Installation
 IF, your using IntelliJ IDEA make sure you are using atleast version 2023.2, otherwise div. errors may occur. If they still do, try clearing IntelliJ:s cache and restart.
   
-Make sure you have the MySQL workbench installed on your local device.
+Important!
+if you don't have a local MySQL database running on your computer, the application will not start.
+you will get an error message that the application cant connect to the database.\
+
+To use the application you need to have a local MySQL database running on your computer.
+Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
+When you have installed MySQL Community you need to create a database called "Webshop".
+The application uses password "root" and username "root" to connect to a local MySQL database.
+please alter the password and username in the application.properties file if yours not the same.
+You could also mount a Docker image of mySql, for help on how to do this please see the Docker homepage,
+or this tutorial https://youtu.be/kphq2TsVRIs?si=wS20hxnnLG2CAxr4
+
+Clone this repository to your computer and open it in your IDE.
+
 ## Usage
 
-Start both ShopBackend and ShopFrontend in the separate modules in your IDE. Go to http://localhost:8081/index and register a new user. Log in and start shopping!
+Start both ShopBackend and ShopFrontend in separate windows in your IDE for best experience. Go to http://localhost:8081/index and register a new user. Log in and start shopping!
 
 ## Credits
 
