@@ -1,17 +1,13 @@
 package com.example.shopbackend;
 
-import com.example.shopbackend.entity.Product;
-import com.example.shopbackend.entity.Role;
-import com.example.shopbackend.entity.Roles;
-import com.example.shopbackend.entity.User;
-import com.example.shopbackend.repository.ProductRepository;
-import com.example.shopbackend.repository.RoleRepository;
-import com.example.shopbackend.repository.UserRepository;
+import com.example.shopbackend.entity.*;
+import com.example.shopbackend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -49,7 +45,7 @@ public class ShopBackendApplication {
     }
 
     /**
-     Create some initial data in the permanent storage
+     * Create some initial data in the permanent storage
      */
 
     @Order(1)
@@ -87,16 +83,36 @@ public class ShopBackendApplication {
                 .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_USER))));
         return rolesList;
     }
-/*
-
 
 // (OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 
     @Profile("test")
     @Order(2)
     @Bean
-    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         return args -> {
+
+            // Get a list of users
+
+
+            // Get a list of products
+
+            // make active && !active basket and add products
+            // basket needs a order and order needs a basket(orderQty)
+/*  Example of making a active basket with one product
+             var order = new Order(user, true);
+             var basket = new OrderQty(1, product, 1, order); // first long is id?
+             order.getOrderQty().add(basket);
+             orderRepository.save(order);
+             orderQtyRepository.save(basket);
+ */
+            // make orders and add the baskets
+            // save the order
+            // save the baskets
+
+
+
+
 
             List<Order> orders = new ArrayList<>();
             boolean activeBasket;
@@ -158,23 +174,23 @@ public class ShopBackendApplication {
 //        orderRepository.save(order5);
 
 
-        orderQtyRepository.save(basket1);
-        orderQtyRepository.save(basket2);
-        orderQtyRepository.save(basket3);
-        orderQtyRepository.save(basket4);
+            orderQtyRepository.save(basket1);
+            orderQtyRepository.save(basket2);
+            orderQtyRepository.save(basket3);
+            orderQtyRepository.save(basket4);
 
-        orderQtyRepository.save(basket5);
-        orderQtyRepository.save(basket6);
+            orderQtyRepository.save(basket5);
+            orderQtyRepository.save(basket6);
 
-        orderQtyRepository.save(basket7);
-        orderQtyRepository.save(basket8);
-        orderQtyRepository.save(basket9);
-        orderQtyRepository.save(basket10);
-        orderQtyRepository.save(basket11);
+            orderQtyRepository.save(basket7);
+            orderQtyRepository.save(basket8);
+            orderQtyRepository.save(basket9);
+            orderQtyRepository.save(basket10);
+            orderQtyRepository.save(basket11);
 
-        }
 
-    };
-    */
+        };
+
+    }
 }
 
