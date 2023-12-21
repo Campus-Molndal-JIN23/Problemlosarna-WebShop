@@ -38,9 +38,11 @@ public class IndexController {
     private static final String INDEX_URL = "/index";
 
 
+
     private final String ADMIN_ROLE = "ROLE_ADMIN";
     private final String USER_ROLE = "ROLE_USER";
-    String errorMessage = "";
+    String loginErrorMessage = "";
+    String registrationErrorMessage = "";
     int status = 0;
 
     public IndexController(ProductHttp productHttp, UserHttp userHttp) {
@@ -74,28 +76,30 @@ public class IndexController {
     public String login(Model model) {
         LoginForm loginform = new LoginForm();
         model.addAttribute("loginform", loginform);
-        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("errorMessage", loginErrorMessage);
         return "login";
     }
 
     @PostMapping("/loginUser")
     public String loginUser(LoginForm user) throws IOException, ParseException {
         status = userHttp.loginUser(user);
-
-        if (status == 401) {
-            errorMessage = "Wrong username or password";
-            return "redirect:" + REGISTRATION_URL;
-        }
-        if (status == 404) {
-            errorMessage = "User not found";
-            return "redirect:" + REGISTRATION_URL;
-        }
-        else {
+        if (status == 200) {
             if (currentUser.getRole().contains(ADMIN_ROLE)) {
                 return "redirect:" + ADMIN_URL;
             } else {
                 return "redirect:" + USER_URL;
             }
+        }
+        if (status == 401) {
+            loginErrorMessage = "Wrong username or password";
+            return "redirect:" + LOGIN_URL;
+        }
+        if (status == 404) {
+            registrationErrorMessage = "User not found, please register";
+            return "redirect:" + REGISTRATION_URL;
+        } else {
+            loginErrorMessage = "Something went wrong with the login";
+            return "redirect:" + LOGIN_URL;
         }
     }
 
@@ -103,7 +107,7 @@ public class IndexController {
     public String registration(Model model) {
         RegistrationForm registrationForm = new RegistrationForm();
         model.addAttribute("registrationForm", registrationForm);
-        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("errorMessage", registrationErrorMessage);
         return "registration";
     }
 
@@ -114,11 +118,12 @@ public class IndexController {
             return "redirect:" + LOGIN_URL;
         }
         if (status == 409) {
-            errorMessage = "Username already exists";
+            loginErrorMessage = "Username already exists, please Login";
+            return "redirect:" + LOGIN_URL;
         } else {
-            errorMessage = "Something went wrong with the registration";
+            registrationErrorMessage = "Something went wrong with the registration";
+            return "redirect:" + REGISTRATION_URL;
         }
-        return "redirect:" + REGISTRATION_URL;
     }
 
     @GetMapping("/logout")
