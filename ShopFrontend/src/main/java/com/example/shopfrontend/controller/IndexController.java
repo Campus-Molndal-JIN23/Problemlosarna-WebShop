@@ -25,6 +25,21 @@ public class IndexController {
     private final ProductHttp productHttp;
     private final UserHttp userHttp;
     public static LoginResponse currentUser = new LoginResponse();
+
+    private final String ERROR_URL = "/error";
+
+    private final String ADMIN_URL = "/admin";
+    private final String USER_URL = "/user";
+
+    private final String LOGIN_URL = "/login";
+
+    private final String REGISTRATION_URL = "/registration";
+
+    private static final String INDEX_URL = "/index";
+
+
+    private final String ADMIN_ROLE = "ROLE_ADMIN";
+    private final String USER_ROLE = "ROLE_USER";
     String errorMessage = "";
     int status = 0;
 
@@ -37,7 +52,7 @@ public class IndexController {
     public String listProducts(Model model) throws IOException, ParseException {
         List<ProductDTO> products = productHttp.getAllProducts();
         if(products == null) {
-            return "redirect:/error";
+            return "redirect:" + ERROR_URL;
         } else {
             model.addAttribute("products", products);
             return "index";
@@ -48,7 +63,7 @@ public class IndexController {
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
         ProductDTO product = productHttp.getProductById(id);
         if(product == null) {
-            return "redirect:/error";
+            return "redirect:" + ERROR_URL;
         } else {
             model1.addAttribute("product", product);
             return "view_one_product";
@@ -69,17 +84,17 @@ public class IndexController {
 
         if (status == 401) {
             errorMessage = "Wrong username or password";
-            return "redirect:/registration";
+            return "redirect:" + REGISTRATION_URL;
         }
         if (status == 404) {
             errorMessage = "User not found";
-            return "redirect:/registration";
+            return "redirect:" + REGISTRATION_URL;
         }
         else {
-            if (currentUser.getRole().contains("ROLE_ADMIN")) {
-                return "redirect:/admin";
+            if (currentUser.getRole().contains(ADMIN_ROLE)) {
+                return "redirect:" + ADMIN_URL;
             } else {
-                return "redirect:/user";
+                return "redirect:" + USER_URL;
             }
         }
     }
@@ -93,48 +108,48 @@ public class IndexController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(RegistrationForm form) throws IOException, ParseException {
+    public String registerUser(RegistrationForm form) throws IOException {
         status = userHttp.registerUser(form);
         if (status == 200) {
-            return "redirect:/login";
+            return "redirect:" + LOGIN_URL;
         }
         if (status == 409) {
             errorMessage = "Username already exists";
         } else {
             errorMessage = "Something went wrong with the registration";
         }
-        return "redirect:/registration";
+        return "redirect:" + REGISTRATION_URL;
     }
 
     @GetMapping("/logout")
-    public String logout() {
+    public static String logout() {
         currentUser = new LoginResponse();
-        return "redirect:/index";
+        return "redirect:" + INDEX_URL;
     }
 
     @GetMapping("/error")
     public String error(Model model) {
 
-        if (currentUser.getRole().contains("ROLE_ADMIN")) {
-            model.addAttribute("home", "/admin");
+        if (currentUser.getRole().contains(ADMIN_ROLE)) {
+            model.addAttribute("home", ADMIN_URL);
         }
-        if (currentUser.getRole().contains("ROLE_USER")) {
-            model.addAttribute("home", "/user");
+        if (currentUser.getRole().contains(USER_ROLE)) {
+            model.addAttribute("home", USER_URL);
         } else {
-            model.addAttribute("home", "/index");
+            model.addAttribute("home", INDEX_URL);
         }
         return "error";
     }
 
     @GetMapping("/unauthorized")
     public String unauthorized(Model model) {
-        if (currentUser.getRole().contains("ROLE_ADMIN")) {
-            model.addAttribute("home", "/admin");
+        if (currentUser.getRole().contains(ADMIN_ROLE)) {
+            model.addAttribute("home", ADMIN_URL);
         }
-        if (currentUser.getRole().contains("ROLE_USER")) {
-            model.addAttribute("home", "/user");
+        if (currentUser.getRole().contains(USER_ROLE)) {
+            model.addAttribute("home", USER_URL);
         } else {
-            model.addAttribute("home", "/index");
+            model.addAttribute("home", INDEX_URL);
         }
         return "unauthorized";
     }
