@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}) // Exclude to make sure the project runs for all.
 //@SpringBootApplication
 public class ShopBackendApplication {
@@ -34,7 +36,7 @@ public class ShopBackendApplication {
      * @return
      */
 
-    @Profile("test")
+//    @Profile("test")
     @Bean
     CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         return args -> {
@@ -45,7 +47,7 @@ public class ShopBackendApplication {
                 saveRoles(roleRepository, Role.ROLE_USER);
             }
 
-            Roles role = roleRepository.findByAuthority(Role.ROLE_ADMIN)
+            Roles roleAdmin = roleRepository.findByAuthority(Role.ROLE_ADMIN)
                     .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_ADMIN)));
 
             Roles roleUser = roleRepository.findByAuthority(Role.ROLE_USER)
@@ -53,12 +55,12 @@ public class ShopBackendApplication {
 
             var user = User.builder()
                     .userName("admin")
-                    .roles(new HashSet<>(Collections.singletonList(role)))
+                    .roles(new HashSet<>(Collections.singletonList(roleAdmin)))
                     .password(passwordEncoder.encode("Password1"))
                     .build();
             userRepository.save(user);
 
-            String[] users = {"name1", "name2", "name3", "name4", "name5"};
+            String[] users = {"user", "name2", "name3", "name4", "name5"};
             List<User> savedUsers = new ArrayList<>();
             for (String name : users) {
                 var newUser = User.builder()
@@ -69,17 +71,12 @@ public class ShopBackendApplication {
                 userRepository.save(newUser);
                 savedUsers.add(newUser);
             }
+            List<Product> products = new ArrayList<>();
+            products.add(productRepository.save(new Product("Product 1", "Text about the product 1", 100)));
+            products.add(productRepository.save(new Product("Product 2", "Text about the product 2", 200)));
+            products.add(productRepository.save(new Product("Product 3", "Text about the product 3", 300)));
+            products.add(productRepository.save(new Product("Product 4", "Text about the product 4", 400)));
 
-            var order1 = new Order(savedUsers.get(0), true); // fake a basket to order history
-            var order2 = new Order(savedUsers.get(1), true);
-            var order3 = new Order(savedUsers.get(2), false);
-            var order4 = new Order(savedUsers.get(3), false);
-            var order5 = new Order(savedUsers.get(4), false);
-
-            var product1 = productRepository.save(new Product("Product 1", "Text about the product 1", 100));
-            var product2 = productRepository.save(new Product("Product 2", "Text about the product 2", 200));
-            var product3 = productRepository.save(new Product("Product 3", "Text about the product 3", 300));
-            var product4 = productRepository.save(new Product("Product 4", "Text about the product 4", 400));
 
             // to easily track the basketDTO implementation
             var product55 = productRepository.save(new Product("product in order history 1", "Text about..", 55));
@@ -87,8 +84,9 @@ public class ShopBackendApplication {
 
             // one to delete in tests
             var product7 = productRepository.save(new Product("One to delete in test", "Text about..", 365));
+//            testingData(savedUsers, products, orderRepository, orderQtyRepository);
 
-
+/*
             var basket1 = new OrderQty(1, product1, 1, order1);
             var basket2 = new OrderQty(2, product2, 2, order1);
             var basket3 = new OrderQty(3, product3, 3, order1);
@@ -142,8 +140,8 @@ public class ShopBackendApplication {
             orderQtyRepository.save(basket9);
             orderQtyRepository.save(basket10);
             orderQtyRepository.save(basket11);
+         */
         };
-
     }
 
     public void saveRoles(RoleRepository repository, Role role) {
@@ -152,4 +150,92 @@ public class ShopBackendApplication {
         repository.save(roles);
     }
 
+    @Profile("test")
+    @Bean
+    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        return args -> {
+
+            
+
+//            private void testingData (List < User > users, List < Product > products, OrderRepository
+            orderRepository, OrderQtyRepository orderQtyRepository){
+
+                List<Order> orders = new ArrayList<>();
+                boolean activeBasket;
+                for (int i = 0; i < 5; i++) {
+                    activeBasket = i > 1 && i < 4;
+                    var newOrder = new Order(users.get(i), activeBasket); // fake a basket to order history
+                    orders.add(newOrder);
+
+                }
+
+                List<OrderQty> user0Basket = new ArrayList<>();
+                for (int i = 0; i < 5; i++) {
+                    orders.getFirst().getOrderQty().add(new OrderQty(i, products.get(i), i, orders.getFirst()));
+//            orders.getFirst().getOrderQty().add(orderQty);
+                }
+
+
+                List<OrderQty> user1Basket = new ArrayList<>();
+                user1Basket.add(new OrderQty(5, products.get(0), 1, orders.get(1)));
+                user1Basket.add(new OrderQty(6, products.get(1), 2, orders.get(1)));
+
+                List<OrderQty> user2Basket = new ArrayList<>();
+                user2Basket.add(new OrderQty(7, products.get(4), 1, orders.get(2)));
+                user2Basket.add(new OrderQty(8, products.get(5), 2, orders.get(2)));
+
+                List<OrderQty> user3Basket = new ArrayList<>();
+                user3Basket.add(new OrderQty(9, products.get(4), 55, orders.get(3)));
+                user3Basket.add(new OrderQty(10, products.get(5), 66, orders.get(3)));
+
+                List<OrderQty> user4Basket = new ArrayList<>();
+                user4Basket.add(new OrderQty(6, products.get(1), 2000, orders.get(4)));
+
+                for (OrderQty orderQty : user0Basket) {
+                    orders.getFirst().getOrderQty().add(orderQty);
+                }
+                for (OrderQty orderQty : user1Basket) {
+                    orders.get(1).getOrderQty().add(orderQty);
+                }
+
+                for (OrderQty orderQty : user2Basket) {
+                    orders.get(2).getOrderQty().add(orderQty);
+                }
+                for (OrderQty orderQty : user3Basket) {
+                    orders.get(3).getOrderQty().add(orderQty);
+                }
+                for (OrderQty orderQty : user4Basket) {
+                    orders.get(4).getOrderQty().add(orderQty);
+                }
+
+                for (int i = 0; i < 5; i++) {
+                    orderRepository.save(orders.get(i));
+                }
+
+//            save orders
+//        orderRepository.save(order1);
+//        orderRepository.save(order2);
+//        orderRepository.save(order3);
+//        orderRepository.save(order4);
+//        orderRepository.save(order5);
+        /*
+
+        orderQtyRepository.save(basket1);
+        orderQtyRepository.save(basket2);
+        orderQtyRepository.save(basket3);
+        orderQtyRepository.save(basket4);
+
+        orderQtyRepository.save(basket5);
+        orderQtyRepository.save(basket6);
+
+        orderQtyRepository.save(basket7);
+        orderQtyRepository.save(basket8);
+        orderQtyRepository.save(basket9);
+        orderQtyRepository.save(basket10);
+        orderQtyRepository.save(basket11);
+        */
+            }
+
+        };
+    }
 }
