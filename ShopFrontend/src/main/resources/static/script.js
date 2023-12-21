@@ -1,16 +1,12 @@
 
 
-function validatePasswordAndUsername() {
-    let username = document.getElementsByName('firstName')[0].value;
+function validatePassword() {
     let password = document.getElementsByName('password')[0].value;
     let passwordError = document.getElementById('passwordError');
 
     let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-    if (username.trim() === '') {
-        passwordError.innerText = 'Username cannot be blank.';
-        return false;
-    } else if (!passwordRegex.test(password)) {
+    if (!passwordRegex.test(password)) {
         passwordError.innerText = 'Password must contain at least one digit, one lowercase and one uppercase letter, and be at least 8 characters long.';
         return false;
     } else {

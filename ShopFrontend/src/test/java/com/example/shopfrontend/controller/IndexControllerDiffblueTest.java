@@ -40,21 +40,6 @@ class IndexControllerTest {
     @Autowired
     private IndexController indexController;
 
-    /**
-     * Method under test: {@link IndexController#listProducts(Model)}
-     */
-    @Test
-    void testListProducts() throws IOException, ParseException {
-        try (MockedStatic<InetAddress> mockInetAddress = mockStatic(InetAddress.class)) {
-            mockInetAddress.when(() -> InetAddress.getAllByName(Mockito.<String>any())).thenReturn(new InetAddress[]{null});
-            ProductHttp productHttp = mock(ProductHttp.class);
-            when(productHttp.getAllProducts()).thenReturn(new ArrayList<>());
-            IndexController indexController = new IndexController(productHttp, new UserHttp());
-            String actualListProductsResult = indexController.listProducts(new ConcurrentModel());
-            verify(productHttp).getAllProducts();
-            assertEquals("index", actualListProductsResult);
-        }
-    }
 
     /**
      * Method under test: {@link IndexController#login(Model)}

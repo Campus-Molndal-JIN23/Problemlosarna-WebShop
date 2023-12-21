@@ -48,7 +48,7 @@
                 </div>
             <div class="card-body">
                 <form th:action="@{/registration}" th:object="${registrationForm}" method="post"
-                      onsubmit="return validatePasswordAndUsername()">
+                      onsubmit="return validatePassword()">
                     <div class="form-group">
                         <label>Username</label>
                         <input
