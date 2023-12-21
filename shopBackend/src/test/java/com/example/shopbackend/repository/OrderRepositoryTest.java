@@ -5,9 +5,11 @@ import com.example.shopbackend.form.UpdateBasketDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.NoSuchElementException;
 
+@ActiveProfiles("test")
 @SpringBootTest
 class OrderRepositoryTest {
 

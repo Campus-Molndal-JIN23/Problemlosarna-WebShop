@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class ShopBackendApplication {
      * @param userRepository
      * @return
      */
+
+    @Profile("test")
     @Bean
     CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         return args -> {
@@ -139,26 +142,6 @@ public class ShopBackendApplication {
             orderQtyRepository.save(basket9);
             orderQtyRepository.save(basket10);
             orderQtyRepository.save(basket11);
-
-            // Check if the basket exsist
-// out to check construction of table
-          /*  Optional<Order> fetchOrder1 = orderRepository.findByUserIdAndActiveBasket(user1.getId(), true);
-            System.out.println("Order 1 id: " + fetchOrder1.get().getId());
-
-            List<OrderQty> orderQtyList1 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder1.get().getId());
-            for (OrderQty orderQty : orderQtyList1) {
-                System.out.println("Order qty id:" + orderQty.getId());
-            }
-
-
-            Optional<Order> fetchOrder2 = orderRepository.findByUserIdAndActiveBasket(user2.getId(), true);
-            System.out.println("Order 2 id:" + fetchOrder2.get().getId());
-
-            List<OrderQty> orderQtyList2 = orderQtyRepository.findOrderQtyByOrderId(fetchOrder2.get().getId());
-            for (OrderQty orderQty : orderQtyList2) {
-                System.out.println("Order qty id:" + orderQty.getId());
-
-            } */
         };
 
     }

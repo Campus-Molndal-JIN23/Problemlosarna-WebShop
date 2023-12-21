@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 @Slf4j
 @SpringBootTest
 class BasketServiceTest {
@@ -202,8 +204,8 @@ class BasketServiceTest {
         basketService.deleteProductActiveBasket(userID, new UpdateBasketDTO(expectedId, expectedQuantity));
 
         var actual = basketService.getBasket(userID);
-        System.out.println("pre" + precondition);
-        System.out.println("act" + actual);
+        System.out.println("pre: " + precondition);
+        System.out.println("act: " + actual);
 
         // Assert that the product is not present in the basket after deletion
         assertTrue(actual.getProducts().stream().noneMatch(product -> product.getId().equals(expectedId)));
