@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TestRequestMatchers {
 
     private final String roleAdmin = "ROLE_ADMIN";
-    private final String roleUser = "USER";
+    private final String roleUser = "ROLE_USER";
     private final ObjectMapper mapper = new ObjectMapper();
     @Autowired
     private MockMvc mvc;
@@ -84,7 +84,7 @@ public class TestRequestMatchers {
     @Test
     void SfcRequiresAuthorizationToPostProductWithAuthAdminIsOk() throws Exception {
         String url = "/webshop/products";
-        var payload = new ProductDTO(0L, "The name", "the description", 42);
+        var payload = new ProductDTO(0L, "The nameof posted product", "the description", 42);
         this.mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
@@ -95,8 +95,8 @@ public class TestRequestMatchers {
     @Test
     void SfcRequiresAuthorizationToPutProductWithNoAuthIsForbidden() throws Exception {
         String url = "/webshop/products";
-        var payload = new ProductDTO(0L, "The name", "the description", 42);
-        System.out.println(mapper.writeValueAsString(payload));
+        var payload = new ProductDTO(0L, "The name of put product", "the description", 42);
+
         this.mvc.perform(put(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
