@@ -20,9 +20,9 @@ public class TestRequestMatchers {
 
     private final String roleAdmin = "ADMIN";
     private final String roleUser = "USER";
+    private final ObjectMapper mapper = new ObjectMapper();
     @Autowired
     private MockMvc mvc;
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
     void SfcAllAccessToAuthorizationRegister() throws Exception {
@@ -160,6 +160,23 @@ public class TestRequestMatchers {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
                 )
+                .andExpect(status().isNoContent());
+    }
+
+
+    /* todo update this
+    @WithMockUser(authorities = roleUser)
+    @Test
+    void SfcRequiresAuthorizationToGetBasketWithAuthNoneIsForbidden() throws Exception {
+        String url = "/webshop/products";
+        var payload = new ProductDTO(5L, "The name", "the description", 42);
+        this.mvc.perform(delete(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(payload))
+                )
                 .andExpect(status().isOk());
     }
+
+     */
+
 }

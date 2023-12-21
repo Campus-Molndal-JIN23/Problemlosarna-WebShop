@@ -35,7 +35,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authz -> authz
-                        .requestMatchers(GET, "/webshop/products*").permitAll()
+//                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
+                        .requestMatchers(GET, "/webshop/products/**").permitAll()
+
+                        .requestMatchers(POST, "/webshop/products/").hasRole("ADMIN")
+                        .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
+                        .requestMatchers(DELETE, "/webshop/products*").hasRole("ADMIN")
+
                         .requestMatchers(POST, "/webshop/auth/*").permitAll()
 
                         .requestMatchers(GET, "/webshop/**").hasAnyRole("USER", "ADMIN")
@@ -43,10 +49,6 @@ public class SecurityConfiguration {
                         .requestMatchers(PUT, "/webshop/basket").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(DELETE, "/webshop/basket/").hasAnyRole("USER", "ADMIN")
 
-                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
-                        .requestMatchers(POST, "/webshop/products").hasRole("ADMIN")
-                        .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
-                        .requestMatchers(DELETE, "/webshop/products").hasRole("ADMIN")
 
                         .requestMatchers("/h2-console/**").permitAll()  // In memory database used during development
                         .anyRequest().authenticated())
