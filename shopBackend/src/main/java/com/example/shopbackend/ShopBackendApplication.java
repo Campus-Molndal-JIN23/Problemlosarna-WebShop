@@ -43,6 +43,19 @@ public class ShopBackendApplication {
         productRepository.save(new Product("One to delete in test", "Text about..", 365));
     }
 
+    private static void makeOrders(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, List<User> users, List<Product> products, Boolean isActive) {
+        for (int i = 1; i < users.size(); i++) {
+            var order = new com.example.shopbackend.entity.Order(users.get(i), isActive);
+
+            for (int j = 0; j < products.size(); j++) {
+                var basketProduct = new OrderQty(products.get(j), j, order);
+                order.getOrderQty().add(basketProduct);
+                orderRepository.save(order);
+                orderQtyRepository.save(basketProduct);
+            }
+        }
+    }
+
     /**
      * Create some initial data in the permanent storage
      */
@@ -54,18 +67,17 @@ public class ShopBackendApplication {
 
             List<Roles> rolesList = createRoleTable(roleRepository);
 
-            if (roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
+            // make admin if not found
+            if (userRepository.findUserByUserName("admin").isEmpty()) {
                 createUser("admin", userRepository, passwordEncoder, rolesList.getFirst());
             }
 
-            // create some users
-            if (roleRepository.findByAuthority(Role.ROLE_USER).isEmpty()) {
-                String[] users = {"name1", "name2", "name3", "name4", "name5"};
-                for (String name : users) {
+            String[] users = {"name1", "name2", "name3", "name4", "name5"};
+            for (String name : users) {
+                if (userRepository.findUserByUserName(name).isEmpty()) {
                     createUser(name, userRepository, passwordEncoder, rolesList.getLast());
                 }
             }
-
             if (productRepository.findAll().isEmpty()) {
                 addProducts(productRepository);
             }
@@ -75,6 +87,10 @@ public class ShopBackendApplication {
     private List<Roles> createRoleTable(RoleRepository roleRepository) {
         List<Roles> rolesList = new ArrayList<>();
 
+        if (roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
+            saveRoles(roleRepository, Role.ROLE_ADMIN);
+            saveRoles(roleRepository, Role.ROLE_USER);
+        }
         rolesList.add(roleRepository.findByAuthority(Role.ROLE_ADMIN)
                 .orElseGet(() -> roleRepository.save(new Roles(Role.ROLE_ADMIN))));
 
@@ -83,29 +99,28 @@ public class ShopBackendApplication {
         return rolesList;
     }
 
+    public void saveRoles(RoleRepository repository, Role role) {
+        Roles roles = new Roles();
+        roles.setAuthority(role);
+        repository.save(roles);
+    }
 
     //    @Profile("test")
     @Order(2)
     @Bean
-    CommandLineRunner createTestDatabase(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    CommandLineRunner createTestDatabase(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository) {
         return args -> {
 
             // Get a list of users
             List<User> users = userRepository.findAll();
             // Get a list of products
             List<Product> products = productRepository.findAll();
-            // make active && !active basket and add products
 
             // make some active baskets
-            for (int i = 1; i < users.size(); i++) {
-                var order = new com.example.shopbackend.entity.Order(users.get(i), true);
-
-                for (int j = 0; j < products.size(); j++) {
-                    var basketProduct = new OrderQty(products.get(j), j, order);
-                    order.getOrderQty().add(basketProduct);
-                    orderRepository.save(order);
-                    orderQtyRepository.save(basketProduct);
-                }
+            makeOrders(orderQtyRepository, orderRepository, users, products, true);
+            // make some order history
+            for (int i = 0; i < 2; i++) {
+                makeOrders(orderQtyRepository, orderRepository, users, products, false);
             }
         };
     }
