@@ -9,6 +9,8 @@ import com.example.shopbackend.security.service.AuthenticationService;
 import com.example.shopbackend.service.AuthService;
 import com.example.shopbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @RestController
 @RequestMapping("/webshop/auth")
 @RequiredArgsConstructor
@@ -63,13 +66,15 @@ public class AuthController {
 
             Set<String> role = extractData.getUserRoles(token);
             LoginResponseDTO loginResponse = new LoginResponseDTO(loginForm.getUserName(), token, role.toString());
-
+            log.info("login ok");
             return ResponseEntity.ok(loginResponse);
         } catch (BadCredentialsException ex) {
+            log.info("login attempt, bad credentials");
             // Handle BadCredentialsException and return an appropriate response
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         } catch (Exception e) {
             // Handle other exceptions, if needed
+            log.error("Login failed " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
     }
