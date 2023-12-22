@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -36,9 +35,9 @@ public class ShopBackendApplication {
 
     private static void addProducts(ProductRepository productRepository) {
         productRepository.save(new Product("Product 1", "Text about the product 1", 100));
+        productRepository.save(new Product("Product 2", "Text about the product 2", 200));
         productRepository.save(new Product("Product 3", "Text about the product 3", 300));
         productRepository.save(new Product("Product 4", "Text about the product 4", 400));
-        productRepository.save(new Product("Product 2", "Text about the product 2", 200));
         productRepository.save(new Product("product in order history 1", "Text about..", 55));
         productRepository.save(new Product("product in order history 2", "Text about..", 66));
         productRepository.save(new Product("One to delete in test", "Text about..", 365));
@@ -53,7 +52,7 @@ public class ShopBackendApplication {
     CommandLineRunner commandLineRunner(ProductRepository productRepository, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         return args -> {
 
-            List<Roles> rolesList = createRoleJunctionTable(roleRepository);
+            List<Roles> rolesList = createRoleTable(roleRepository);
 
             if (roleRepository.findByAuthority(Role.ROLE_ADMIN).isEmpty()) {
                 createUser("admin", userRepository, passwordEncoder, rolesList.getFirst());
@@ -73,7 +72,7 @@ public class ShopBackendApplication {
         };
     }
 
-    private List<Roles> createRoleJunctionTable(RoleRepository roleRepository) {
+    private List<Roles> createRoleTable(RoleRepository roleRepository) {
         List<Roles> rolesList = new ArrayList<>();
 
         rolesList.add(roleRepository.findByAuthority(Role.ROLE_ADMIN)
@@ -84,113 +83,31 @@ public class ShopBackendApplication {
         return rolesList;
     }
 
-// (OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, ObjectMapper mapper, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 
-    @Profile("test")
+    //    @Profile("test")
     @Order(2)
     @Bean
-    CommandLineRunner commandLineRunner(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    CommandLineRunner createTestDatabase(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         return args -> {
 
             // Get a list of users
-
-
+            List<User> users = userRepository.findAll();
             // Get a list of products
-
+            List<Product> products = productRepository.findAll();
             // make active && !active basket and add products
-            // basket needs a order and order needs a basket(orderQty)
-/*  Example of making a active basket with one product
-             var order = new Order(user, true);
-             var basket = new OrderQty(1, product, 1, order); // first long is id?
-             order.getOrderQty().add(basket);
-             orderRepository.save(order);
-             orderQtyRepository.save(basket);
- */
-            // make orders and add the baskets
-            // save the order
-            // save the baskets
 
+            // make some active baskets
+            for (int i = 1; i < users.size(); i++) {
+                var order = new com.example.shopbackend.entity.Order(users.get(i), true);
 
-
-
-
-            List<Order> orders = new ArrayList<>();
-            boolean activeBasket;
-            for (int i = 0; i < 5; i++) {
-                activeBasket = i > 1 && i < 4;
-                var newOrder = new Order(users.get(i), activeBasket); // fake a basket to order history
-                orders.add(newOrder);
-
+                for (int j = 0; j < products.size(); j++) {
+                    var basketProduct = new OrderQty(products.get(j), j, order);
+                    order.getOrderQty().add(basketProduct);
+                    orderRepository.save(order);
+                    orderQtyRepository.save(basketProduct);
+                }
             }
-
-            List<OrderQty> user0Basket = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                orders.getFirst().getOrderQty().add(new OrderQty(i, products.get(i), i, orders.getFirst()));
-//            orders.getFirst().getOrderQty().add(orderQty);
-            }
-
-
-            List<OrderQty> user1Basket = new ArrayList<>();
-            user1Basket.add(new OrderQty(5, products.get(0), 1, orders.get(1)));
-            user1Basket.add(new OrderQty(6, products.get(1), 2, orders.get(1)));
-
-            List<OrderQty> user2Basket = new ArrayList<>();
-            user2Basket.add(new OrderQty(7, products.get(4), 1, orders.get(2)));
-            user2Basket.add(new OrderQty(8, products.get(5), 2, orders.get(2)));
-
-            List<OrderQty> user3Basket = new ArrayList<>();
-            user3Basket.add(new OrderQty(9, products.get(4), 55, orders.get(3)));
-            user3Basket.add(new OrderQty(10, products.get(5), 66, orders.get(3)));
-
-            List<OrderQty> user4Basket = new ArrayList<>();
-            user4Basket.add(new OrderQty(6, products.get(1), 2000, orders.get(4)));
-
-            for (OrderQty orderQty : user0Basket) {
-                orders.getFirst().getOrderQty().add(orderQty);
-            }
-            for (OrderQty orderQty : user1Basket) {
-                orders.get(1).getOrderQty().add(orderQty);
-            }
-
-            for (OrderQty orderQty : user2Basket) {
-                orders.get(2).getOrderQty().add(orderQty);
-            }
-            for (OrderQty orderQty : user3Basket) {
-                orders.get(3).getOrderQty().add(orderQty);
-            }
-            for (OrderQty orderQty : user4Basket) {
-                orders.get(4).getOrderQty().add(orderQty);
-            }
-
-            for (int i = 0; i < 5; i++) {
-                orderRepository.save(orders.get(i));
-            }
-
-//            save orders
-//        orderRepository.save(order1);
-//        orderRepository.save(order2);
-//        orderRepository.save(order3);
-//        orderRepository.save(order4);
-//        orderRepository.save(order5);
-
-
-            orderQtyRepository.save(basket1);
-            orderQtyRepository.save(basket2);
-            orderQtyRepository.save(basket3);
-            orderQtyRepository.save(basket4);
-
-            orderQtyRepository.save(basket5);
-            orderQtyRepository.save(basket6);
-
-            orderQtyRepository.save(basket7);
-            orderQtyRepository.save(basket8);
-            orderQtyRepository.save(basket9);
-            orderQtyRepository.save(basket10);
-            orderQtyRepository.save(basket11);
-
-
         };
-
     }
 }
 
