@@ -33,7 +33,6 @@ public class OrderController {
         Long userid = userService.getUserId(principal);
 
         OrderDTO result = orderService.placeOrder(userid);
-        log.error(result.toString());
         return result == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(result);
 
     }
@@ -45,6 +44,7 @@ public class OrderController {
 
         OrderDTO result = orderService.findAllUserOrders(userid);
 
+        log.error(result.toString());
         return result == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(result);
     }
 
