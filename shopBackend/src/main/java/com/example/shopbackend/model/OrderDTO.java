@@ -3,8 +3,10 @@ package com.example.shopbackend.model;
 import com.example.shopbackend.entity.Order;
 import com.example.shopbackend.entity.OrderQty;
 import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 @Getter
 public class OrderDTO {
 
@@ -12,9 +14,8 @@ public class OrderDTO {
     private final String username;
     private final List<BasketDTO> orders;
 
-    public OrderDTO(List<Order> user, List<List<OrderQty>> baskets) {
-        this.username = user.getFirst().getUser().getUsername();
-
+    public OrderDTO(List<Order> orderList, List<List<OrderQty>> baskets) {
+        this.username = orderList.getFirst().getUser().getUsername();
         this.orders = new ArrayList<>();
 
         for (List<OrderQty> basket : baskets) {
@@ -22,12 +23,13 @@ public class OrderDTO {
         }
     }
 
+
     public OrderDTO(Order user, List<OrderQty> baskets) {
         this.username = user.getUser().getUsername();
 
         this.orders = new ArrayList<>();
 
-            orders.add(new BasketDTO(baskets));
+        orders.add(new BasketDTO(baskets));
     }
 
     @Override
