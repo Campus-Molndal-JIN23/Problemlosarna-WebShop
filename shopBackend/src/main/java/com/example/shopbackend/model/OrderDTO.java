@@ -17,8 +17,8 @@ public class OrderDTO {
 
         this.orders = new ArrayList<>();
 
-        for (int i = 0; i < baskets.size(); i++) {
-            orders.add(new BasketDTO(baskets.get(i)));
+        for (List<OrderQty> basket : baskets) {
+            orders.add(new BasketDTO(basket));
         }
     }
 
