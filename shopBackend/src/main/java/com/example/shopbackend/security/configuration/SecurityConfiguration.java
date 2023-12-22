@@ -5,12 +5,10 @@ import com.example.shopbackend.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -35,22 +33,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authz -> authz
-//                        .requestMatchers(GET, "/webshop/products/**").hasRole("ADMIN")
                         .requestMatchers(GET, "/webshop/products/*").permitAll()
                         .requestMatchers(GET, "/webshop/products").permitAll()
                         .requestMatchers(POST, "/webshop/auth/*").permitAll()
-
                         .requestMatchers(POST, "/webshop/products").hasRole("ADMIN")
                         .requestMatchers(PUT, "/webshop/products").hasRole("ADMIN")
                         .requestMatchers(DELETE, "/webshop/products").hasRole("ADMIN")
-
                         .requestMatchers(GET, "/webshop/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(POST, "/webshop/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(PUT, "/webshop/basket").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(DELETE, "/webshop/basket/").hasAnyRole("USER", "ADMIN")
-
-
-                        .requestMatchers("/h2-console/**").permitAll()  // In memory database used during development
+                        .requestMatchers("/h2-console/**").permitAll()  // In memory database used during development todo remove
                         .anyRequest().authenticated())
                 .headers((headers) ->        //TODO remove headers added just for using H2
                         headers
@@ -65,7 +58,7 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-        @Bean
+    @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userService.userDetailsService());

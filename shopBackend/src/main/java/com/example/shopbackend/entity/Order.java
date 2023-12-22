@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class Order {
     private List<OrderQty> OrderQty = new ArrayList<>();
 
     @Column(name = "is_basket", nullable = false)
+    @JdbcTypeCode(SqlTypes.BOOLEAN)
     private boolean activeBasket;
 
     /**

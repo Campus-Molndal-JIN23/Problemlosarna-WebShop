@@ -37,9 +37,9 @@ public class OrderService {
 
         // orders are always past baskets and set to false
         try {
-            List<Order> orders = orderRepository.getByUserIdAndActiveBasket(userId, false).orElse(null);
+            List<Order> orders = orderRepository.getAllByUserIdAndActiveBasket(userId, false).orElse(null);
 
-            assert orders != null;
+//            assert orders != null;
             for (Order order : orders) {
                 baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
                 return new OrderDTO(orders, baskets);
@@ -62,7 +62,6 @@ public class OrderService {
             basketService.createBasket(userId); // create a new basket
             return new OrderDTO(order, orderQtyRepository.findOrderQtyByOrderId(order.getId()));
         } else {
-
             return null;
         }
     }

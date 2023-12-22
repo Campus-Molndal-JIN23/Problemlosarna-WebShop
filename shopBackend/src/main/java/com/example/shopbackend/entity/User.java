@@ -29,14 +29,11 @@ public class User implements UserDetails {
     @Column(name = "user_id", nullable = false)
     private long id;
 
-
-
     @Column(name = "user_name", nullable = false, unique = true, length = 50)
     private String userName;
 
     @Column(name = "password", nullable = false, length = 1000)
     private String password;
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
@@ -47,7 +44,6 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
-
     private Set<Roles> roles;
 
     public User(String userName, String password) {
