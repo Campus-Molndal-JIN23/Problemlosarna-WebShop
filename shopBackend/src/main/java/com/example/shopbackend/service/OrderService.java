@@ -41,8 +41,8 @@ public class OrderService {
             assert orders != null;
             for (Order order : orders) {
                 baskets.add(orderQtyRepository.findOrderQtyByOrderId(order.getId()));
-                return new OrderDTO(orders, baskets);
             }
+            return new OrderDTO(orders, baskets);
         } catch (Exception e) {
             log.info(e.getMessage());
         }

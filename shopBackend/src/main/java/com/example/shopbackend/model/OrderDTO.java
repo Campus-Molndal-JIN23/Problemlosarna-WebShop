@@ -16,13 +16,11 @@ public class OrderDTO {
 
     public OrderDTO(List<Order> orderList, List<List<OrderQty>> baskets) {
         this.username = orderList.getFirst().getUser().getUsername();
-
         this.orders = new ArrayList<>();
 
-        for (Order usr : orderList)
-            for (List<OrderQty> basket : baskets) {
-                orders.add(new BasketDTO(basket));
-            }
+        for (List<OrderQty> basket : baskets) {
+            orders.add(new BasketDTO(basket));
+        }
     }
 
 

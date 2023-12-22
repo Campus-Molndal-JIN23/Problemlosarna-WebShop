@@ -44,7 +44,6 @@ public class OrderController {
 
         OrderDTO result = orderService.findAllUserOrders(userid);
 
-        log.error(result.toString());
         return result == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(result);
     }
 
