@@ -17,9 +17,11 @@ import io.jsonwebtoken.security.Keys;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,6 +41,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -50,17 +53,29 @@ class AuthControllerTest {
     private String userName;
     private String password;
     private String role;
+
+    User user;
     private String adminUsername;
     private String adminPassword;
     @Mock
     private UserRepository userRepository;
 
-    @Mock
-    AuthService authService;
 
+   @Mock
+    UserRepository mockUserService;
+
+    @Mock
+    RoleRepository mockUserRoleRepository;
+
+    @Mock
+    BasketService mockBasketService;
+
+    @Mock
+    RoleRepository roleRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
-
+    @Mock
+    AuthService mockAuthService = new AuthService(mockUserService,passwordEncoder,mockUserRoleRepository,mockBasketService);
     @BeforeEach
     void setUp() throws Exception {
         userName = "user";
@@ -87,13 +102,12 @@ class AuthControllerTest {
 
         MockitoAnnotations.openMocks(this);
 
-        User user =User.builder()
+        user =User.builder()
                         .userName(userName)
                         .password(passwordEncoder.encode(loginForm.getPassword()))
                         .roles(new HashSet<>(Collections.singletonList(roles))).build();
 
 
-        when(authService.getUserByUsername(loginForm)).thenReturn(Optional.of(user));
     }
 
     @Autowired
@@ -114,6 +128,8 @@ class AuthControllerTest {
 
     @Test
     void login() throws Exception {
+
+        when(mockAuthService.getUserByUsername(loginForm)).thenReturn(Optional.of(user));
         String API = "/webshop/auth/login";
 
         String json = mapper.writeValueAsString(loginForm);
