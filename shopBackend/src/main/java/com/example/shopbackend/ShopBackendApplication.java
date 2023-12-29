@@ -34,13 +34,31 @@ public class ShopBackendApplication {
     }
 
     private static void addProducts(ProductRepository productRepository) {
-        productRepository.save(new Product("Product 1", "Text about the product 1", 100));
-        productRepository.save(new Product("Product 2", "Text about the product 2", 200));
-        productRepository.save(new Product("Product 3", "Text about the product 3", 300));
-        productRepository.save(new Product("Product 4", "Text about the product 4", 400));
-        productRepository.save(new Product("product in order history 1", "Text about..", 55));
-        productRepository.save(new Product("product in order history 2", "Text about..", 66));
-        productRepository.save(new Product("One to delete in test", "Text about..", 365));
+        productRepository.save(new Product("Gaspiston", "A regular piston driven by gas. Suitable for a single-engine airplane.", 105));
+        productRepository.save(new Product("Shovel Wheel, Small", "A small shovel wheel.", 555));
+        productRepository.save(new Product("Shovel Wheel, Large", "A large shovel wheel", 575));
+        productRepository.save(new Product("Pikachu", "Regular Pikachu. An in-real-life one.", 2500));
+        productRepository.save(new Product("Argumentation", "30 minutes of plain old good argumentation.", 300));
+        productRepository.save(new Product("M5 Nut, 1 piece", "1st M5 Nut.", 5));
+        productRepository.save(new Product("Boat Chassis, Stena Type", "In steel construction. Wood will come in a later version.", 350000000));
+        productRepository.save(new Product("Brown Duck Feather", "Duck feather. Brown.", 15));
+        productRepository.save(new Product("Subscription Kalle & Hobbe", "Monthly subscription to the comic series Kalle & Hobbe.", 299));
+        productRepository.save(new Product("M6 Screw, 2 pieces", "2 M6 screws.", 16));
+        productRepository.save(new Product("Isopropanol, 10 Liters", "10 liters of Isopropanol.", 50));
+        productRepository.save(new Product("Artificial Snow, 5 Liters", "Bag of ready-made artificial snow. Recommended to be transported to cold storage as soon as possible.", 500));
+        productRepository.save(new Product("Breakfast Cereals, Used", "Breakfast cereals, previously demo-ex in a bowl.", 25));
+        productRepository.save(new Product("Pen, Small", "A small pen.", 10));
+        productRepository.save(new Product("Swedish Christmas Soft Drink", "A Swedish Christmas soft drink called \"Julmust\".", 575));
+        productRepository.save(new Product("Authentic Musketeer, 1700s", "An authentic musket from the 18th century.", 4000000));
+        productRepository.save(new Product("Evolved Pikachu", "An evolved Pikachu. I think he's called Ra.. Rai.. Raicha something?", 4500));
+        productRepository.save(new Product("Windows 95 Recovery Disk", "A recovery disk for Windows 95. This is a really good price.", 999));
+        productRepository.save(new Product("M4 Screw, 5 pieces", "5 M4 screws.", 5));
+        productRepository.save(new Product("Screwdriver, Buffalo & Bow Brand", "A screwdriver. Brand Buffalo & Bow.", 499));
+        productRepository.save(new Product("Fork, 3 pieces", "A pack of 3 forks.", 25));
+        productRepository.save(new Product("Fastening Bolt, Large Shovel Wheel", "A fastening bolt for the large shovel wheel.", 1500));
+        productRepository.save(new Product("A Nice Neighbor", "A neighbor of the nice model. Extremely rare in some cases.", 450));
+        productRepository.save(new Product("Terminal Mayhem Gold Edition v.3.87 hotfix", "A hotfix for the spectacular gold edition of the game Terminal Mayhem v3.87. Only 3 ones left so hurry up before it goes away!", 451));
+        productRepository.save(new Product("Terminal Mayhem Ring of the Unlucky", "The most item of items you can get in the gaming world.", 999999999));
     }
 
     private static void makeOrders(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, List<User> users, List<Product> products, Boolean isActive) {
