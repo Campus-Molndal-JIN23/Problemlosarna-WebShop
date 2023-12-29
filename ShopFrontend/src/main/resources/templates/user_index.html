@@ -32,14 +32,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/basket}">
-                    Basket
-                    <img src="/Shoppingcartlogo.png" alt="Basket Icon" style="width: 15px; height: 15px; margin-right: 5px;">
-
-                    <!--
-                    <img th:if="${#lists.isEmpty(basketProducts)}" src="/Shoppingcartlogo.png" alt="Default Icon" style="width: 15px; height: 15px; margin-right: 5px;">
-                    <img th:if="${not #lists.isEmpty(basketProducts)}" src="/ooops.png" alt="Basket Icon" style="width: 15px; height: 15px; margin-right: 5px;">
-
-                    -->
+                    <img src="/Shoppingcartlogo.png" alt="Basket Icon" style="width: 20px; height: 20px; margin-right: 5px;">
                 </a>
             </li>
         </ul>
@@ -63,6 +56,7 @@
     <div class="row">
         <div class="col-lg-6">
             <h1>Current products in Store</h1>
+            <h6>* All currencies in this store are in [SEK] unless otherwise specified</h6>
         </div>
         <div class="text-center col-lg-6">
             <h5><span th:text="${message}" style="color: red;"></span></h5>
