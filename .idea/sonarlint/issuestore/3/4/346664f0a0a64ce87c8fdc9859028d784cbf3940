@@ -1,17 +1,12 @@
 
+T
+java:S1135"2Complete the task associated to this TODO comment.(‹ë¹Šşÿÿÿÿ8©—¥õÌ1
 H
-java:S1452"&Remove usage of generic wildcard type.(ÎÌóøÿÿÿÿ8ëóèƒÄ1
+java:S1452&"&Remove usage of generic wildcard type.(ÎÌóøÿÿÿÿ8ëóèƒÄ1
 O
-java:S1135"2Complete the task associated to this TODO comment.(Û±ÖÓ8íóèƒÄ1
-L	java:S106"+Replace this use of System.out by a logger.(‰¡Ö•ıÿÿÿÿ8ğóèƒÄ1
-N
-java:S1135"2Complete the task associated to this TODO comment.(¹˜Æ,8ïóèƒÄ1
-L	java:S106"+Replace this use of System.out by a logger.(¾¿ûÕúÿÿÿÿ8²Íä©Å1
+java:S1135%"2Complete the task associated to this TODO comment.(Û±ÖÓ8íóèƒÄ1
 T
-java:S1135"2Complete the task associated to this TODO comment.(‘Ä«¬øÿÿÿÿ8òóèƒÄ1
-L	java:S106"+Replace this use of System.out by a logger.(€€ŒÁıÿÿÿÿ8ôóèƒÄ1
+java:S1135+"2Complete the task associated to this TODO comment.(¿úîùÿÿÿÿ8°—¥õÌ1
 T
-java:S1135"2Complete the task associated to this TODO comment.(¯ø´ôùÿÿÿÿ8óóèƒÄ1
-L	java:S106"+Replace this use of System.out by a logger.(úÏŸ¥ÿÿÿÿÿ8·Íä©Å1
-Y
-java:S1128"<Remove this unused import 'ch.qos.logback.core.model.Model'.(·—ğœ8üóèƒÄ1
+java:S11358"2Complete the task associated to this TODO comment.(‘Ä«¬øÿÿÿÿ8òóèƒÄ1
+]	java:S125R"<This block of commented-out lines of code should be removed.(çØÚ×øÿÿÿÿ8º—¥õÌ1
