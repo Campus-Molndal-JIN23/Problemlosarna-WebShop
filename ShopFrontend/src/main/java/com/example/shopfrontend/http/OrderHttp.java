@@ -21,6 +21,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/**
+ * this class is used to make requests concerning the orders to the backend api.
+ * in many cases the response code is returned to the controller to be used in the frontend.
+ */
 
 @Slf4j
 @Service
@@ -30,7 +34,6 @@ public class OrderHttp {
     private final ObjectMapper mapper = new ObjectMapper();
 
 
-    //gets all orders for all users
     public OrderDetailsDTO getAllOrdersForAll(String token) throws IOException, ParseException {
         mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
@@ -42,15 +45,11 @@ public class OrderHttp {
         log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
-            log.error("Error uppstod");
             return null;
         }
         HttpEntity entity = response.getEntity();
 
-        OrderDetailsDTO orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDetailsDTO>() {});
-
-        log.info("getAllOrders: ", orders.toString());
-        return orders;
+        return mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDetailsDTO>() {});
     }
 
     public int placeOrder(String token) throws IOException {
@@ -59,16 +58,7 @@ public class OrderHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
-        if (response.getCode() != 200) {
-            log.error("Error uppstod");
-
-        }
-
-        HttpEntity entity = response.getEntity();
-
-        log.info("createProduct: " + entity);
         return response.getCode();
     }
 
@@ -80,17 +70,13 @@ public class OrderHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
-            log.error("Error uppstod");
             return null;
         }
         HttpEntity entity = response.getEntity();
 
-        OrderDTO orders = mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDTO>() {});
-        log.info("getAllOrders: ", orders);
-        return orders;
+        return mapper.readValue(EntityUtils.toString(entity), new TypeReference<OrderDTO>() {});
     }
 
 }

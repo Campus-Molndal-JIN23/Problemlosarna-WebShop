@@ -22,6 +22,11 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * this class is used to make requests concerning the products to the backend api.
+ * in many cases the response code is returned to the controller to be used in the frontend.
+ */
+
 @Slf4j
 @Service
 public class ProductHttp {
@@ -31,45 +36,34 @@ public class ProductHttp {
 
 
     public List<ProductDTO> getAllProducts() throws IOException, ParseException {
-
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products");
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
-            log.error("Error uppstod");
             return null;
         }
         HttpEntity entity = response.getEntity();
 
         List<ProductDTO> products = mapper.readValue(EntityUtils.toString(entity), new TypeReference<List<ProductDTO>>() {});
-        log.info("getAllProducts: ", products);
         return products;
     }
 
     public ProductDTO getProductById(long id) throws IOException, ParseException {
-
         HttpGet request = new HttpGet("http://localhost:8080/webshop/products/" + id);
 
-
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
-            log.error("Error uppstod");
             return null;
         }
 
         HttpEntity entity = response.getEntity();
 
-        ProductDTO productRespons = mapper.readValue(EntityUtils.toString(entity), new TypeReference<ProductDTO>() {});
-        log.info("getProductById: ", productRespons);
-        return productRespons;
+        return mapper.readValue(EntityUtils.toString(entity), new TypeReference<ProductDTO>() {});
     }
 
     public int createProduct(ProductDTO product, String token) throws IOException {
-
         HttpPost request = new HttpPost("http://localhost:8080/webshop/products");
 
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
@@ -79,20 +73,11 @@ public class ProductHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
-        if (response.getCode() != 200) {
-            log.error("Error uppstod");
-            return response.getCode();
-        }
 
-        HttpEntity entity = response.getEntity();
-
-        log.info("createProduct ");
         return response.getCode();
     }
 
     public int updateProduct(ProductDTO product, String token) throws IOException {
-
         HttpPut request = new HttpPut("http://localhost:8080/webshop/products");
 
         StringEntity payload = new StringEntity(mapper.writeValueAsString(product), ContentType.APPLICATION_JSON);
@@ -101,14 +86,7 @@ public class ProductHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
-        if (response.getCode() != 200) {
-            log.error("Error uppstod");
-            return response.getCode();
-        }
-
-        log.info("Product updated");
         return response.getCode();
     }
 
@@ -121,13 +99,7 @@ public class ProductHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
-        if (response.getCode() != 204) {
-            log.error("Error uppstod");
-            return response.getCode();
-        }
-        log.info("Product deleted");
-        return response.getCode();
 
+        return response.getCode();
     }
 }

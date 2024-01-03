@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Order {
 
-    long id;
-    Basket Basket;
+    private long id;
+    private BasketDTO Basket;
 }

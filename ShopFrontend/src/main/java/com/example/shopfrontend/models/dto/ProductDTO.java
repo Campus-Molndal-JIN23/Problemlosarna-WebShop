@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 public class ProductDTO{
 
-        Long id;
-        String name;
-        String description;
-        Integer price;
-        boolean deleted;
+        private Long id;
+        private String name;
+        private String description;
+        private Integer price;
+        private boolean deleted;
 
         public ProductDTO() {
         }

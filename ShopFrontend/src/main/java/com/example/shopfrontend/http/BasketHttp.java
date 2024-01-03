@@ -1,5 +1,6 @@
 package com.example.shopfrontend.http;
 
+import com.example.shopfrontend.http.utils.HttpUtils;
 import com.example.shopfrontend.models.dto.BasketDTO;
 import com.example.shopfrontend.models.dto.UpdateBasketDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +23,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/**
+ * this class is used to make requests concerning the basket to the backend api.
+ * it uses the HttpUtils class to create payloads for the requests.
+ * in many cases the response code is returned to the controller to be used in the frontend.
+ */
+
 @Slf4j
 @Service
 public class BasketHttp {
@@ -36,76 +43,53 @@ public class BasketHttp {
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
-            log.error("Error uppstod");
             return null;
         }
         HttpEntity entity = response.getEntity();
 
         BasketDTO basket = mapper.readValue(EntityUtils.toString(entity), new TypeReference<BasketDTO>() {});
-        log.info("getBasket: ", basket);
         return basket;
     }
-
 
     public int addProductToBasket(UpdateBasketDTO product, String token) throws IOException {
         HttpPost request = new HttpPost("http://localhost:8080/webshop/basket");
 
-        request.setEntity(createPayload(product));
+        request.setEntity(HttpUtils.createPayload(product));
 
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
         if (response.getCode() != 200) {
-            log.error("Error uppstod");
             return response.getCode();
         }
 
-        log.info("created Product");
         return response.getCode();
     }
 
     public int updateProductQuantityInBasket(UpdateBasketDTO update, String token) throws IOException {
         HttpPut request = new HttpPut("http://localhost:8080/webshop/basket");
 
-        request.setEntity(createPayload(update));
+        request.setEntity(HttpUtils.createPayload(update));
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
 
-        if (response.getCode() != 200) {
-            log.error("Error uppstod");
-            return response.getCode();
-        }
-        log.info("Product updated");
         return response.getCode();
     }
 
     public int removeProductFromBasket(UpdateBasketDTO product, String token) throws IOException {
         HttpDelete request = new HttpDelete("http://localhost:8080/webshop/basket");
 
-        request.setEntity(createPayload(product));
+        request.setEntity(HttpUtils.createPayload(product));
         request.setHeader("Authorization", "Bearer " + token);
 
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
 
-        if (response.getCode() != 204) {
-            log.error("Error uppstod");
-            return response.getCode();
-        }
-        log.info("Product deleted");
         return response.getCode();
     }
 
-    public StringEntity createPayload(Object object) throws JsonProcessingException {
-        StringEntity payload = new StringEntity(mapper.writeValueAsString(object), ContentType.APPLICATION_JSON);
-
-        return payload;
-    }
 }
