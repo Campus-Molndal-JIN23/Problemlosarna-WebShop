@@ -7,6 +7,10 @@
           rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
+
+    <!-- Basket Counter [Style] -->
+    <link href="/css/styles.css" rel="stylesheet">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -33,6 +37,8 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/basket}">
                     <img src="/Shoppingcartlogo.png" alt="Basket Icon" style="width: 20px; height: 20px; margin-right: 5px;">
+                    <!-- Display the count of items in the cart next to the shopping cart logo -->
+                    <span class="item-count" th:if="${basket != null}" th:text="${#lists.size(basket?.products)}"></span>
                 </a>
             </li>
         </ul>
