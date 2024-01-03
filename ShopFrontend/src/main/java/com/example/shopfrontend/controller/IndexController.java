@@ -53,8 +53,7 @@ public class IndexController {
     }
 
     // This method is responsible for rendering the index page and is called when the user navigates to the root url.
-    // its manin purpose is to redirect the user to the index page, if not written the correct URL.
-    // It lists all products and displays them on the index page.
+    // its main purpose is to redirect the user to the index page, if not written the correct URL.
     @GetMapping("")
     public String listProducts(Model model) throws IOException, ParseException {
         List<ProductDTO> products = productHttp.getAllProducts();
@@ -67,9 +66,6 @@ public class IndexController {
         }
     }
 
-    // This method is responsible for rendering the index page and is called when the user navigates to the /index url.
-    // It lists all products and displays them on the index page.
-    // if the product list is null or not fetched correctly, the user is redirected to the error page.
     @GetMapping("/index")
     public String listProductsIndex(Model model) throws IOException, ParseException {
         List<ProductDTO> products = productHttp.getAllProducts();

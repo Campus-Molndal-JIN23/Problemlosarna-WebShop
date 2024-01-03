@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * this class is used to make requests concerning the products to the backend api.
+ * in many cases the response code is returned to the controller to be used in the frontend.
  */
 
 @Slf4j

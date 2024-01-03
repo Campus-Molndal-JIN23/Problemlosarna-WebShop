@@ -26,6 +26,7 @@ import java.io.IOException;
 /**
  * this class is used to make requests concerning the basket to the backend api.
  * it uses the HttpUtils class to create payloads for the requests.
+ * in many cases the response code is returned to the controller to be used in the frontend.
  */
 
 @Slf4j
