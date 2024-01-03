@@ -62,10 +62,6 @@ public class BasketHttp {
 
         CloseableHttpResponse response = httpClient.execute(request);
 
-        if (response.getCode() != 200) {
-            return response.getCode();
-        }
-
         return response.getCode();
     }
 

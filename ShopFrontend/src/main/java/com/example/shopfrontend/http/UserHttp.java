@@ -44,11 +44,16 @@ public class UserHttp {
         CloseableHttpResponse response = httpClient.execute(request);
 
         HttpEntity entity = response.getEntity();
-
-        LoginResponse loginResponse = mapper.readValue(EntityUtils.toString(entity), new TypeReference<LoginResponse>() {
-        });
-        log.info("loginResponse: " + loginResponse);
-        IndexController.currentUser = loginResponse;
+         if (response.getCode() == 200) {
+             LoginResponse loginResponse = mapper.readValue(EntityUtils.toString(entity), new TypeReference<LoginResponse>() {
+             });
+             log.info("loginResponse: " + loginResponse);
+             IndexController.currentUser = loginResponse;
+             return response.getCode();
+         } else{
+             String responsContent = EntityUtils.toString(entity);
+             log.info("responsContent: " + responsContent);
+         }
         return response.getCode();
     }
 
