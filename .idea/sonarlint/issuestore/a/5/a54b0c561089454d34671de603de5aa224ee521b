@@ -1,11 +1,17 @@
 
+h
+java:S1192="KDefine a constant instead of duplicating this literal "redirect:" 19 times.(±©‹©8‡›¥õÌ1
 k
-java:S1192-"IDefine a constant instead of duplicating this literal "username" 3 times.(£áèúúÿÿÿÿ8ö÷¢ÛÄ1
-O
-java:S1135F"2Complete the task associated to this TODO comment.(ï‹´¨8šàÚÄ1
-X	java:S125O"<This block of commented-out lines of code should be removed.(±Õ£ë8šàÚÄ1
-X	java:S125W"<This block of commented-out lines of code should be removed.(‚Í8šàÚÄ1
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Óä©Å1
-I
-java:S1068 ",Remove this unused "userHttp" private field.(²ô›ø8¤¬‡ÛÄ1
+java:S1192D"IDefine a constant instead of duplicating this literal "username" 4 times.(…–Ûôûÿÿÿÿ8›¥õÌ1
+|	java:S116&"[Rename this field "UNAUTHORIZED_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¤™•şÿÿÿÿ8­›¥õÌ1
+u	java:S116'"TRename this field "ERROR_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒÎ«¶ıÿÿÿÿ8¯›¥õÌ1
+t	java:S116)"SRename this field "USER_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚ÍóÚşÿÿÿÿ8±›¥õÌ1
+z	java:S116+"YRename this field "USERBASKET_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÊŞÏÿÿÿÿÿ8²›¥õÌ1
+C
+java:S1170&"!Make this final field static too.(µ¤™•şÿÿÿÿ8´›¥õÌ1
+C
+java:S1170'"!Make this final field static too.(ÒÎ«¶ıÿÿÿÿ8¶›¥õÌ1
+C
+java:S1170)"!Make this final field static too.(‚ÍóÚşÿÿÿÿ8·›¥õÌ1
+C
+java:S1170+"!Make this final field static too.(òÊŞÏÿÿÿÿÿ8¹›¥õÌ1

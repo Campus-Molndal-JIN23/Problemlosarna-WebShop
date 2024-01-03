@@ -1,19 +1,9 @@
 
-{
-java:S1192"YDefine a constant instead of duplicating this literal "Text about the product 3" 3 times.(Ãş¹üûÿÿÿÿ8şÔ‡òÃ1
-l
-java:S1192"JDefine a constant instead of duplicating this literal "Product 1" 3 times.(³ÕÍåÿÿÿÿÿ8şÔ‡òÃ1
-{
-java:S1192"YDefine a constant instead of duplicating this literal "Text about the product 2" 3 times.(¶‰¡ëüÿÿÿÿ8ÿÔ‡òÃ1
-l
-java:S1192"JDefine a constant instead of duplicating this literal "Product 2" 3 times.(¶‰¡ëüÿÿÿÿ8ÿÔ‡òÃ1
-l
-java:S1192"JDefine a constant instead of duplicating this literal "Product 3" 3 times.(Ãş¹üûÿÿÿÿ8ÿÔ‡òÃ1
-{
-java:S1192"YDefine a constant instead of duplicating this literal "Text about the product 1" 3 times.(³ÕÍåÿÿÿÿÿ8ÿÔ‡òÃ1
-O
-java:S1135$"2Complete the task associated to this TODO comment.(ñ±Ùñ8–À‹ÔÃ1
-O
-java:S11355"2Complete the task associated to this TODO comment.(ñ±Ùñ8šÀ‹ÔÃ1
+N
+java:S1172"2Remove this unused method parameter "extractData".(ªµC8à²¦õÌ1
 C
-java:S1452F"&Remove usage of generic wildcard type.(ÊÆåŠ8³Õ‡òÃ1
+java:S1452'"&Remove usage of generic wildcard type.(•éë¶8ç²¦õÌ1
+H
+java:S14522"&Remove usage of generic wildcard type.(µ™ê™ûÿÿÿÿ8ú²¦õÌ1
+H
+java:S1452="&Remove usage of generic wildcard type.(ø¤Æàÿÿÿÿÿ8€³¦õÌ1

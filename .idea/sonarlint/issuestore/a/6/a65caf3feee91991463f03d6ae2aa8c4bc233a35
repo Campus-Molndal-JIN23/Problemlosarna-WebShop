@@ -1,11 +1,15 @@
 
+p
+java:S1192-"NDefine a constant instead of duplicating this literal "Error uppstod" 3 times.(Ò¼Ëûúÿÿÿÿ8Á¥õÌ1
 
-java:S1488H"_Immediately return this expression instead of assigning it to the temporary variable "payload".(‰ç‘ùÿÿÿÿ8˜ƒòÃ1
-m
-java:S1130 "KRemove the redundant 'java.io.IOException' thrown exception declaration(s).(·ùö¡úÿÿÿÿ8–†¡ÛÃ1
+java:S1488M"_Immediately return this expression instead of assigning it to the temporary variable "payload".(‰ç‘ùÿÿÿÿ8˜ƒòÃ1
 Q
-java:S1874&"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8—†¡ÛÃ1
-m
-java:S11304"KRemove the redundant 'java.io.IOException' thrown exception declaration(s).(î ô½ùÿÿÿÿ8¦†¡ÛÃ1
+java:S1874*"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8—†¡ÛÃ1
+S
+java:S26964"6Make the enclosing method "static" or remove this set.(„µà8ö¥õÌ1
 Q
-java:S1874:"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8§†¡ÛÃ1
+java:S1874?"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8§†¡ÛÃ1
+\
+java:S1117L":Rename "mapper" which hides the field declared at line 33.(ĞÏáúÿÿÿÿ8ÿ¥õÌ1
+Q
+java:S1874W"/Remove this use of "execute"; it is deprecated.(Ú±¯•ûÿÿÿÿ8…¥õÌ1
