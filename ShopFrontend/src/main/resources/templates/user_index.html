@@ -66,12 +66,15 @@
         </div>
         <div class="text-center col-lg-6">
             <h5><span th:text="${message}" style="color: red;"></span></h5>
-            <h5 class="text-end">Logged in as <span th:text="${username}"></span></h5>
+            <h5 class="text-end">
+                Logged in as
+                <span th:text="${username}" class="highlighted-username"></span>
+            </h5>
         </div>
-    </div>
 
 
-<br>
+
+        <br>
     <table class ="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>

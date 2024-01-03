@@ -6,3 +6,9 @@
     font-size: 12px;                /* Text - Font size */
     margin-left: 1px;               /* Position margin - adjust */
 }
+
+.highlighted-username {
+    background-color: #f4cccc;
+    padding: 5px;
+    border-radius: 5px;
+}

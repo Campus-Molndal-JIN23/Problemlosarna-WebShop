@@ -65,7 +65,10 @@
             <h1>Past Orders</h1>
         </div>
         <div class="col-lg-6 text-end">
-            <h5>Logged in as <span th:text="${username}"></span></h5>
+            <h5 class="text-end">
+                Logged in as
+                <span th:text="${username}" class="highlighted-username"></span>
+            </h5>
         </div>
     </div>
     <div class="container">
