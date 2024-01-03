@@ -87,7 +87,9 @@ Cristoffer Östberg - https://github.com/Cristoffer85
 MIT
 
 ## Badges
-![Static Badge](https://img.shields.io/badge/Java_65%25-HTML_35%25-blue)
+![Static Badge](https://img.shields.io/badge/Java_56%25-HTML_43%25-blue)  
+![Static Badge](https://img.shields.io/badge/Javascript_0.8%25-orange)  
+![Static Badge](https://img.shields.io/badge/CSS_0.2%25-green)
 
 
 ## Tests
