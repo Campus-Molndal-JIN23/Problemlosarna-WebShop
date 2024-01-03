@@ -60,17 +60,21 @@ public class UserController {
         if(currentUser.getRole() == null) {
             return "redirect:" + UNAUTHORIZED_URL;
         }
+
+        // Retrieve product list and basket information
         List<ProductDTO> products = productHttp.getAllProducts();
-        if(products == null) {
-            return "redirect:" + ERROR_URL;
-        } else {
-            model.addAttribute("products", products);
-            model.addAttribute("username", currentUser.getUsername());
-            model.addAttribute("newProduct", new UpdateBasketDTO());
-            model.addAttribute("message", message);
-            return "user_index";
-        }
+        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());
+
+        // Add data to the model
+        model.addAttribute("products", products);
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("newProduct", new UpdateBasketDTO());
+        model.addAttribute("message", message);
+        model.addAttribute("basket", basket);
+
+        return "user_index";
     }
+
 
 
     @GetMapping("/user/basket")
@@ -150,23 +154,40 @@ public class UserController {
         if(currentUser.getRole() == null) {
             return "redirect:" + UNAUTHORIZED_URL;
         }
-        model.addAttribute("username", currentUser.getUsername());
+
+        // Retrieve user details and basket information
         UserDTO user = userHttp.getUserDetails(currentUser.getToken());
+        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());
+
+        // Add data to the model
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("user", user);
+        model.addAttribute("basket", basket);
+
         if (user == null) {
             return "redirect:" + ERROR_URL;
         }
-        model.addAttribute("user", user);
+
         return "user_details";
     }
+
 
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         if(currentUser.getRole() == null) {
             return "redirect:" + UNAUTHORIZED_URL;
         }
+
+        // Retrieve past orders and basket information
         OrderDTO orders = orderHttp.getAllOrdersForOne(currentUser.getToken());
+
+        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());
+
+        // Add data to the model
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
+        model.addAttribute("basket", basket);
+
         if(orders == null) {
             return "user_past_orders_empty";
         }
