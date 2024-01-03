@@ -34,6 +34,7 @@ import static com.example.shopfrontend.controller.IndexController.currentUser;
 @Controller
 public class UserController {
 
+
     private final ProductHttp productHttp;
     private final OrderHttp orderHttp;
     private final BasketHttp basketHttp;
@@ -54,14 +55,16 @@ public class UserController {
         this.basketHttp = basketHttp;
         this.userHttp = userHttp;
     }
+
     @GetMapping("/user")
     public String userIndex(Model model) throws IOException, ParseException {
-        if(currentUser.getRole() == null) {
+        if (currentUser.getRole() == null) {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
+        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());     // Get basket information
         List<ProductDTO> products = productHttp.getAllProducts();
-        if(products == null) {
+        if (products == null) {
             log.info("products not found");
             return "redirect:" + ERROR_URL;
         } else {
@@ -69,6 +72,7 @@ public class UserController {
             model.addAttribute("username", currentUser.getUsername());
             model.addAttribute("newProduct", new UpdateBasketDTO());
             model.addAttribute("message", message);
+            model.addAttribute("basket", basket);               // Add basket to model
             return "user_index";
         }
     }
@@ -119,6 +123,7 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
+        log.info("updateBasketItem: " + id + " " + newProduct);
         newProduct.setProductId(id);
         status = basketHttp.updateProductQuantityInBasket(newProduct, currentUser.getToken());
         if(status == 200) {
@@ -142,6 +147,7 @@ public class UserController {
         }
         UpdateBasketDTO itemToRemove = new UpdateBasketDTO();
         itemToRemove.setProductId(id);
+        log.info("removeBasketItem: " + itemToRemove);
         status = basketHttp.removeProductFromBasket(itemToRemove, currentUser.getToken());
         if(status == 204) {
             log.info("removeBasketItem: " + itemToRemove);
@@ -162,8 +168,10 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
-        model.addAttribute("username", currentUser.getUsername());
         UserDTO user = userHttp.getUserDetails(currentUser.getToken());
+        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());                // Get basket information
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("basket", basket);                               // Add basket to model
         if (user == null) {
             log.info("user not found");
             return "redirect:" + ERROR_URL;
@@ -174,17 +182,24 @@ public class UserController {
 
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
-        if(currentUser.getRole() == null) {
+        if (currentUser.getRole() == null) {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
+
         OrderDTO orders = orderHttp.getAllOrdersForOne(currentUser.getToken());
+        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());                // Get basket information
+
+        // Add data to the model
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
-        if(orders == null) {
+        model.addAttribute("basket", basket);                               // Add basket to model
+
+        if (orders == null) {
             log.info("orders not found");
             return "user_past_orders_empty";
         }
+
         return "user_past_orders";
     }
 

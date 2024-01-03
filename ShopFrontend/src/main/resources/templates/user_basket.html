@@ -7,6 +7,10 @@
           rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
+
+    <!-- Basket Counter [Style] -->
+    <link href="/css/styles.css" rel="stylesheet">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -31,12 +35,10 @@
                 <a class="nav-link" th:href="@{/user/orders}">Show past orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/checkout}">Checkout Basket</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/basket}">
-                    Basket
-                    <img src="/Shoppingcartlogo.png" alt="Basket Icon" style="width: 15px; height: 15px; margin-right: 5px;">
+                    <img src="/Shoppingcartlogo.png" alt="Basket Icon" style="width: 20px; height: 20px; margin-right: 5px;">
+                    <!-- Display the count of items in the cart next to the shopping cart logo -->
+                    <span class="item-count" th:text="${#lists.size(basket.products)}"></span>
                 </a>
             </li>
         </ul>
@@ -82,12 +84,12 @@
         <tr th:each="product: ${basket.products}">
             <td>
                 <form th:action="@{/user/basket/edit/{id}(id=${product.id})}" method="post" class="d-flex">
-                <input type="number"
-                       th:field="*{newProduct.quantity}"
-                       class="form-control"
-                       min="1"
-                       style="width: 80px;"/>
-                <button type="submit" class="btn btn-primary ms-2">Update Quantity</button>
+                    <input type="number"
+                           th:field="*{newProduct.quantity}"
+                           class="form-control"
+                           min="1"
+                           style="width: 80px;"/>
+                    <button type="submit" class="btn btn-primary ms-2">Update Quantity</button>
                 </form>
             </td>
             <td th:text="${product.quantity}"></td>
@@ -99,11 +101,19 @@
                 <a th:href="@{/user/basket/remove/{id}(id=${product.id})}"
                    class="btn btn-danger">Remove from basket</a>
             </td>
-
         </tr>
         </tbody>
-
     </table>
+
+    <!-- Move "Checkout Basket" link to the bottom right -->
+    <div class="row justify-content-end mt-3">
+        <div class="col-lg-6 text-end">
+            <a class="btn btn-success" th:href="@{/user/checkout}">
+                <img src="/Shoppingcartlogo.png" alt="Shopping Cart Logo" style="width: 15px; height: 15px; margin-right: 5px;">
+                Checkout >>
+            </a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
