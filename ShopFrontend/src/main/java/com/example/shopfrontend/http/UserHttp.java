@@ -4,7 +4,7 @@ import com.example.shopfrontend.controller.IndexController;
 import com.example.shopfrontend.form.LoginForm;
 import com.example.shopfrontend.form.LoginResponse;
 import com.example.shopfrontend.form.RegistrationForm;
-
+import com.example.shopfrontend.http.utils.HttpUtils;
 import com.example.shopfrontend.models.userDetails.UserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,59 +24,41 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+
+/**
+ * this class is used to make requests concerning the users to the backend api.
+ * it uses the HttpUtils class to create payloads for the requests.
+ */
 @Slf4j
 @Service
 public class UserHttp {
-
-
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private final ObjectMapper mapper = new ObjectMapper();
 
     public int loginUser(LoginForm form) throws ParseException, IOException {
-        log.info("form: " + form);
+        HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/login");
 
-            HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/login");
-
-            request.setEntity(createPayload(form));
-
-            CloseableHttpResponse response = httpClient.execute(request);
-            log.info(String.valueOf(response.getCode()));
-            if (response.getCode() != 200) {
-                log.error("Error uppstod");
-                return response.getCode();
-            }
-            HttpEntity entity = response.getEntity();
-
-            LoginResponse loginResponse = mapper.readValue(EntityUtils.toString(entity), new TypeReference<LoginResponse>() {});
-            log.info("loginResponse: " + loginResponse);
-            IndexController.currentUser = loginResponse;
-            return response.getCode();
-    }
-
-    public int registerUser(RegistrationForm form) throws IOException {
-
-        log.info("form: " + form);
-        HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/register");
-
-        request.setEntity(createPayload(form));
+        request.setEntity(HttpUtils.createPayload(form));
 
         CloseableHttpResponse response = httpClient.execute(request);
-        log.info(String.valueOf(response.getCode()));
-        if (response.getCode() != 200) {
-            log.error("Error uppstod");
-            return response.getCode();
-        }
+
         HttpEntity entity = response.getEntity();
-        log.info("entity: " + entity);
+
+        LoginResponse loginResponse = mapper.readValue(EntityUtils.toString(entity), new TypeReference<LoginResponse>() {
+        });
+        log.info("loginResponse: " + loginResponse);
+        IndexController.currentUser = loginResponse;
         return response.getCode();
     }
 
-    public StringEntity createPayload(Object object) throws JsonProcessingException {
-        //Skapa och inkludera en Payload till request
-        ObjectMapper mapper = new ObjectMapper();
-        StringEntity payload = new StringEntity(mapper.writeValueAsString(object), ContentType.APPLICATION_JSON);
+    public int registerUser(RegistrationForm form) throws IOException {
+        HttpPost request = new HttpPost("http://localhost:8080/webshop/auth/register");
 
-        return payload;
+        request.setEntity(HttpUtils.createPayload(form));
+
+        CloseableHttpResponse response = httpClient.execute(request);
+
+        return response.getCode();
     }
 
     public UserDTO getUserDetails(String token) throws IOException, ParseException {
@@ -87,15 +69,8 @@ public class UserHttp {
         CloseableHttpResponse response = httpClient.execute(request);
         log.info(String.valueOf(response.getCode()));
 
-        if (response.getCode() != 200) {
-            log.error("Error uppstod");
-            return null;
-        }
-
         HttpEntity entity = response.getEntity();
-
-        UserDTO userInfo = mapper.readValue(EntityUtils.toString(entity), new TypeReference<UserDTO>() {});
-        log.info("getProductById: ", userInfo);
-        return userInfo;
+        return mapper.readValue(EntityUtils.toString(entity), new TypeReference<UserDTO>() {
+        });
     }
 }

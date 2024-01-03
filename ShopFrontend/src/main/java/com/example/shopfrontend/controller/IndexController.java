@@ -59,6 +59,7 @@ public class IndexController {
     public String listProducts(Model model) throws IOException, ParseException {
         List<ProductDTO> products = productHttp.getAllProducts();
         if(products == null) {
+            log.info("products not found");
             return "redirect:" + ERROR_URL;
         } else {
             model.addAttribute("products", products);
@@ -81,8 +82,6 @@ public class IndexController {
         }
     }
 
-    // This method is responsible for rendering the view_one_product and displaying the details of the product with the given id.
-    //if the product is not found, the user is redirected to the error page.
     @GetMapping("/index/one/{id}")
     public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
         ProductDTO product = productHttp.getProductById(id);
@@ -94,7 +93,6 @@ public class IndexController {
             return "view_one_product";
         }
     }
-
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -167,6 +165,7 @@ public class IndexController {
         } else {
             model.addAttribute("home", INDEX_URL);
         }
+        log.info("error getting role");
         return "error";
     }
 
@@ -180,6 +179,7 @@ public class IndexController {
         } else {
             model.addAttribute("home", INDEX_URL);
         }
+        log.info("error getting role");
         return "unauthorized";
     }
 }

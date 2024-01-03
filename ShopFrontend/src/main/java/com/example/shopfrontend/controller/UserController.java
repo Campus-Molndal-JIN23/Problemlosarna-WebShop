@@ -25,28 +25,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import static com.example.shopfrontend.controller.IndexController.currentUser;
 
+/** This class is responsible for handling requests from the user.
+ * It checks if the user is logged in , not if the role is user.
+ * this is because the admin must be able to test the user pages.
+ * it uses a Logger to log the requests and responses to the console.
+ */
 @Slf4j
 @Controller
 public class UserController {
-
 
     private final ProductHttp productHttp;
     private final OrderHttp orderHttp;
     private final BasketHttp basketHttp;
     private final UserHttp userHttp;
 
+    // the following variables are used to redirect the user to the appropriate page
     private final String UNAUTHORIZED_URL = "/unauthorized";
     private final String ERROR_URL = "/error";
-
     private final String USER_URL = "/user";
-
     private final String USERBASKET_URL = "/user/basket";
 
     String message = "";
-
     int status = 0;
-
-
 
     public UserController(ProductHttp productHttp, OrderHttp orderHttp, BasketHttp basketHttp, UserHttp userHttp) {
         this.productHttp = productHttp;
@@ -54,14 +54,15 @@ public class UserController {
         this.basketHttp = basketHttp;
         this.userHttp = userHttp;
     }
-
     @GetMapping("/user")
     public String userIndex(Model model) throws IOException, ParseException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         List<ProductDTO> products = productHttp.getAllProducts();
         if(products == null) {
+            log.info("products not found");
             return "redirect:" + ERROR_URL;
         } else {
             model.addAttribute("products", products);
@@ -72,10 +73,10 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/user/basket")
     public String getBasket(Model model) throws IOException, ParseException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         BasketDTO basket = basketHttp.getBasket(currentUser.getToken());
@@ -83,6 +84,7 @@ public class UserController {
         model.addAttribute("newProduct", new UpdateBasketDTO());
         model.addAttribute("basket", basket);
         if(basket == null) {
+            log.info("basket empty");
             return "user_basket_empty";
         }
         return "user_basket";
@@ -91,6 +93,7 @@ public class UserController {
     @GetMapping("/user/basket/add/{id}")
     public String addToBasket(@PathVariable long id) throws IOException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         UpdateBasketDTO newProduct = new UpdateBasketDTO();
@@ -98,11 +101,14 @@ public class UserController {
         newProduct.setQuantity(1);
         status = basketHttp.addProductToBasket(newProduct, currentUser.getToken());
         if (status == 200 || status == 400) {
+            log.info("addToBasket: " + newProduct);
             return "redirect:" + USER_URL;
         }
         if (status == 401 || status == 403) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         } else {
+            log.info("error");
             return "redirect:" + ERROR_URL;
         }
     }
@@ -110,17 +116,20 @@ public class UserController {
     @PostMapping("/user/basket/edit/{id}")
     public String updateBasketItem(@PathVariable long id ,@ModelAttribute UpdateBasketDTO newProduct) throws IOException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
-        log.info("updateBasketItem: " + id + " " + newProduct);
         newProduct.setProductId(id);
         status = basketHttp.updateProductQuantityInBasket(newProduct, currentUser.getToken());
         if(status == 200) {
+            log.info("updateBasketItem: " + newProduct);
             return "redirect:/user/basket";
         }
         if (status == 401 || status == 403) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         } else {
+            log.info("error");
             return "redirect:" + ERROR_URL;
         }
     }
@@ -128,31 +137,35 @@ public class UserController {
     @GetMapping("/user/basket/remove/{id}")
     public String removeBasketItem(@PathVariable long id) throws IOException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         UpdateBasketDTO itemToRemove = new UpdateBasketDTO();
         itemToRemove.setProductId(id);
-        log.info("removeBasketItem: " + itemToRemove);
         status = basketHttp.removeProductFromBasket(itemToRemove, currentUser.getToken());
         if(status == 204) {
+            log.info("removeBasketItem: " + itemToRemove);
             return "redirect:" + USERBASKET_URL;
         }
         if (status == 401 || status == 403) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         } else {
+            log.info("error");
             return "redirect:" + ERROR_URL;
         }
     }
 
-
     @GetMapping("/user/details")
     public String viewUserDetails(Model model) throws IOException, ParseException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         model.addAttribute("username", currentUser.getUsername());
         UserDTO user = userHttp.getUserDetails(currentUser.getToken());
         if (user == null) {
+            log.info("user not found");
             return "redirect:" + ERROR_URL;
         }
         model.addAttribute("user", user);
@@ -162,12 +175,14 @@ public class UserController {
     @GetMapping("/user/orders")
     public String getOrders(Model model) throws IOException, ParseException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         OrderDTO orders = orderHttp.getAllOrdersForOne(currentUser.getToken());
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
         if(orders == null) {
+            log.info("orders not found");
             return "user_past_orders_empty";
         }
         return "user_past_orders";
@@ -176,6 +191,7 @@ public class UserController {
     @GetMapping("/user/checkout")
     public String checkoutBasket () throws IOException {
         if(currentUser.getRole() == null) {
+            log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
         status = orderHttp.placeOrder(currentUser.getToken());
@@ -183,6 +199,7 @@ public class UserController {
             return "redirect:/user";
         }
         else {
+            log.info("error");
             return "redirect:" + ERROR_URL;
         }
     }

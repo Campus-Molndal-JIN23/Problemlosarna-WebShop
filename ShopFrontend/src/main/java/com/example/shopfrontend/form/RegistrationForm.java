@@ -2,6 +2,9 @@ package com.example.shopfrontend.form;
 
 import lombok.Data;
 
+/**
+ * class to hold registration form data
+ */
 @Data
 public class RegistrationForm {
 
