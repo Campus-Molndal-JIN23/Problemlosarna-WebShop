@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 public class OrderDTO {
 
-    String username;
-    List<BasketDTO> orders;
+    private String username;
+    private List<BasketDTO> orders;
 
     public OrderDTO() {
     }
