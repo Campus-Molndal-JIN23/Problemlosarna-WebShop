@@ -1,14 +1,14 @@
 .item-count {
-    background-color: #ff0000;      /* Count - Background color */
-    color: #ffffff;                 /* Count - Text color */
-    border-radius: 50%;             /* Radius (Make it round) */
-    padding: 2px 5px;               /* Add a padding (border) */
-    font-size: 12px;                /* Text - Font size */
-    margin-left: 1px;               /* Position margin - adjust */
+    background-color: #ff0000;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+    margin-left: 1px;
 }
 
 .highlighted-username {
-    background-color: #f4cccc;
+    background-color: #e0e0eb;
     padding: 5px;
     border-radius: 5px;
 }

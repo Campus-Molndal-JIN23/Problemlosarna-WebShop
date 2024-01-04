@@ -32,7 +32,7 @@
                 <a class="nav-link" th:href="@{/admin/all_orders}">All Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Log out</a>
+                <a class="nav-link" th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')">Log out</a>
             </li>
         </ul>
     </div>

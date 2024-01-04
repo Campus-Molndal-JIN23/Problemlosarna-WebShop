@@ -79,13 +79,13 @@ public class IndexController {
     }
 
     @GetMapping("/index/one/{id}")
-    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
+    public String getOneProduct(@PathVariable long id, Model model) throws IOException, ParseException {
         ProductDTO product = productHttp.getProductById(id);
         if(product == null) {
             log.info("product not found");
             return "redirect:" + ERROR_URL;
         } else {
-            model1.addAttribute("product", product);
+            model.addAttribute("product", product);
             return "view_one_product";
         }
     }
@@ -172,13 +172,14 @@ public class IndexController {
     public String unauthorized(Model model) {
         if (currentUser.getRole().contains(ADMIN_ROLE)) {
             model.addAttribute("home", ADMIN_URL);
+            return "unauthorized";
         }
         if (currentUser.getRole().contains(USER_ROLE)) {
             model.addAttribute("home", USER_URL);
+            return "unauthorized";
         } else {
             model.addAttribute("home", INDEX_URL);
+            return "unauthorized";
         }
-        log.info("error getting role");
-        return "unauthorized";
     }
 }
