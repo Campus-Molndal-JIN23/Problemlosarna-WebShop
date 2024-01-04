@@ -109,8 +109,8 @@
     <!-- Move "Checkout Basket" link to the bottom right -->
     <div class="row justify-content-end mt-3">
         <div class="col-lg-6 text-end">
-            <a class="btn btn-success" th:href="@{/user/checkout}">
-                <img src="/Shoppingcartlogo.png" alt="Shopping Cart Logo" style="width: 15px; height: 15px; margin-right: 5px;">
+            <a class="btn btn-success" th:href="@{/user/checkout}" onclick="return confirm('Are you ready to checkout your basket?')">
+                <img id="checkOut" src="/Shoppingcartlogo.png" alt="Shopping Cart Logo">
                 Checkout >>
             </a>
         </div>
