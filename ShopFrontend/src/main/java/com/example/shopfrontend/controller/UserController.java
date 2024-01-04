@@ -74,7 +74,7 @@ public class UserController {
             model.addAttribute("username", currentUser.getUsername());
             model.addAttribute("newProduct", new UpdateBasketDTO());
             model.addAttribute("message", message);
-            model.addAttribute("basket", basket);               // Add basket to model
+            model.addAttribute("basket", basket);
             return "user_index";
         }
     }
@@ -85,14 +85,15 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
+
         basket = basketHttp.getBasket(currentUser.getToken());
-        model.addAttribute("username", currentUser.getUsername());
-        model.addAttribute("newProduct", new UpdateBasketDTO());
-        model.addAttribute("basket", basket);
         if(basket == null) {
             log.info("basket empty");
             return "user_basket_empty";
         }
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("newProduct", new UpdateBasketDTO());
+        model.addAttribute("basket", basket);
         return "user_basket";
     }
 
@@ -170,14 +171,15 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
+
         UserDTO user = userHttp.getUserDetails(currentUser.getToken());
-        basket = basketHttp.getBasket(currentUser.getToken());                // Get basket information
-        model.addAttribute("username", currentUser.getUsername());
-        model.addAttribute("basket", basket);                               // Add basket to model
+        basket = basketHttp.getBasket(currentUser.getToken());
         if (user == null) {
             log.info("user not found");
             return "redirect:" + ERROR_URL;
         }
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("basket", basket);
         model.addAttribute("user", user);
         return "user_details";
     }
@@ -191,16 +193,13 @@ public class UserController {
 
         OrderDTO orders = orderHttp.getAllOrdersForOne(currentUser.getToken());
         basket = basketHttp.getBasket(currentUser.getToken());
-
-        model.addAttribute("username", currentUser.getUsername());
-        model.addAttribute("pastOrders", orders);
-        model.addAttribute("basket", basket);
-
         if (orders == null) {
             log.info("orders not found");
             return "user_past_orders_empty";
         }
-
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("pastOrders", orders);
+        model.addAttribute("basket", basket);
         return "user_past_orders";
     }
 
