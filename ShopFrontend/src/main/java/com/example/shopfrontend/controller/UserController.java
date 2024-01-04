@@ -46,6 +46,7 @@ public class UserController {
     private final String USER_URL = "/user";
     private final String USERBASKET_URL = "/user/basket";
 
+    private BasketDTO basket = new BasketDTO();
     String message = "";
     int status = 0;
 
@@ -62,7 +63,8 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
-        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());     // Get basket information
+
+        basket = basketHttp.getBasket(currentUser.getToken());
         List<ProductDTO> products = productHttp.getAllProducts();
         if (products == null) {
             log.info("products not found");
@@ -83,7 +85,7 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
-        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());
+        basket = basketHttp.getBasket(currentUser.getToken());
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("newProduct", new UpdateBasketDTO());
         model.addAttribute("basket", basket);
@@ -123,7 +125,7 @@ public class UserController {
             log.info("not authorized");
             return "redirect:" + UNAUTHORIZED_URL;
         }
-        log.info("updateBasketItem: " + id + " " + newProduct);
+
         newProduct.setProductId(id);
         status = basketHttp.updateProductQuantityInBasket(newProduct, currentUser.getToken());
         if(status == 200) {
@@ -147,7 +149,7 @@ public class UserController {
         }
         UpdateBasketDTO itemToRemove = new UpdateBasketDTO();
         itemToRemove.setProductId(id);
-        log.info("removeBasketItem: " + itemToRemove);
+
         status = basketHttp.removeProductFromBasket(itemToRemove, currentUser.getToken());
         if(status == 204) {
             log.info("removeBasketItem: " + itemToRemove);
@@ -169,7 +171,7 @@ public class UserController {
             return "redirect:" + UNAUTHORIZED_URL;
         }
         UserDTO user = userHttp.getUserDetails(currentUser.getToken());
-        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());                // Get basket information
+        basket = basketHttp.getBasket(currentUser.getToken());                // Get basket information
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("basket", basket);                               // Add basket to model
         if (user == null) {
@@ -188,12 +190,11 @@ public class UserController {
         }
 
         OrderDTO orders = orderHttp.getAllOrdersForOne(currentUser.getToken());
-        BasketDTO basket = basketHttp.getBasket(currentUser.getToken());                // Get basket information
+        basket = basketHttp.getBasket(currentUser.getToken());
 
-        // Add data to the model
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("pastOrders", orders);
-        model.addAttribute("basket", basket);                               // Add basket to model
+        model.addAttribute("basket", basket);
 
         if (orders == null) {
             log.info("orders not found");
