@@ -13,6 +13,48 @@
     border-radius: 5px;
 }
 
+.modal-overlay {
+    position: fixed;
+    top: -30%;
+    left: 85%;
+    width: 14%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    border-color: #151515;
+    text-align: center;
+}
+
+.modal-content button {
+    margin-right: 0;
+}
+
+
+/* Add this to styles.css */
+.navbar-nav .nav-item .logout-button {
+    color: lightgray !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 10px !important;
+    font-size: inherit !important;
+    cursor: pointer !important;
+    font-weight: bold;
+}
+
+/* Add this to styles.css */
+.navbar-nav .nav-item a.nav-link.mouseover-style {
+    font-weight: bold !important;
+}
+
 #errormessage {
     color: red;
 }
