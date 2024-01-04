@@ -7,12 +7,13 @@
           rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <span class="navbar-brand">
-        <img src="/SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
+        <img id="brand" src="/SRtransp.gif" alt="Random Gif1">
         Welcome To the Fantastic Store of Super Random
     </span>
 
@@ -41,7 +42,7 @@
             <h1 class="text-center">login</h1>
             <br>
             <div class = text-center>
-                <h5><span th:text="${errorMessage}" style="color: red;"></span></h5>
+                <h5 id="errormessage"><span th:text="${errorMessage}"></span></h5>
             </div>
             <div class="card-body">
                 <form th:action="@{/loginUser}" th:object="${loginform}" method="post">

@@ -152,7 +152,10 @@ public class IndexController {
 
     @GetMapping("/error")
     public String error(Model model) {
-
+        if(currentUser.getRole() == null) {
+            log.info("not authorized");
+            return "unauthorized";
+        }
         if (currentUser.getRole().contains(ADMIN_ROLE)) {
             model.addAttribute("home", ADMIN_URL);
         }
