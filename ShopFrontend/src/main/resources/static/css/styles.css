@@ -13,6 +13,7 @@
     border-radius: 5px;
 }
 
+/*Logout button*/
 .modal-overlay {
     position: fixed;
     top: -30%;
@@ -24,7 +25,6 @@
     justify-content: center;
     align-items: center;
 }
-
 .modal-content {
     background: white;
     padding: 20px;
@@ -32,13 +32,9 @@
     border-color: #151515;
     text-align: center;
 }
-
 .modal-content button {
     margin-right: 0;
 }
-
-
-/* Add this to styles.css */
 .navbar-nav .nav-item .logout-button {
     color: lightgray !important;
     text-decoration: none !important;
@@ -50,10 +46,32 @@
     font-weight: bold;
 }
 
-/* Add this to styles.css */
 .navbar-nav .nav-item a.nav-link.mouseover-style {
     font-weight: bold !important;
 }
+/*--------------------*/
+
+/*Checkout button*/
+.modal-overlay-checkout {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    border: 2px solid #ff0000; /* Replace with your desired color */
+    text-align: center;
+    padding: 10px;
+}
+.modal-content-checkout {
+    text-align: center;
+}
+.modal-content-checkout button {
+    margin-top: 0;
+}
+/*--------------------*/
+
 
 #errormessage {
     color: red;
