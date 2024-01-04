@@ -7,16 +7,13 @@
           rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
-
-    <!-- Basket Counter [Style] -->
-    <link href="/css/styles.css" rel="stylesheet">
-
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <span class="navbar-brand">
-        <img src="/SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
+        <img id="brand" src="/SRtransp.gif" alt="Random Gif1">
         Welcome To the Fantastic Store of Super Random
     </span>
 
@@ -36,9 +33,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/basket}">
-                    <img src="/Shoppingcartlogo.png" alt="Basket Icon" style="width: 20px; height: 20px; margin-right: 5px;">
-                    <!-- Display the count of items in the cart next to the shopping cart logo -->
-                    <span class="item-count" th:if="${basket != null}" th:text="${#lists.size(basket?.products)}"></span>
+                    <img id="cartlogo" src="/Shoppingcartlogo.png" alt="Basket Icon">
                 </a>
             </li>
         </ul>
@@ -46,11 +41,11 @@
         <!-- Align the following items to the right -->
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Log out</a>
+                <a class="nav-link" th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')">Log out</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/details}">
-                    <img src="/ProfileLogoGold.png" alt="Profile Logo" style="width: 30px; height: 30px; border-radius: 50%;">
+                    <img id="logo" src="/ProfileLogoGold.png" alt="Profile Logo">
                 </a>
             </li>
         </ul>

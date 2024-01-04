@@ -20,6 +20,7 @@ function openPopup(productId) {
     window.open(url, 'Product Details', 'width=600,height=400');
 }
 
+
 function closeWindow() {
     window.close();
 }

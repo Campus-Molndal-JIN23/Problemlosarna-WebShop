@@ -1,14 +1,59 @@
 .item-count {
-    background-color: #ff0000;      /* Count - Background color */
-    color: #ffffff;                 /* Count - Text color */
-    border-radius: 50%;             /* Radius (Make it round) */
-    padding: 2px 5px;               /* Add a padding (border) */
-    font-size: 12px;                /* Text - Font size */
-    margin-left: 1px;               /* Position margin - adjust */
+    background-color: #ff0000;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+    margin-left: 1px;
 }
 
 .highlighted-username {
-    background-color: #eeeeee;
+    background-color: #e0e0eb;
     padding: 5px;
     border-radius: 5px;
+}
+
+#errormessage {
+    color: red;
+}
+
+#logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+#cartlogo {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+#checkOut {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+#brand {
+    width: 155px;
+    height: 70px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+#oneProductCard{
+    width: 600px;
+    height: 400px;
+    overflow: auto;
+}
+
+#oops {
+    width: 300px;
+    height: 300px;"
+}
+
+#errorPic {
+    width: 500px;
+    height: 400px;
 }

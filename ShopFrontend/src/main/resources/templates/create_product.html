@@ -7,12 +7,13 @@
           rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <span class="navbar-brand">
-        <img src="/SRtransp.gif" alt="Random Gif1" style="width: 155px; height: 70px; margin-right: 5px; margin-left: 10px">
+        <img id="brand" src="/SRtransp.gif" alt="Random Gif1">
         Welcome To the Fantastic Store of Super Random
     </span>
 
@@ -31,7 +32,7 @@
                 <a class="nav-link" th:href="@{/admin/all_orders}">All Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Log out</a>
+                <a class="nav-link" th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')">Log out</a>
             </li>
         </ul>
     </div>
