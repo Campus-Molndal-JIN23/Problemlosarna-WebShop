@@ -8,7 +8,6 @@
           crossorigin="anonymous">
     <script th:src="@{/script.js}" defer></script>
     <link th:href="@{/css/styles.css}" rel="stylesheet">
-
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -44,7 +43,7 @@
         <!-- Align the following items to the right -->
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')">Log out</a>
+                <button type="button" class="btn logout-button" onclick="openLogoutModal()">Log out</button>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/user/details}">
@@ -109,7 +108,7 @@
     <!-- Move "Checkout Basket" link to the bottom right -->
     <div class="row justify-content-end mt-3">
         <div class="col-lg-6 text-end">
-            <a class="btn btn-success" th:href="@{/user/checkout}" onclick="return confirm('Are you ready to checkout your basket?')">
+            <a class="btn btn-success" th:href="@{/user/checkout}" onclick="openCheckoutModal(event)">
                 <img id="checkOut" src="/Shoppingcartlogo.png" alt="Shopping Cart Logo">
                 Checkout >>
             </a>

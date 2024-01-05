@@ -193,13 +193,13 @@ public class UserController {
 
         OrderDTO orders = orderHttp.getAllOrdersForOne(currentUser.getToken());
         basket = basketHttp.getBasket(currentUser.getToken());
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("pastOrders", orders);
+        model.addAttribute("basket", basket);
         if (orders == null) {
             log.info("orders not found");
             return "user_past_orders_empty";
         }
-        model.addAttribute("username", currentUser.getUsername());
-        model.addAttribute("pastOrders", orders);
-        model.addAttribute("basket", basket);
         return "user_past_orders";
     }
 
