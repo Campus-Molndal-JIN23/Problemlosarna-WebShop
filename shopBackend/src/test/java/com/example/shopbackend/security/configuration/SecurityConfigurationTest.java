@@ -70,7 +70,7 @@ class SecurityConfigurationTest {
     void securityFilterChain() throws Exception {
 
         String API = "/webshop/auth/register";
-        LoginForm loginForm = new LoginForm("a", "b");
+        LoginForm loginForm = new LoginForm("user", "Password1");
         String json = mapper.writeValueAsString(loginForm);
 
         this.mvc.perform(post(API)
