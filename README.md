@@ -6,7 +6,7 @@
 
 
 ## Description
-A fullstack e-commerce, Maven Springboot RESTful API application where you as a registered user can buy <i>super</i> random stuff.\
+A fullstack e-commerce, Maven Springboot RESTful API application where you as a registered user can buy <i>super</i> random stuff.
 
 #### if you are not logged in you can:
 - View all products.
@@ -70,6 +70,10 @@ Log in with your new user and start shopping!
 To log in as an admin use the following credentials:\
 username: admin\
 password: Password1
+
+## Dependencies
+Java 21 
+All other dependencies are located in POM-file.
 
 ## Credits
 
