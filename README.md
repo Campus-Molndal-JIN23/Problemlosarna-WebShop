@@ -71,6 +71,8 @@ To log in as an admin use the following credentials:\
 username: admin\
 password: Password1
 
+if you only want to run the backend, please see the API-Contract for information about the endpoints.
+
 ## Dependencies
 Java 21 
 All other dependencies are located in POM-file.
