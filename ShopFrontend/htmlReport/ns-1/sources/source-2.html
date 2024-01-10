@@ -1,0 +1,224 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > IndexController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.shopfrontend.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: IndexController (com.example.shopfrontend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IndexController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79,5%
+  </span>
+  <span class="absValue">
+    (35/44)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.shopfrontend.controller;
+&nbsp;
+&nbsp;import com.example.shopfrontend.form.LoginForm;
+&nbsp;import com.example.shopfrontend.form.LoginResponse;
+&nbsp;import com.example.shopfrontend.form.RegistrationForm;
+&nbsp;import com.example.shopfrontend.http.ProductHttp;
+&nbsp;import com.example.shopfrontend.http.UserHttp;
+&nbsp;import com.example.shopfrontend.models.dto.ProductDTO;
+&nbsp;import com.example.shopfrontend.models.dto.UpdateBasketDTO;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.apache.hc.core5.http.ParseException;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Controller
+&nbsp;
+&nbsp;public class IndexController {
+&nbsp;
+&nbsp;    private final ProductHttp productHttp;
+&nbsp;    private final UserHttp userHttp;
+<b class="fc">&nbsp;    public static LoginResponse currentUser = new LoginResponse();</b>
+<b class="fc">&nbsp;    String errorMessage = &quot;&quot;;</b>
+<b class="fc">&nbsp;    int status = 0;</b>
+&nbsp;
+<b class="fc">&nbsp;    public IndexController(ProductHttp productHttp, UserHttp userHttp) {</b>
+<b class="fc">&nbsp;        this.productHttp = productHttp;</b>
+<b class="fc">&nbsp;        this.userHttp = userHttp;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/index&quot;)
+&nbsp;    public String listProducts(Model model) throws IOException, ParseException {
+<b class="fc">&nbsp;        List&lt;ProductDTO&gt; products = productHttp.getAllProducts();</b>
+<b class="fc">&nbsp;        if(products == null) {</b>
+<b class="nc">&nbsp;            return &quot;redirect:/error&quot;;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            model.addAttribute(&quot;products&quot;, products);</b>
+<b class="fc">&nbsp;            return &quot;index&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/index/one/{id}&quot;)
+&nbsp;    public String getOneProduct(@PathVariable long id, Model model1) throws IOException, ParseException {
+<b class="nc">&nbsp;        ProductDTO product = productHttp.getProductById(id);</b>
+<b class="nc">&nbsp;        if(product == null) {</b>
+<b class="nc">&nbsp;            return &quot;redirect:/error&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            model1.addAttribute(&quot;product&quot;, product);</b>
+<b class="nc">&nbsp;            return &quot;view_one_product&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/login&quot;)
+&nbsp;    public String login(Model model) {
+<b class="fc">&nbsp;        LoginForm loginform = new LoginForm();</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;loginform&quot;, loginform);</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;errorMessage&quot;, errorMessage);</b>
+<b class="fc">&nbsp;        return &quot;login&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/loginUser&quot;)
+&nbsp;    public String loginUser(LoginForm user) throws IOException, ParseException {
+<b class="fc">&nbsp;        status = userHttp.loginUser(user);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (status == 401) {</b>
+<b class="fc">&nbsp;            errorMessage = &quot;Wrong username or password&quot;;</b>
+<b class="fc">&nbsp;            return &quot;redirect:/registration&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (status == 404) {</b>
+<b class="fc">&nbsp;            errorMessage = &quot;User not found&quot;;</b>
+<b class="fc">&nbsp;            return &quot;redirect:/registration&quot;;</b>
+&nbsp;        }
+&nbsp;        else {
+<b class="nc">&nbsp;            if (currentUser.getRole().contains(&quot;ROLE_ADMIN&quot;)) {</b>
+<b class="nc">&nbsp;                return &quot;redirect:/admin&quot;;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                return &quot;redirect:/user&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/registration&quot;)
+&nbsp;    public String registration(Model model) {
+<b class="fc">&nbsp;        RegistrationForm registrationForm = new RegistrationForm();</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;registrationForm&quot;, registrationForm);</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;errorMessage&quot;, errorMessage);</b>
+<b class="fc">&nbsp;        return &quot;registration&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/registration&quot;)
+&nbsp;    public String registerUser(RegistrationForm form) throws IOException, ParseException {
+<b class="fc">&nbsp;        status = userHttp.registerUser(form);</b>
+<b class="fc">&nbsp;        if (status == 200) {</b>
+<b class="fc">&nbsp;            return &quot;redirect:/login&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (status == 409) {</b>
+<b class="fc">&nbsp;            errorMessage = &quot;Username already exists&quot;;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            errorMessage = &quot;Something went wrong with the registration&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;redirect:/registration&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/logout&quot;)
+&nbsp;    public String logout() {
+<b class="fc">&nbsp;        currentUser = new LoginResponse();</b>
+<b class="fc">&nbsp;        return &quot;redirect:/index&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/error&quot;)
+&nbsp;    public String error() {
+<b class="fc">&nbsp;        return &quot;error&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-16 22:39</div>
+</div>
+</body>
+</html>

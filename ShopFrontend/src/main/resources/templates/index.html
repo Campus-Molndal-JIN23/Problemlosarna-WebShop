@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome To the Fantastic Store of Super Random</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script th:src="@{/script.js}" defer></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <span class="navbar-brand">
+        <img id="brand" src="/SRtransp.gif" alt="Random Gif1">
+        Welcome To the Fantastic Store of Super Random
+    </span>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/index}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/registration}">Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class ="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Current products in Store</h1>
+        </div>
+    </div>
+
+    <table class ="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>See more?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "product: ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <button class="btn btn-primary" th:onclick="'openPopup(\'' + ${product.id} + '\')'">More Info</button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

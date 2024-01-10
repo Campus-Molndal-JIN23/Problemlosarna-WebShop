@@ -36,7 +36,7 @@ Gives a registered user a JWT token.
 ```
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <OAuth Token> }`
+  **Content:**  `{ <LoginRespons> }`
 
 
 ## /webshop/
@@ -44,18 +44,16 @@ Gives a registered user a JWT token.
 
 **GET /user/:id**
 ----
-> WTF is this good for?
 
 Returns the specified user.
 * **URL Params**  
-  *Required:* `id=[integer]`
 * **Data Params**
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <user_object> }`
+  **Content:**  `{ <name och lösenord i objekt> }`
 * **Error Response:**
     * **Code:** 404  
       **Content:** `{ error : "User doesn't exist" }`  
@@ -78,67 +76,96 @@ Returns all products in the system.
 * **Code:** 200  
   **Content:**
 ```
-{
-  products: [
-           {<product_object>},
-           {<product_object>},
-           {<product_object>}
-         ]
-}
+[
+    {
+        "id": 1,
+        "name": "Product 1",
+        "description": "Text about the product 1",
+        "price": 100
+    },
+    {
+        "id": 2,
+        "name": "Product 2",
+        "description": "Text about the product 2",
+        "price": 200
+    }
+]
 ``` 
 **GET /products/:id**
 ----
-Returns the specified product.
+Returns the specified product. Can see products that are deleted
 * **URL Params**  
   *Required:* `id=[integer]`
 * **Data Params**  
   None
 * **Headers**  
   Content-Type: application/json
+  Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <product_object> }`
+  **Content:**
+```
+{
+    "id": 1,
+    "name": "Product 1",
+    "description": "Text about the product 1",
+    "price": 100,
+    "deleted": false
+}
+```
 * **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Product doesn't exist" }`
+    * **Code:** 401
+    * OR
+    * **Code:** 404
 
 **POST /products**
 ----
 Creates a new Product and returns the new object.
+The product id is ignored when saving to db.
+Product name is unique.
 * **URL Params**  
   None
 * **Data Params**
 ```
-  {
-    name: string
-    cost: integer
-    desription: string
-  }
+{
+    "id": 1,
+    "name": "Product 1",
+    "description": "Text about the product 1",
+    "price": 100
+}
 ```
 * **Headers**  
   Content-Type: application/json
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
   * **Code:** 200  
-    **Content:**  `{ <product_object> }`
+    **Content:**
+```
+{
+    "id": 1,
+    "name": "Product 1",
+    "description": "Text about the product 1",
+    "price": 100
+}
+```
 * **Error response:**
     * **Code:** 401
     * OR
-    * **Code:** 409
+    * **Code:** 400
 
-**PUT /products/:id**
+**PUT /products**
 ---- 
 Updates fields on the specified product and returns the updated object.
 * **URL Params**  
   None
 * **Data Params**
 ```
-  {
-    id: long
-    name: string
-    cost: integer
-    desription: string
-  }
+{
+    "id": 1,
+    "name": "Product 1",
+    "description": "Text about the product 1",
+    "price": 100
+}
 ```
 * **Headers**  
   Content-Type: application/json  
@@ -147,39 +174,43 @@ Updates fields on the specified product and returns the updated object.
 * **Code:** 200  
   **Content:**  `{ <product_object> }`
 * **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Product doesn't exist" }`  
+    * **Code:** 401
       OR
-    * **Code:** 401  
-      **Content:** `{ error : error : "You are unauthorized to make this request." }`
+    * **Code:** 400
 
-**DELETE /products/:id**
+**DELETE /products**
 ----
 Deletes the specified product.
 * **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
   None
+* **Data Params**  
+```
+{
+    "id": 1,
+    "name": "Product 1",
+    "description": "Text about the product 1",
+    "price": 100
+}
+```
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
     * **Code:** 204
 * **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Product doesn't exist" }`  
+    * **Code:** 404
       OR
-    * **Code:** 401  
-      **Content:** `{ error : error : "You are unauthorized to make this request." }`
+    * **Code:** 401
 
 ## /webshop
 
-** GET /basket**
+**GET /basket**
 ----
-Returns information about the own basket
+Get the authorized users basket
 * **URL Params**  
-  *Required:*
-* **Data Params** `{ <user_object> }`
+  None
+* **Data Params**  
+  None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -188,73 +219,95 @@ Returns information about the own basket
   **Content:**
 ```
 {
-    totalCost: integer
-    products: [
-        {<product_object>:<int,quantity>},
-        {<product_object>:<int,quantity>},
-        {<product_object>:<int,quantity>}
-    ]    
+    "basketId": 1,
+    "totalCost": 500,
+    "products": [
+        {
+            "id": 1,
+            "quantity": 1,
+            "name": "Product 1",
+            "description": "Text about the product 1",
+            "price": 100
+        },
+        {
+            "id": 2,
+            "quantity": 2,
+            "name": "Product 2",
+            "description": "Text about the product 2",
+            "price": 200
+        }
+      ]
 }
 ```
 * **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Basket doesn't exist" }`  
+    * **Code:** 404
       OR
-    * **Code:** 401  
-      **Content:** `{ error : error : "You are unauthorized to make this request." }`
+    * **Code:** 401
 
 **POST /basket**
 ---- 
-Add a Product by id and to the basket 
+Add a Product by id and to the basket. Creates a basket if it does not exist.
+Can't add duplicates or update quantity!
 * **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params** `{ <userDTO_object> }`
-
+  *Required:*
+    None`
+* **Data Params**
+  *Required:*
+```
+{
+  "productId": 1,
+  "quantity": 1
+}
+```
 * **Headers**  
   Content-Type: application/json
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
-* **Code:** 200  
-  **Content:**  `{ <basket_object> }`
+* **Code:** 200
 * **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Order doesn't exist" }`
+    * **Code:** 400
     * OR
-  * **Code:** 401  
-    **Content:** `{ error : error : "You are unauthorized to make this request." }`
+  * **Code:** 401
 
-**PUT /basket/:id**
+**PUT /basket**
 ----
 Updates quantity on the specified product and returns the updated basket.
+Can't add product to basket or create baskets!
 * **URL Params**  
-  *Required:* `id=[integer]`
+  *Required:* 
+  None
 * **Data Params**
+  *Required:*
 ```
-  { 
-    key: <product_object>
-  	quantity: int
-  }
+{
+  "productId": 1,
+  "quantity": 1
+}
 ```
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
 * **Code:** 200  
-  **Content:**  `{ <basket_object> }`
 * **Error Response:**
-    * **Code:** 404  
-      **Content:** `{ error : "Product doesn't exist in basket" }`  
+    * **Code:** 400
       OR
     * **Code:** 401  
-      **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**DELETE /basket/:id**
+**DELETE /basket**
 ----
-Deletes the specified product.
+Delete the specified product. Ignores quantity in dto.
 * **URL Params**  
-  *Required:* `id=[integer]`
+  *Required:* 
+  None`
 * **Data Params**  
-  None
+  *Required:*
+```
+{
+  "productId": 1,
+  "quantity": 1
+}
+```
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -262,20 +315,18 @@ Deletes the specified product.
     * **Code:** 204
 * **Error Response:**
     * **Code:** 404  
-      **Content:** `{ error : "basket doesn't exist" }`  
       OR
     * **Code:** 401  
-      **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
 
 ## /webshop
 
 **POST /order
-----
+---- use JWT token to get basket
 Returns the specified order.
 * **URL Params**  
   None
-* **Data Params**  `<userDTO_object>`
+* **Data Params**
+  None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -295,7 +346,8 @@ Returns the specified order.
 Returns all orders off a user.
 * **URL Params**  
   None
-* **Data Params**  `<userDTO_object>`
+* **Data Params** 
+  None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
@@ -318,47 +370,34 @@ Returns all orders off a user.
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**GET /orders/**
-----
-Returns the specified order.
+
+**GET /orders
+---- 
+Returns all orders for all users
 * **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
+  None
+* **Data Params**
   None
 * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:**
-  * **Code:** 200  
-    **Content:**  
+* **Code:** 200  
+  **Content:**  `
 ```
-{
-    users: [
-         username: String
-         orders: [
+     {
+        orders: [
             {<order_object>},  
             {<order_object>},  
-            {<order_object>}
-        ],
-        username: String
-         orders: [
-            {<order_object>},  
-            {<order_object>},  
-            {<order_object>}
-        ],
-        username: String
-         orders: [
-            {<order_object>},  
-            {<order_object>},  
-            {<order_object>}
-        ]  
-    ] 
-}
+            {<order_object>}  
+        ]
+    }
 ```
 * **Error Response:**
     * **Code:** 404  
-      **Content:** `{ error : "Orders doesn't exist" }`  
+      **Content:** `{ error : "no orders doesn't exist" }`  
       OR
     * **Code:** 401  
       **Content:** `{ error : error : "You are unauthorized to make this request." }`
+
 
