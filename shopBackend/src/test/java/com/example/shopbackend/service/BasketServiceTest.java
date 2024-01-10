@@ -25,7 +25,7 @@ class BasketServiceTest {
 
     @Test
     void getAExistingBasket() {
-        var basket = basketService.getBasket(1L);
+        var basket = basketService.getBasket(2L);
 
         assertNotNull(basket);
     }

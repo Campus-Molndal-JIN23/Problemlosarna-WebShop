@@ -67,6 +67,7 @@ public class ShopBackendApplication {
             var order = new com.example.shopbackend.entity.Order(users.get(i), isActive);
 
             for (int j = 0; j < products.size(); j++) {
+                if (j == 0) continue;
                 var basketProduct = new OrderQty(products.get(j), j, order);
                 order.getOrderQty().add(basketProduct);
                 orderRepository.save(order);
@@ -124,22 +125,23 @@ public class ShopBackendApplication {
         repository.save(roles);
     }
 
-    @Profile("test")
     @Order(2)
     @Bean
     CommandLineRunner createTestDatabase(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository) {
         return args -> {
-
             // Get a list of users
             List<User> users = userRepository.findAll();
             // Get a list of products
             List<Product> products = productRepository.findAll();
 
-            // make some active baskets
-            makeOrders(orderQtyRepository, orderRepository, users, products, true);
-            // make some order history
-            for (int i = 0; i < 2; i++) {
-                makeOrders(orderQtyRepository, orderRepository, users, products, false);
+            if (orderRepository.findAll().isEmpty()) {
+                // make some active baskets
+                makeOrders(orderQtyRepository, orderRepository, users, products, true);
+
+                // make some order history
+                for (int i = 0; i < 2; i++) {
+                    makeOrders(orderQtyRepository, orderRepository, users, products, false);
+                }
             }
         };
     }
