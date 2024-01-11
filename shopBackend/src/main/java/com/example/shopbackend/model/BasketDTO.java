@@ -9,7 +9,7 @@ import java.util.List;
 public class BasketDTO {
 
     private final Long basketId;
-    private final int totalCost;
+    private final Long totalCost;
     private final List<BasketProductDTO> products;
 
     public BasketDTO(List<OrderQty> products) {
@@ -20,7 +20,7 @@ public class BasketDTO {
             sum += ordQty.getProduct().getPrice() * ordQty.getQuantity();
             this.products.add(new BasketProductDTO(ordQty));
         }
-        this.totalCost = sum;
+        this.totalCost = (long) sum;
         this.basketId = products.getFirst().getOrder().getId();
     }
 

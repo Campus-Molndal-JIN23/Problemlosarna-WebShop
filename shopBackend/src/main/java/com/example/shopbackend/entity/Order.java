@@ -29,7 +29,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<OrderQty> OrderQty = new ArrayList<>();
+    private List<OrderQty> orderQty = new ArrayList<>();
 
     @Column(name = "is_basket", nullable = false)
     @JdbcTypeCode(SqlTypes.BOOLEAN)
@@ -37,9 +37,7 @@ public class Order {
 
     /**
      * This constructor is for creating a mock database
-     *
      * @param user
-     * @param activeBasket
      */
 
     public Order(User user, boolean activeBasket) {
@@ -50,7 +48,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "order{" +
                 "id=" + id +
                 ", user=" + user +
                 '}';

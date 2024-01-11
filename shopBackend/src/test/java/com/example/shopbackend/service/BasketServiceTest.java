@@ -38,7 +38,7 @@ class BasketServiceTest {
 
     @Test
     void SaveProductInBasketThatExist() {
-        Long userID = 1L; // this won't work because the db is in wrong state.
+        Long userID = 1L; // this won't work because the db is in the wrong state.
         Long expectedId = 6L;
         int expectedQuantity = 6;
 
@@ -119,7 +119,7 @@ class BasketServiceTest {
         Long expectedProductId = 1L; // price 100
         int expectedQuantity = 7;
 
-        int expectedPrice = 0;
+        long expectedPrice = 0;
         var initialBasket = basketService.getBasket(userID);
         expectedPrice = initialBasket == null ? 0 : initialBasket.getTotalCost();
         expectedPrice += productService.findById(expectedProductId).getPrice() * expectedQuantity;

@@ -44,7 +44,7 @@ public class BasketService {
         // make sure the product exists and in use and valid quantity
         Product product = productExists(payload);
         if (product == null) return null;
-        if (!validQuantity(payload)) return null;
+        if (validQuantity(payload).equals(false)) return null;
 
         // get the active basket
         Order basket = orderRepository.findByUserIdAndActiveBasket(userId, true)
@@ -77,12 +77,12 @@ public class BasketService {
         log.info(order.toString());
         // get the object that needs updating from the table
         var basket = orderQtyRepository.findByOrder_IdAndProductId(order.getId(), payload.productId()).orElse(null);
-        System.out.println(basket);
+
         if (basket == null) return null;
         // make sure the product exists and in use
         if (productExists(payload) == null) return null;
 
-        if (!validQuantity(payload)) return null;
+        if (validQuantity(payload).equals(false)) return null;
 
         basket.setQuantity(payload.quantity());
 

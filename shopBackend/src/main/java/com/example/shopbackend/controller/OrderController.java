@@ -28,7 +28,7 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<Object> Order(Principal principal) {
+    public ResponseEntity<Object> order(Principal principal) {
 
         Long userid = userService.getUserId(principal);
 

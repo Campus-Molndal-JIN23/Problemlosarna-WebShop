@@ -23,15 +23,12 @@ public class UserService {
     }
 
     public Long getUserId(Principal principal) {
-        var  user = userRepository.findUserByUserName(principal.getName()).orElse(null);
+        var user = userRepository.findUserByUserName(principal.getName()).orElse(null);
         return user == null ? null : user.getId();
     }
 
     public Optional<User> exists(LoginForm loginForm) {
-        // todo find user in db and return
         return userRepository.findUserByUserName(loginForm.getUserName());
-
-
     }
 
 }

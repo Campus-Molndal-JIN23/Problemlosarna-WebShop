@@ -15,7 +15,7 @@ public class UserController {
 
 
     @GetMapping("")
-    public ResponseEntity<?> userDetails(Principal principal) {
+    public ResponseEntity<Principal> userDetails(Principal principal) {
        log.info(principal.toString());
         return ResponseEntity.ok(principal);
     }

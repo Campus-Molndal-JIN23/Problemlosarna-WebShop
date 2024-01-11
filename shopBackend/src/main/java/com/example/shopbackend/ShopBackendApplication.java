@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -135,13 +134,13 @@ public class ShopBackendApplication {
             List<Product> products = productRepository.findAll();
 
             if (orderRepository.findAll().isEmpty()) {
-                // make some active baskets
-                makeOrders(orderQtyRepository, orderRepository, users, products, true);
-
                 // make some order history
                 for (int i = 0; i < 2; i++) {
                     makeOrders(orderQtyRepository, orderRepository, users, products, false);
                 }
+                // make some active baskets
+                makeOrders(orderQtyRepository, orderRepository, users, products, true);
+
             }
         };
     }
