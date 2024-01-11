@@ -35,17 +35,17 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody LoginForm loginForm) {
 
         if (!authService.isValidPassword(loginForm.getPassword())) {
-            return ResponseEntity.badRequest().body("Invalid password");
+            return ResponseEntity.badRequest().build();
         }
         if (userService.exists(loginForm).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         var user = authService.register(loginForm);
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } else {
-            return ResponseEntity.ok("User created");
+            return ResponseEntity.ok().build();
         }
     }
 
@@ -57,7 +57,7 @@ public class AuthController {
             Optional<User> userInfo = authService.getUserByUsername(loginForm);
 
             if (userInfo.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("User does not exist");
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
             String token = authenticationService.signin(loginForm).getToken();
 
@@ -68,11 +68,11 @@ public class AuthController {
         } catch (BadCredentialsException ex) {
             log.info("login attempt, bad credentials");
             // Handle BadCredentialsException and return an appropriate response
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e) {
             // Handle other exceptions, if needed
             log.error("Login failed " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
     //or if dont exist
