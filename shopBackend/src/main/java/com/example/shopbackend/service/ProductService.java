@@ -73,7 +73,7 @@ public class ProductService {
                 updateProduct.setDescription(product.description());
                 return productRepository.save(updateProduct);
             } catch (Exception e) {
-                System.out.println(Arrays.toString(e.getStackTrace()));
+                log.info(Arrays.toString(e.getStackTrace()));
                 return null;
             }
         }
