@@ -62,10 +62,10 @@ public class ShopBackendApplication {
     }
 
     private static void makeOrders(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, List<User> users, List<Product> products, Boolean isActive) {
-        for (int i = 1; i < users.size(); i++) {
+        for (int i = 1; i < (users.size() - 2); i++) {
             var order = new com.example.shopbackend.entity.Order(users.get(i), isActive);
 
-            for (int j = 0; j < products.size(); j++) {
+            for (int j = 0; j < (products.size() / 2); j++) {
                 if (j == 0) continue;
                 var basketProduct = new OrderQty(products.get(j), j, order);
                 order.getOrderQty().add(basketProduct);

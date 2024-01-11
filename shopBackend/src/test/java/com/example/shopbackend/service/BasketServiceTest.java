@@ -50,7 +50,7 @@ class BasketServiceTest {
 
     @Test
     void SaveProductInBasketThatDoesNotExistWillCreateANewBasket() {
-        Long userID = 3L; // user should not have any baskets or orders
+        Long userID = 1L; // user should not have any baskets or orders
         Long expectedId = 2L;
         int expectedQuantity = 3;
 
@@ -101,23 +101,10 @@ class BasketServiceTest {
     }
 
     @Test
-    @Disabled
-    void saveWithUserThatDoesNotExist() {
-        // this should not be possible the controller.class will check for authority
-        Long userID = 8932L;
-        Long expectedProductId = 2L;
-        int expectedProductQuantity = 3;
-
-        var actual = basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedProductQuantity));
-
-        assertNull(actual);
-    }
-
-    @Test
     void checkThatIdAndTotalCostIsCorrect() {
-        Long userID = 4L; // fresh user with no baskets
-        Long expectedProductId = 1L; // price 100
-        int expectedQuantity = 7;
+        Long userID = 6L; // fresh user with no baskets
+        Long expectedProductId = 2L; // price 100
+        int expectedQuantity = 1;
 
         long expectedPrice = 0;
         var initialBasket = basketService.getBasket(userID);
@@ -168,7 +155,7 @@ class BasketServiceTest {
     @Test
     void addLessOfAProductThatAlreadyInTheBasket() {
         // get a basket with known conditions
-        Long userID = 1L;
+        Long userID = 2L;
         BasketDTO basket = basketService.getBasket(userID);
         Long expectedId = basket.getProducts().getLast().getId();
         int expectedQty = basket.getProducts().getLast().getQuantity() - 1;
@@ -182,7 +169,7 @@ class BasketServiceTest {
     @Test
     void updateToLessOfAProductThatAlreadyInTheBasket() {
         // get a basket with known conditions
-        Long userID = 1L;
+        Long userID = 2L;
         BasketDTO basket = basketService.getBasket(userID);
         Long expectedId = basket.getProducts().getLast().getId();
         int expectedQty = basket.getProducts().getLast().getQuantity() - 1;
@@ -196,7 +183,7 @@ class BasketServiceTest {
 
     @Test
     void deleteItemThatExistInBasket() {
-        Long userID = 1L;
+        Long userID = 2L;
         Long expectedId = 2L;
         int expectedQuantity = 0;
         var precondition = basketService.getBasket(userID);

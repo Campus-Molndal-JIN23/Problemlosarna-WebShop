@@ -37,7 +37,6 @@ class ProductServiceTest {
     }
 
     @Test
-    @Disabled
     void save() {
         var product = new Product("Created by test", "A short description written by test", 123);
 
@@ -83,13 +82,10 @@ class ProductServiceTest {
     }
 
     @Test
-    @Disabled
     void SuccessfullyDelete() {
         // created preconditions
         var product = new Product("Created to be deleted", "A short description for a product to delete", 123);
         var productDTO = new ProductDTO(product);
-
-
 
         var savedProduct = productService.save(productDTO);
 
