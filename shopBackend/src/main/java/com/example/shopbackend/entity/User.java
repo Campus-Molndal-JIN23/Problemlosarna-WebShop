@@ -7,7 +7,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -34,67 +37,17 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="user_role_junction",
-            joinColumns = {@JoinColumn(name="user_id")},
-            inverseJoinColumns = {@JoinColumn(name="role_id")}
+            name = "user_role_junction",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Roles> roles;
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-    }
-
-    public static UserBuilder builder() {
-        return new UserBuilder();
-    }
-
-    public static class UserBuilder {
-        private long id;
-        private String userName;
-        private String password;
-        private List<Order> orders = new ArrayList<>();
-        private Set<Roles> roles = new HashSet<>();
-
-        UserBuilder() {
-        }
-
-        public UserBuilder id(long id) {
-            this.id = id;
-            return this;
-        }
-
-        public UserBuilder userName(String userName) {
-            this.userName = userName;
-            return this;
-        }
-
-        public UserBuilder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public UserBuilder orders(List<Order> orders) {
-            this.orders = new ArrayList<>(orders);
-            return this;
-        }
-
-        public UserBuilder roles(Set<Roles> roles) {
-            this.roles = new HashSet<>(roles);
-            return this;
-        }
-
-        public User build() {
-            User user = new User();
-            user.setId(id);
-            user.setUserName(userName);
-            user.setPassword(password);
-            user.setOrders(orders);
-            user.setRoles(roles);
-            return user;
-        }
     }
 
     @Override
@@ -142,5 +95,55 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
+    public static class UserBuilder {
+        private long id;
+        private String userName;
+        private String password;
+        private List<Order> orders = new ArrayList<>();
+        private Set<Roles> roles;
+
+        UserBuilder() {
+        }
+
+        public UserBuilder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder userName(String userName) {
+            this.userName = userName;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder orders(List<Order> orders) {
+            this.orders = new ArrayList<>(orders);
+            return this;
+        }
+
+        public UserBuilder roles(Set<Roles> roles) {
+            this.roles = roles;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.setId(id);
+            user.setUserName(userName);
+            user.setPassword(password);
+            user.setOrders(orders);
+            user.setRoles(roles);
+            return user;
+        }
     }
 }
