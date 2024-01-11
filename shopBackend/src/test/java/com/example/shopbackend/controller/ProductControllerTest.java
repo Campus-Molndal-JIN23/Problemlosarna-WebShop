@@ -1,9 +1,11 @@
 package com.example.shopbackend.controller;
 
 import com.example.shopbackend.entity.Product;
+import com.example.shopbackend.form.LoginForm;
 import com.example.shopbackend.model.ProductDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Disabled;
+import com.jayway.jsonpath.JsonPath;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,10 +25,34 @@ class ProductControllerTest {
 
     private final String API = "/webshop/products";
 
-    ObjectMapper mapper = new ObjectMapper();
-
+    private final ObjectMapper mapper = new ObjectMapper();
     @Autowired
     MockMvc mvc;
+    private String token;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        var loginPayload = new LoginForm("admin", "Password1"); // replace with valid credentials
+        MvcResult result = this.mvc.perform(post("/webshop/auth/login") // replace with your login endpoint
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(loginPayload)))
+                .andReturn();
+
+        int status = result.getResponse().getStatus();
+        if (status != 200) {
+            throw new RuntimeException("Login request failed with status code: " + status);
+        }
+
+        String response = result.getResponse().getContentAsString();
+        if (response == null || response.isEmpty()) {
+            throw new RuntimeException("Login response is null or empty");
+        }
+        // assuming the response is a JSON object with a field "token" containing the JWT token
+        this.token = JsonPath.parse(response).read("$.token");
+        if (this.token == null || this.token.isEmpty()) {
+            throw new RuntimeException("JWT token is null or empty");
+        }
+    }
 
     @Test
     void getAllProducts() throws Exception {
@@ -60,6 +86,7 @@ class ProductControllerTest {
 
 //        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
                         .accept(MediaType.APPLICATION_JSON))
@@ -68,25 +95,11 @@ class ProductControllerTest {
 
     @Test
     void FailToCreateOne() throws Exception {
-//     todo   var payload = new ProductOld("A created product", 42, "Not the product you sent but a generic return");
-//        System.out.println(mapper.writeValueAsString(payload));
         this.mvc.perform(post(API)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @Disabled("Changed requirements no @PathVariable for endpoint")
-    void FailToUpdateOneBecauseObjectIdIsNull() throws Exception {
-        var payload = new Product("A updated product", "Not the product you sent but a generic return", 42);
-//        System.out.println(mapper.writeValueAsString(payload));
-        this.mvc.perform(put(API)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(payload))
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-
     }
 
     @Test
@@ -107,6 +120,7 @@ class ProductControllerTest {
 
 
         this.mvc.perform(put(API)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload))
                         .accept(MediaType.APPLICATION_JSON))
@@ -114,11 +128,11 @@ class ProductControllerTest {
     }
 
     @Test
-    @Disabled
     void deleteOneSuccess() throws Exception {
         var payload = new ProductDTO(7L, "name", "desc", 54);
 
         this.mvc.perform(delete(API)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload)))
                 .andExpect(status()
@@ -130,7 +144,8 @@ class ProductControllerTest {
         var payload = new ProductDTO(99855L, "name", "desc", 54);
 
         this.mvc.perform(delete(API)
-                .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload)))
                 .andExpect(status()
                         .isNotFound());
