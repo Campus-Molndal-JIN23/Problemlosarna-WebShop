@@ -43,12 +43,7 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, "/webshop/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(PUT, "/webshop/basket").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(DELETE, "/webshop/basket/").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/h2-console/**").permitAll()  // In memory database used during development todo remove
                         .anyRequest().authenticated())
-                .headers((headers) ->        //TODO remove headers added just for using H2
-                        headers
-                                .frameOptions((frameOptions) -> frameOptions.disable())
-                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 // Configure JWT authentication filter
