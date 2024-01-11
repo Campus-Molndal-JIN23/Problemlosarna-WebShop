@@ -89,7 +89,7 @@ class AuthControllerTest {
     void register() throws Exception {
 
         String API = "/webshop/auth/register";
-        LoginForm loginForm = new LoginForm("userName","Password1");
+        LoginForm loginForm = new LoginForm("userName1","Password1");
         String json = mapper.writeValueAsString(loginForm);
 
         this.mvc.perform(post(API)

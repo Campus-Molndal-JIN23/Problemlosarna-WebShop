@@ -24,15 +24,4 @@ public class ExtractData {
         return jwtservice.extractRoles(jwt);
     }
 
-    public Long getUserID(String jwt){
-
-        return jwtservice.extractId(jwt);
-
-    }
-
-    public String getUserName(String jwt){
-
-        return jwtservice.extractUserName(jwt);
-
-    }
 }

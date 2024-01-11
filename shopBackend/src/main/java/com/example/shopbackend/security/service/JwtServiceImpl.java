@@ -66,11 +66,6 @@ public class JwtServiceImpl implements JwtService {
         return extractClaim(token, claims -> new HashSet<>((List<String>) claims.get("roles")));
     }
 
-    @Override
-    public Long extractId(String token) {
-        return extractClaim(token, claims -> (Number) claims.get("userID")).longValue();
-    }
-
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
