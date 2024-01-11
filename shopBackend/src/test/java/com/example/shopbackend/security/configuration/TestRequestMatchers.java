@@ -29,7 +29,7 @@ public class TestRequestMatchers {
     @Test
     void SfcAllAccessToAuthorizationRegister() throws Exception {
         String url = "/webshop/auth/register";
-        var payload = new LoginForm("user", "Password1");
+        var payload = new LoginForm("newUserFromTest", "Password1");
         this.mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(payload)))
