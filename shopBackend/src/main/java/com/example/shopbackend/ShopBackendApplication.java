@@ -134,13 +134,13 @@ public class ShopBackendApplication {
             List<Product> products = productRepository.findAll();
 
             if (orderRepository.findAll().isEmpty()) {
-                // make some active baskets
-                makeOrders(orderQtyRepository, orderRepository, users, products, true);
-
                 // make some order history
                 for (int i = 0; i < 2; i++) {
                     makeOrders(orderQtyRepository, orderRepository, users, products, false);
                 }
+                // make some active baskets
+                makeOrders(orderQtyRepository, orderRepository, users, products, true);
+
             }
         };
     }
