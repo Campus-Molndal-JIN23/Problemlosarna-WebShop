@@ -200,7 +200,7 @@ class BasketServiceTest {
     @Test
 
     void deleteItemThatDontExistInBasket() {
-        Long userID = 4L;
+        Long userID = 2L;
         Long expectedId = 87324873024L;
         int expectedQuantity = 0;
         var precondition = basketService.getBasket(userID);
