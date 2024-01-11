@@ -78,6 +78,7 @@ public class OrderService {
         for (User user : users) {
             baskets = new ArrayList<>();
             orders = orderRepository.getByUserIdAndActiveBasket(user.getId(), false).orElse(null);
+            assert orders != null;
             if (orders.isEmpty()) {
                 continue;
             }

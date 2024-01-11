@@ -46,7 +46,11 @@ public class User implements UserDetails {
     )
     private Set<Roles> roles;
 
-    public User(String userName, String password) {
+    /**
+     * @deprecated for removal and
+     */
+    @Deprecated(forRemoval = true)
+    public User(String userName, String password) { // todo remove?
         this.userName = userName;
         this.password = password;
     }

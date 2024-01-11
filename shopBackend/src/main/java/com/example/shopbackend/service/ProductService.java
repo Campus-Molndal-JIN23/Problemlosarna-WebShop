@@ -80,7 +80,7 @@ public class ProductService {
     }
 
     /**
-     * Checks if a products exist, Set item to deleted = true and removes from all active baskets.
+     * Checks if a products exist, Set item to delete = true and removes from all active baskets.
      *
      * @param productId primary key of a product
      * @return true if deleted, false if not found
