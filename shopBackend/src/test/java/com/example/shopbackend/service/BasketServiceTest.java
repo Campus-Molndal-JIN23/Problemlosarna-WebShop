@@ -3,7 +3,6 @@ package com.example.shopbackend.service;
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -106,10 +105,10 @@ class BasketServiceTest {
         Long expectedProductId = 2L; // price 100
         int expectedQuantity = 1;
 
-        long expectedPrice = 0;
+        long expectedPrice;
         var initialBasket = basketService.getBasket(userID);
         expectedPrice = initialBasket == null ? 0 : initialBasket.getTotalCost();
-        expectedPrice += productService.findById(expectedProductId).getPrice() * expectedQuantity;
+        expectedPrice += (long) productService.findById(expectedProductId).getPrice() * expectedQuantity;
 
         basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedQuantity));
 
@@ -135,6 +134,7 @@ class BasketServiceTest {
 
         assertNull(actual);
     }
+
     @Test
     void updateToMoreOfAProductThatAlreadyInTheBasket() {
 
@@ -166,6 +166,7 @@ class BasketServiceTest {
 
         assertNull(actual);
     }
+
     @Test
     void updateToLessOfAProductThatAlreadyInTheBasket() {
         // get a basket with known conditions
@@ -197,8 +198,8 @@ class BasketServiceTest {
         // Assert that the product is not present in the basket after deletion
         assertTrue(actual.getProducts().stream().noneMatch(product -> product.getId().equals(expectedId)));
     }
-    @Test
 
+    @Test
     void deleteItemThatDontExistInBasket() {
         Long userID = 2L;
         Long expectedId = 87324873024L;

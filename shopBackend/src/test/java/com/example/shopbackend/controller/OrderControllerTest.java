@@ -1,6 +1,5 @@
 package com.example.shopbackend.controller;
 
-import com.example.shopbackend.entity.User;
 import com.example.shopbackend.form.LoginForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;

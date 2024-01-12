@@ -2,7 +2,6 @@ package com.example.shopbackend.service;
 
 import com.example.shopbackend.entity.Product;
 import com.example.shopbackend.model.ProductDTO;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,7 +52,7 @@ class ProductServiceTest {
     @Test
     void FailUpdateIdDoesNotExist() {
         var expected = productService.findById(1L);// Product("Created by test", "A short description written by test", 123);
-            expected.setId(98235L); //
+        expected.setId(98235L); //
         var badId = new ProductDTO(expected);
         var actual = productService.update(badId);
 
@@ -61,6 +60,7 @@ class ProductServiceTest {
 
 
     }
+
     @Test
     void SuccessfullyUpdate() {
         String expectedName = "updated Name";
@@ -94,6 +94,7 @@ class ProductServiceTest {
 
         assertTrue(actual);
     }
+
     @Test
     void FailDeleteDoesNotExist() {
         // created preconditions
