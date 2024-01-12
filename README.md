@@ -81,12 +81,11 @@ All other dependencies are located in POM-file.
 
 Frontend:\
 Emil Sivertsson - https://github.com/Emilsivertsson  
-Wakana Sugihara - https://github.com/83wakasug  
+Cristoffer Östberg - https://github.com/Cristoffer85
 
 Backend:\
 Kristian Karlson - https://github.com/Bremmster  
-Cristoffer Östberg - https://github.com/Cristoffer85
-
+Wakana Sugihara - https://github.com/83wakasug  
 
 ### Third party credits
 - Thanks to ChatGpt and our rubber-ducks for helping when things got stuck.
