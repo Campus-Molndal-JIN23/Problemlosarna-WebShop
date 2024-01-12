@@ -37,7 +37,8 @@ public class Order {
 
     /**
      * This constructor is for creating a mock database
-     * @param user
+     * @param user the user that the active basket or order belongs to
+     * @param activeBasket true is a basket, false is an order
      */
 
     public Order(User user, boolean activeBasket) {
