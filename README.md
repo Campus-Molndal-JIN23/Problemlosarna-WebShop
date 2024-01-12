@@ -79,8 +79,11 @@ All other dependencies are located in POM-file.
 
 ## Credits
 
+Frontend:\
 Emil Sivertsson - https://github.com/Emilsivertsson  
 Wakana Sugihara - https://github.com/83wakasug  
+
+Backend:\
 Kristian Karlson - https://github.com/Bremmster  
 Cristoffer Östberg - https://github.com/Cristoffer85
 
