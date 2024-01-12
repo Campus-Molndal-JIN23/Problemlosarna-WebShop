@@ -23,8 +23,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.security.Key;
 import java.util.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,26 +39,22 @@ class AuthControllerTest {
     ObjectMapper mapper = new ObjectMapper();
     LoginForm loginForm;
     String token;
+    User user;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Mock
+    AuthService mockAuthService;
+    @Autowired
+    MockMvc mvc;
     private String userName;
     private String password;
     private String role;
-
-    User user;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Mock
-    AuthService mockAuthService ;
-
-    @Autowired
-    MockMvc mvc;
 
     @BeforeEach
     void setUp() throws Exception {
         userName = "user";
         password = "Password1";
-        loginForm = new LoginForm(userName,password);
+        loginForm = new LoginForm(userName, password);
         role = "ROLE_USER";
         Roles roles = new Roles(Role.ROLE_USER);
 
@@ -79,7 +77,7 @@ class AuthControllerTest {
 
         MockitoAnnotations.openMocks(this);
 
-        user =User.builder()
+        user = User.builder()
                 .userName(userName)
                 .password(passwordEncoder.encode(loginForm.getPassword()))
                 .roles(new HashSet<>(Collections.singletonList(roles))).build();
@@ -89,7 +87,9 @@ class AuthControllerTest {
     void register() throws Exception {
 
         String API = "/webshop/auth/register";
-        LoginForm loginForm = new LoginForm("userName","Password1");
+
+        LoginForm loginForm = new LoginForm("userName1", "Password1");
+
         String json = mapper.writeValueAsString(loginForm);
 
         this.mvc.perform(post(API)

@@ -48,7 +48,7 @@ class OrderRepositoryTest {
     void createMultipleActiveOrders() {
         Long userId = 1L;
 
-//        orderRepository.save(new Order(userRepository.findById(userId).get(), true));
+//        orderRepository.save(new order(userRepository.findById(userId).get(), true));
 
         var result = orderRepository.findByUserIdAndActiveBasket(userId, true)
                 .orElse(null);
@@ -76,9 +76,5 @@ class OrderRepositoryTest {
         System.out.println(result);
 
 
-    }
-
-    @Test
-    void findByUserId() {
     }
 }

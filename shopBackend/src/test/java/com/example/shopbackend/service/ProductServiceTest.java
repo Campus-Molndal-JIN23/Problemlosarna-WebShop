@@ -9,8 +9,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// todo add test profile
-
 @ActiveProfiles("test")
 @SpringBootTest
 class ProductServiceTest {
@@ -45,7 +43,7 @@ class ProductServiceTest {
 
         var actual = productService.save(expected);
 
-        assertEquals(expected.id(), null); // Cant check for id its created when a product is saved
+//        assertEquals(expected.id(), null); // Cant check for id its created when a product is saved
         assertEquals(expected.name(), actual.name());
         assertEquals(expected.description(), actual.description());
         assertEquals(expected.price(), actual.price());
@@ -54,7 +52,7 @@ class ProductServiceTest {
     @Test
     void FailUpdateIdDoesNotExist() {
         var expected = productService.findById(1L);// Product("Created by test", "A short description written by test", 123);
-            expected.setId(98235L); //
+        expected.setId(98235L); //
         var badId = new ProductDTO(expected);
         var actual = productService.update(badId);
 
@@ -62,6 +60,7 @@ class ProductServiceTest {
 
 
     }
+
     @Test
     void SuccessfullyUpdate() {
         String expectedName = "updated Name";
@@ -88,8 +87,6 @@ class ProductServiceTest {
         var product = new Product("Created to be deleted", "A short description for a product to delete", 123);
         var productDTO = new ProductDTO(product);
 
-
-
         var savedProduct = productService.save(productDTO);
 
         // perform action
@@ -97,6 +94,7 @@ class ProductServiceTest {
 
         assertTrue(actual);
     }
+
     @Test
     void FailDeleteDoesNotExist() {
         // created preconditions

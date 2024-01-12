@@ -51,8 +51,8 @@ If you are using IntelliJ IDEA, make sure you are using at least version 2023.2,
 
 To use the application you need to have a local MySQL database running on your computer.
 Download MySQL Community from https://dev.mysql.com/downloads/installer/ and install it.
-When you have installed MySQL Community you need to create a database called "Webshop".
-The application uses password "root" and username "root" to connect to a local MySQL database.
+When you have installed MySQL Community you need to create a database called "webshop".
+The application uses password "webshopBackend" and username "mYPaSSwoRD!1one" to connect to a local MySQL database.
 please alter the password and username in the application.properties file if yours not the same.
 You could also mount a Docker image of mySql, for help on how to do this please see the Docker homepage,
 or this tutorial https://youtu.be/kphq2TsVRIs?si=wS20hxnnLG2CAxr4
@@ -71,17 +71,21 @@ To log in as an admin use the following credentials:\
 username: admin\
 password: Password1
 
+if you only want to run the backend, please see the API-Contract for information about the endpoints.
+
 ## Dependencies
 Java 21 
 All other dependencies are located in POM-file.
 
 ## Credits
 
+Frontend:\
 Emil Sivertsson - https://github.com/Emilsivertsson  
-Wakana Sugihara - https://github.com/83wakasug  
-Kristian Karlson - https://github.com/Bremmster  
 Cristoffer Östberg - https://github.com/Cristoffer85
 
+Backend:\
+Kristian Karlson - https://github.com/Bremmster  
+Wakana Sugihara - https://github.com/83wakasug  
 
 ### Third party credits
 - Thanks to ChatGpt and our rubber-ducks for helping when things got stuck.

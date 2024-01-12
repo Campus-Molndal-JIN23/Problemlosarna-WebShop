@@ -73,14 +73,14 @@ public class ProductService {
                 updateProduct.setDescription(product.description());
                 return productRepository.save(updateProduct);
             } catch (Exception e) {
-                System.out.println(Arrays.toString(e.getStackTrace()));
+                log.info(Arrays.toString(e.getStackTrace()));
                 return null;
             }
         }
     }
 
     /**
-     * Checks if a products exist, Set item to deleted = true and removes from all active baskets.
+     * Checks if a products exist, Set item to delete = true and removes from all active baskets.
      *
      * @param productId primary key of a product
      * @return true if deleted, false if not found

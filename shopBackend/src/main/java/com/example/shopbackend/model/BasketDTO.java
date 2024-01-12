@@ -9,19 +9,24 @@ import java.util.List;
 public class BasketDTO {
 
     private final Long basketId;
-    private final int totalCost;
+    private final Long totalCost;
     private final List<BasketProductDTO> products;
 
     public BasketDTO(List<OrderQty> products) {
         int sum = 0;
         this.products = new ArrayList<>();
 
-        for (OrderQty ordQty : products) {
-            sum += ordQty.getProduct().getPrice() * ordQty.getQuantity();
-            this.products.add(new BasketProductDTO(ordQty));
+        if (!products.isEmpty()) {
+            for (OrderQty ordQty : products) {
+                sum += ordQty.getProduct().getPrice() * ordQty.getQuantity();
+                this.products.add(new BasketProductDTO(ordQty));
+            }
+            this.basketId = products.getFirst().getOrder().getId();
+        } else {
+            this.basketId = null; // or set it to an appropriate default value
         }
-        this.totalCost = sum;
-        this.basketId = products.getFirst().getOrder().getId();
+
+        this.totalCost = (long) sum;
     }
 
     @Override

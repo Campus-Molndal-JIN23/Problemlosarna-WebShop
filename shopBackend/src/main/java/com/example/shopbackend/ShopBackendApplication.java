@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -63,10 +62,11 @@ public class ShopBackendApplication {
     }
 
     private static void makeOrders(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, List<User> users, List<Product> products, Boolean isActive) {
-        for (int i = 1; i < users.size(); i++) {
+        for (int i = 1; i < (users.size() - 2); i++) {
             var order = new com.example.shopbackend.entity.Order(users.get(i), isActive);
 
-            for (int j = 0; j < products.size(); j++) {
+            for (int j = 0; j < (products.size() / 2); j++) {
+                if (j == 0) continue;
                 var basketProduct = new OrderQty(products.get(j), j, order);
                 order.getOrderQty().add(basketProduct);
                 orderRepository.save(order);
@@ -124,22 +124,23 @@ public class ShopBackendApplication {
         repository.save(roles);
     }
 
-    @Profile("test")
     @Order(2)
     @Bean
     CommandLineRunner createTestDatabase(OrderQtyRepository orderQtyRepository, OrderRepository orderRepository, ProductRepository productRepository, UserRepository userRepository) {
         return args -> {
-
             // Get a list of users
             List<User> users = userRepository.findAll();
             // Get a list of products
             List<Product> products = productRepository.findAll();
 
-            // make some active baskets
-            makeOrders(orderQtyRepository, orderRepository, users, products, true);
-            // make some order history
-            for (int i = 0; i < 2; i++) {
-                makeOrders(orderQtyRepository, orderRepository, users, products, false);
+            if (orderRepository.findAll().isEmpty()) {
+                // make some order history
+                for (int i = 0; i < 2; i++) {
+                    makeOrders(orderQtyRepository, orderRepository, users, products, false);
+                }
+                // make some active baskets
+                makeOrders(orderQtyRepository, orderRepository, users, products, true);
+
             }
         };
     }

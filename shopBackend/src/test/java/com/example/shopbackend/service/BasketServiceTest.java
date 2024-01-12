@@ -3,7 +3,6 @@ package com.example.shopbackend.service;
 import com.example.shopbackend.form.UpdateBasketDTO;
 import com.example.shopbackend.model.BasketDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +24,7 @@ class BasketServiceTest {
 
     @Test
     void getAExistingBasket() {
-        var basket = basketService.getBasket(1L);
+        var basket = basketService.getBasket(2L);
 
         assertNotNull(basket);
     }
@@ -38,7 +37,7 @@ class BasketServiceTest {
 
     @Test
     void SaveProductInBasketThatExist() {
-        Long userID = 1L; // this won't work because the db is in wrong state.
+        Long userID = 1L; // this won't work because the db is in the wrong state.
         Long expectedId = 6L;
         int expectedQuantity = 6;
 
@@ -50,7 +49,7 @@ class BasketServiceTest {
 
     @Test
     void SaveProductInBasketThatDoesNotExistWillCreateANewBasket() {
-        Long userID = 3L; // user should not have any baskets or orders
+        Long userID = 1L; // user should not have any baskets or orders
         Long expectedId = 2L;
         int expectedQuantity = 3;
 
@@ -101,28 +100,15 @@ class BasketServiceTest {
     }
 
     @Test
-    @Disabled
-    void saveWithUserThatDoesNotExist() {
-        // this should not be possible the controller.class will check for authority
-        Long userID = 8932L;
-        Long expectedProductId = 2L;
-        int expectedProductQuantity = 3;
-
-        var actual = basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedProductQuantity));
-
-        assertNull(actual);
-    }
-
-    @Test
     void checkThatIdAndTotalCostIsCorrect() {
-        Long userID = 4L; // fresh user with no baskets
-        Long expectedProductId = 1L; // price 100
-        int expectedQuantity = 7;
+        Long userID = 6L; // fresh user with no baskets
+        Long expectedProductId = 2L; // price 100
+        int expectedQuantity = 1;
 
-        int expectedPrice = 0;
+        long expectedPrice;
         var initialBasket = basketService.getBasket(userID);
         expectedPrice = initialBasket == null ? 0 : initialBasket.getTotalCost();
-        expectedPrice += productService.findById(expectedProductId).getPrice() * expectedQuantity;
+        expectedPrice += (long) productService.findById(expectedProductId).getPrice() * expectedQuantity;
 
         basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedQuantity));
 
@@ -148,6 +134,7 @@ class BasketServiceTest {
 
         assertNull(actual);
     }
+
     @Test
     void updateToMoreOfAProductThatAlreadyInTheBasket() {
 
@@ -168,7 +155,7 @@ class BasketServiceTest {
     @Test
     void addLessOfAProductThatAlreadyInTheBasket() {
         // get a basket with known conditions
-        Long userID = 1L;
+        Long userID = 2L;
         BasketDTO basket = basketService.getBasket(userID);
         Long expectedId = basket.getProducts().getLast().getId();
         int expectedQty = basket.getProducts().getLast().getQuantity() - 1;
@@ -179,10 +166,11 @@ class BasketServiceTest {
 
         assertNull(actual);
     }
+
     @Test
     void updateToLessOfAProductThatAlreadyInTheBasket() {
         // get a basket with known conditions
-        Long userID = 1L;
+        Long userID = 2L;
         BasketDTO basket = basketService.getBasket(userID);
         Long expectedId = basket.getProducts().getLast().getId();
         int expectedQty = basket.getProducts().getLast().getQuantity() - 1;
@@ -196,7 +184,7 @@ class BasketServiceTest {
 
     @Test
     void deleteItemThatExistInBasket() {
-        Long userID = 1L;
+        Long userID = 2L;
         Long expectedId = 2L;
         int expectedQuantity = 0;
         var precondition = basketService.getBasket(userID);
@@ -210,10 +198,10 @@ class BasketServiceTest {
         // Assert that the product is not present in the basket after deletion
         assertTrue(actual.getProducts().stream().noneMatch(product -> product.getId().equals(expectedId)));
     }
-    @Test
 
+    @Test
     void deleteItemThatDontExistInBasket() {
-        Long userID = 4L;
+        Long userID = 2L;
         Long expectedId = 87324873024L;
         int expectedQuantity = 0;
         var precondition = basketService.getBasket(userID);

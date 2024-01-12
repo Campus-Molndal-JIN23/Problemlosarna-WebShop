@@ -3,7 +3,6 @@ package com.example.shopbackend.model;
 import com.example.shopbackend.entity.OrderQty;
 import lombok.Getter;
 
-import java.util.List;
 @Getter
 public class BasketProductDTO {
 
