@@ -16,12 +16,17 @@ public class BasketDTO {
         int sum = 0;
         this.products = new ArrayList<>();
 
-        for (OrderQty ordQty : products) {
-            sum += ordQty.getProduct().getPrice() * ordQty.getQuantity();
-            this.products.add(new BasketProductDTO(ordQty));
+        if (!products.isEmpty()) {
+            for (OrderQty ordQty : products) {
+                sum += ordQty.getProduct().getPrice() * ordQty.getQuantity();
+                this.products.add(new BasketProductDTO(ordQty));
+            }
+            this.basketId = products.getFirst().getOrder().getId();
+        } else {
+            this.basketId = null; // or set it to an appropriate default value
         }
+
         this.totalCost = (long) sum;
-        this.basketId = products.getFirst().getOrder().getId();
     }
 
     @Override
