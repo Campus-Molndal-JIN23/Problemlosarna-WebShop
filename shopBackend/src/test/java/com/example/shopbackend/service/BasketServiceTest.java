@@ -109,7 +109,7 @@ class BasketServiceTest {
         long expectedPrice = 0;
         var initialBasket = basketService.getBasket(userID);
         expectedPrice = initialBasket == null ? 0 : initialBasket.getTotalCost();
-        expectedPrice += productService.findById(expectedProductId).getPrice() * expectedQuantity;
+        expectedPrice += (long) productService.findById(expectedProductId).getPrice() * expectedQuantity;
 
         basketService.addProduct(userID, new UpdateBasketDTO(expectedProductId, expectedQuantity));
 
