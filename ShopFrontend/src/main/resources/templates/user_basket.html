@@ -35,7 +35,8 @@
                 <a class="nav-link" th:href="@{/user/basket}">
                     <img id="cartlogo" src="/Shoppingcartlogo.png" alt="Basket Icon">
                     <!-- Display the count of items in the cart next to the shopping cart logo -->
-                    <span class="item-count" th:text="${#lists.size(basket.products)}"></span>
+                    <span class="item-count" th:if="${basket != null and not #lists.isEmpty(basket?.products)}"
+                          th:text="${#lists.size(basket?.products)}"></span>
                 </a>
             </li>
         </ul>
