@@ -1,6 +1,9 @@
 name: main
 
-on: push
+on:
+  push:
+    branches:
+      - k-action-pipe
 
 jobs:
   build:
